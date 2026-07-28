@@ -140,5 +140,103 @@
   </div>
 </footer>
 <script src="script.js"></script>
+<script>
+  document.addEventListener('DOMContentLoaded', () => {
+    // Setup Chart Defaults for dark theme
+    Chart.defaults.color = '#A1A1AA';
+    Chart.defaults.font.family = "'Plus Jakarta Sans', sans-serif";
+
+    // Chart 1: Talent Calibration (Bar Chart)
+    const chartRolesEl = document.getElementById('chartRoles');
+    if(chartRolesEl) {
+      const ctxRoles = chartRolesEl.getContext('2d');
+      new Chart(ctxRoles, {
+        type: 'bar',
+        data: {
+          labels: ['Cloud Infra', 'Data Eng', 'AI / ML', 'Full-Stack', 'Cybersecurity'],
+          datasets: [{
+            label: 'Placements',
+            data: [142, 118, 85, 210, 64],
+            backgroundColor: 'rgba(37, 232, 122, 0.8)',
+            borderColor: '#25E87A',
+            borderWidth: 1,
+            borderRadius: 6
+          }]
+        },
+        options: {
+          responsive: true,
+          maintainAspectRatio: false,
+          plugins: {
+            legend: { display: false },
+            tooltip: {
+              backgroundColor: 'rgba(10, 10, 10, 0.9)',
+              titleColor: '#fff',
+              bodyColor: '#A1A1AA',
+              borderColor: 'rgba(255,255,255,0.1)',
+              borderWidth: 1,
+              padding: 12
+            }
+          },
+          scales: {
+            y: {
+              grid: { color: 'rgba(255,255,255,0.05)' },
+              beginAtZero: true
+            },
+            x: {
+              grid: { display: false }
+            }
+          }
+        }
+      });
+    }
+
+    // Chart 2: Advisory Plan Utilization (Doughnut Chart)
+    const chartPlansEl = document.getElementById('chartPlans');
+    if(chartPlansEl) {
+      const ctxPlans = chartPlansEl.getContext('2d');
+      new Chart(ctxPlans, {
+        type: 'doughnut',
+        data: {
+          labels: ['Market Readiness', 'Strategic Acceleration', 'Executive Partnership'],
+          datasets: [{
+            data: [25, 55, 20],
+            backgroundColor: [
+              'rgba(255, 255, 255, 0.8)', // Base
+              'rgba(37, 232, 122, 0.9)',  // Growth (Most Popular)
+              'rgba(234, 179, 8, 0.9)'    // Pro
+            ],
+            borderColor: '#0A0A0A',
+            borderWidth: 4,
+            hoverOffset: 6
+          }]
+        },
+        options: {
+          responsive: true,
+          maintainAspectRatio: false,
+          plugins: {
+            legend: {
+              position: 'bottom',
+              labels: { padding: 20, usePointStyle: true, pointStyle: 'circle' }
+            },
+            tooltip: {
+              backgroundColor: 'rgba(10, 10, 10, 0.9)',
+              titleColor: '#fff',
+              bodyColor: '#A1A1AA',
+              borderColor: 'rgba(255,255,255,0.1)',
+              borderWidth: 1,
+              padding: 12,
+              callbacks: {
+                label: function(context) {
+                  return ' ' + context.label + ': ' + context.raw + '%';
+                }
+              }
+            }
+          },
+          cutout: '75%'
+        }
+      });
+    }
+  });
+</script>
 </body>
 </html>
