@@ -3,8 +3,8 @@
 <head>
   <meta charset="UTF-8"/>
   <meta name="viewport" content="width=device-width,initial-scale=1.0"/>
-  <title>Impact & Insights — Hyrzilla</title>
-  <meta name="description" content="Discover how Hyrzilla accelerates careers for technical professionals and scales engineering capacity for innovative enterprises."/>
+  <title>Why Us — Hyrzilla</title>
+  <meta name="description" content="Discover how Hyrzilla helps technical professionals and enterprises build successful hiring outcomes."/>
   <link rel="stylesheet" href="style.css"/>
   <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 </head>
@@ -18,19 +18,30 @@
   <a href="index.html" class="nav-logo">
     <span class="logo-wordmark">Hyrzilla</span>
   </a>
-  <ul class="nav-links"><li><a href="index.html">Platform</a></li><li><a href="services.html">Advisory</a></li><li><a href="pricing.html">Pricing</a></li><li><a href="testimonials.html" class="active">Impact</a></li><li><a href="about.html">Company</a></li></ul>
-  <a href="contact.html" class="nav-cta">Initiate Dialogue</a>
+  <ul class="nav-links">
+    <li><a href="index.html">Home</a></li>
+    <li><a href="services.html">Services</a></li>
+    <li><a href="pricing.html">Pricing</a></li>
+    <li><a href="testimonials.html" class="active">Why Us</a></li>
+    <li><a href="about.html">About</a></li>
+    <li><a href="contact.html">Contact</a></li>
+  </ul>
+  <a href="contact.html" class="nav-cta">Get Started</a>
   <button class="nav-ham" id="hamBtn" aria-label="Open menu" aria-expanded="false"><span></span><span></span><span></span></button>
 </div></nav>
-<nav class="nav-mob" id="navMob"><a href="index.html">Platform</a><a href="services.html">Advisory</a><a href="pricing.html">Pricing</a><a href="testimonials.html">Impact</a><a href="about.html">Company</a><a href="contact.html" class="btn btn-green">Initiate Dialogue</a></nav>
+<nav class="nav-mob" id="navMob">
+  <a href="index.html">Home</a><a href="services.html">Services</a><a href="pricing.html">Pricing</a>
+  <a href="testimonials.html">Why Us</a><a href="about.html">About</a><a href="contact.html">Contact</a>
+  <a href="contact.html" class="btn btn-green">Get Started</a>
+</nav>
 
-<section class="page-hero" id="hero">
+<section class="page-hero" id="hero" style="padding-top:180px; padding-bottom:100px;">
   <div class="container" style="max-width:900px; text-align:center;">
-    <div class="glass-panel rv" style="display:inline-block; padding:8px 16px; border-radius:30px; margin-bottom:24px;">
-      <span style="font-size:0.85rem; font-weight:600; color:var(--green); letter-spacing:0.05em; text-transform:uppercase;">Outcomes & Impact</span>
+    <div class="glass-panel rv" style="display:inline-block; padding:8px 20px; border-radius:30px; margin-bottom:24px;">
+      <span style="font-size:0.85rem; font-weight:600; color:var(--green); letter-spacing:0.05em; text-transform:uppercase;">Proven Placement Results</span>
     </div>
-    <h1 class="display rv d1">Driven by <span class="h-green" style="font-style:italic;">precision.</span></h1>
-    <p class="hero-desc rv d2">We quantify our success through the careers we accelerate and the engineering infrastructures we help scale. Review our market intelligence and advisory feedback.</p>
+    <h1 class="display rv d1">Driven by <span class="h-green" style="font-style:italic;">results.</span></h1>
+    <p class="hero-desc rv d2">We measure our success through the tech careers we accelerate and the engineering teams we help scale.</p>
   </div>
 </section>
 
@@ -39,16 +50,16 @@
   <div class="container">
     <div class="bento-grid">
       <div class="bento-card bento-12 rv d1">
-        <h3 style="font-size:1.8rem; margin-bottom:24px;">Strategic Deployment by Domain</h3>
-        <p style="color:var(--t2); font-size:1.05rem; margin-bottom:40px; max-width:800px;">Our intelligence frameworks prioritize placement where technological demand aligns with long-term capital investment.</p>
+        <h3 style="font-size:1.8rem; margin-bottom:16px;">Technical Placement Distribution</h3>
+        <p style="color:var(--t2); font-size:1.05rem; margin-bottom:36px; max-width:800px;">Overview of technical roles placed across core engineering domains.</p>
         
         <div class="bento-grid">
-          <div class="bento-card bento-6" style="background:var(--c-surface-2); border-color:var(--bd);">
-            <h4 style="margin-bottom:24px; text-align:center; color:var(--t2);">Talent Calibration (Trailing 12 Months)</h4>
+          <div class="bento-card bento-6" style="background:rgba(4,9,6,0.8); border-color:var(--bd);">
+            <h4 style="margin-bottom:24px; text-align:center; color:var(--t2);">Placements by Domain (Trailing 12 Months)</h4>
             <div style="position:relative; height:300px;"><canvas id="chartRoles"></canvas></div>
           </div>
-          <div class="bento-card bento-6" style="background:var(--c-surface-2); border-color:var(--bd);">
-            <h4 style="margin-bottom:24px; text-align:center; color:var(--t2);">Advisory Plan Utilization</h4>
+          <div class="bento-card bento-6" style="background:rgba(4,9,6,0.8); border-color:var(--bd);">
+            <h4 style="margin-bottom:24px; text-align:center; color:var(--t2);">Advisory Plan Selection Breakdown</h4>
             <div style="position:relative; height:300px;"><canvas id="chartPlans"></canvas></div>
           </div>
         </div>
@@ -57,64 +68,64 @@
   </div>
 </section>
 
-<!-- Network Insights (Testimonials) -->
+<!-- Testimonials -->
 <section class="section-pad" style="background:var(--c-surface-2); border-top:1px solid var(--bd);">
   <div class="container">
     <div class="text-center rv" style="margin-bottom:60px;">
-      <h2 style="font-size:3rem; margin-bottom:16px;">Network <span class="h-blue" style="font-style:italic;">Insights</span></h2>
+      <h2 style="font-size:2.8rem; margin-bottom:16px;">What Our <span class="h-blue" style="font-style:italic;">Clients & Talent Say</span></h2>
       <p style="color:var(--t2); max-width:600px; margin:0 auto; font-size:1.1rem;">
-        Testaments to execution from the professionals we represent and the enterprises we supply.
+        Feedback from software engineers, tech leads, and hiring managers who work with Hyrzilla.
       </p>
     </div>
 
     <div class="bento-grid">
       <div class="bento-card bento-4 rv d1" style="display:flex; flex-direction:column; justify-content:space-between;">
         <p style="color:var(--t2); font-size:1rem; margin-bottom:24px; line-height:1.7;">
-          "Hyrzilla doesn't just pass along resumes; they orchestrate careers. Their strategic positioning completely changed how top-tier firms viewed my background in distributed systems."
+          "Hyrzilla helped restructure my resume and LinkedIn profile. The interview coaching gave me the exact push I needed to land my senior cloud role."
         </p>
         <div>
           <h4 style="color:var(--t1);">Sarah L.</h4>
-          <p style="color:var(--t3); font-size:0.85rem;">Principal Cloud Architect</p>
+          <p style="color:var(--t3); font-size:0.85rem;">Cloud Engineer</p>
         </div>
       </div>
 
       <div class="bento-card bento-4 rv d2" style="display:flex; flex-direction:column; justify-content:space-between;">
         <p style="color:var(--t2); font-size:1rem; margin-bottom:24px; line-height:1.7;">
-          "An incredibly sophisticated approach to interview preparation. The coaches provided nuanced, actionable insights that proved invaluable during my deep-dive technical panels."
+          "Clear communication from day one. Their mock interview feedback was realistic and directly prepared me for my technical screening calls."
         </p>
         <div>
           <h4 style="color:var(--t1);">Michael R.</h4>
-          <p style="color:var(--t3); font-size:0.85rem;">Senior Software Engineer</p>
+          <p style="color:var(--t3); font-size:0.85rem;">Full-Stack Developer</p>
         </div>
       </div>
 
       <div class="bento-card bento-4 rv d3" style="display:flex; flex-direction:column; justify-content:space-between;">
         <p style="color:var(--t2); font-size:1rem; margin-bottom:24px; line-height:1.7;">
-          "The execution was flawless. They navigated the market on my behalf, allowing me to focus on my current deliverables while they lined up elite opportunities."
+          "Saves so much time on job applications. Their team kept me updated on callbacks and helped negotiate my final compensation package."
         </p>
         <div>
           <h4 style="color:var(--t1);">Priya K.</h4>
-          <p style="color:var(--t3); font-size:0.85rem;">Lead Data Engineer</p>
+          <p style="color:var(--t3); font-size:0.85rem;">Data Engineer</p>
         </div>
       </div>
       
       <div class="bento-card bento-6 rv d4" style="display:flex; flex-direction:column; justify-content:space-between; border-color:rgba(56,189,248,0.3);">
         <p style="color:var(--t2); font-size:1rem; margin-bottom:24px; line-height:1.7;">
-          "As a scaling startup, we couldn't afford a bad hire. Hyrzilla delivered pre-vetted, elite talent that immediately integrated into our engineering culture with zero friction."
+          "As a growing software company, finding pre-screened developers fast is essential. Hyrzilla delivered qualified profiles with zero hassle."
         </p>
         <div>
-          <h4 style="color:var(--blue);">VP of Engineering</h4>
-          <p style="color:var(--t3); font-size:0.85rem;">FinTech Enterprise</p>
+          <h4 style="color:var(--blue);">Engineering Lead</h4>
+          <p style="color:var(--t3); font-size:0.85rem;">Tech Startup</p>
         </div>
       </div>
 
       <div class="bento-card bento-6 rv d5" style="display:flex; flex-direction:column; justify-content:space-between; border-color:rgba(234,179,8,0.3);">
         <p style="color:var(--t2); font-size:1rem; margin-bottom:24px; line-height:1.7;">
-          "Absolute transparency and zero friction. The Executive Partnership plan provided a level of bespoke counsel I haven't seen from any other staffing firm."
+          "Honest advice and solid placement support. They didn't make over-the-top promises—they just focused on getting results."
         </p>
         <div>
           <h4 style="color:var(--gold);">Alex J.</h4>
-          <p style="color:var(--t3); font-size:0.85rem;">Machine Learning Engineer</p>
+          <p style="color:var(--t3); font-size:0.85rem;">DevOps Engineer</p>
         </div>
       </div>
     </div>
@@ -128,11 +139,11 @@
         <a href="index.html" class="nav-logo" style="margin-bottom:16px;display:inline-flex;">
           <span class="logo-wordmark">Hyrzilla</span>
         </a>
-        <p class="footer-desc">Boutique IT Staffing & Career Advisory. Precision-matched tech talent for high-growth teams.</p>
+        <p class="footer-desc">IT Staffing & Placement Services. Comprehensive career support and direct hire solutions.</p>
       </div>
-      <div><div class="footer-h">Platform</div><ul class="footer-links"><li><a href="about.html">Company</a></li><li><a href="services.html">Advisory</a></li><li><a href="pricing.html">Pricing</a></li></ul></div>
-      <div><div class="footer-h">Connect</div><ul class="footer-links"><li><a href="contact.html">Consultation</a></li><li><a href="testimonials.html">Impact</a></li></ul></div>
-      <div><div class="footer-h">Legal</div><ul class="footer-links"><li><a href="privacy.html">Privacy</a></li><li><a href="terms.html">Terms</a></li></ul></div>
+      <div><div class="footer-h">Company</div><ul class="footer-links"><li><a href="about.html">About Us</a></li><li><a href="services.html">Services</a></li><li><a href="pricing.html">Pricing</a></li></ul></div>
+      <div><div class="footer-h">Connect</div><ul class="footer-links"><li><a href="contact.html">Contact Us</a></li><li><a href="testimonials.html">Why Us</a></li></ul></div>
+      <div><div class="footer-h">Legal</div><ul class="footer-links"><li><a href="privacy.html">Privacy Policy</a></li><li><a href="terms.html">Terms & Conditions</a></li></ul></div>
     </div>
     <div class="footer-bottom">
       <p>© 2026 Hyrzilla LLC. All rights reserved.</p>
@@ -142,11 +153,9 @@
 <script src="script.js"></script>
 <script>
   document.addEventListener('DOMContentLoaded', () => {
-    // Setup Chart Defaults for dark theme
-    Chart.defaults.color = '#A1A1AA';
+    Chart.defaults.color = '#A1B5A8';
     Chart.defaults.font.family = "'Plus Jakarta Sans', sans-serif";
 
-    // Chart 1: Talent Calibration (Bar Chart)
     const chartRolesEl = document.getElementById('chartRoles');
     if(chartRolesEl) {
       const ctxRoles = chartRolesEl.getContext('2d');
@@ -157,7 +166,7 @@
           datasets: [{
             label: 'Placements',
             data: [142, 118, 85, 210, 64],
-            backgroundColor: 'rgba(37, 232, 122, 0.8)',
+            backgroundColor: 'rgba(37, 232, 122, 0.85)',
             borderColor: '#25E87A',
             borderWidth: 1,
             borderRadius: 6
@@ -169,43 +178,37 @@
           plugins: {
             legend: { display: false },
             tooltip: {
-              backgroundColor: 'rgba(10, 10, 10, 0.9)',
+              backgroundColor: 'rgba(4, 9, 6, 0.95)',
               titleColor: '#fff',
-              bodyColor: '#A1A1AA',
-              borderColor: 'rgba(255,255,255,0.1)',
+              bodyColor: '#A1B5A8',
+              borderColor: 'rgba(37, 232, 122, 0.3)',
               borderWidth: 1,
               padding: 12
             }
           },
           scales: {
-            y: {
-              grid: { color: 'rgba(255,255,255,0.05)' },
-              beginAtZero: true
-            },
-            x: {
-              grid: { display: false }
-            }
+            y: { grid: { color: 'rgba(37,232,122,0.06)' }, beginAtZero: true },
+            x: { grid: { display: false } }
           }
         }
       });
     }
 
-    // Chart 2: Advisory Plan Utilization (Doughnut Chart)
     const chartPlansEl = document.getElementById('chartPlans');
     if(chartPlansEl) {
       const ctxPlans = chartPlansEl.getContext('2d');
       new Chart(ctxPlans, {
         type: 'doughnut',
         data: {
-          labels: ['Market Readiness', 'Strategic Acceleration', 'Executive Partnership'],
+          labels: ['Market Readiness ($499)', 'Strategic Acceleration ($1499)', 'Executive Partnership ($2499)'],
           datasets: [{
             data: [25, 55, 20],
             backgroundColor: [
-              'rgba(255, 255, 255, 0.8)', // Base
-              'rgba(37, 232, 122, 0.9)',  // Growth (Most Popular)
-              'rgba(234, 179, 8, 0.9)'    // Pro
+              'rgba(255, 255, 255, 0.8)',
+              'rgba(37, 232, 122, 0.9)',
+              'rgba(234, 179, 8, 0.9)'
             ],
-            borderColor: '#0A0A0A',
+            borderColor: '#040906',
             borderWidth: 4,
             hoverOffset: 6
           }]
@@ -214,22 +217,14 @@
           responsive: true,
           maintainAspectRatio: false,
           plugins: {
-            legend: {
-              position: 'bottom',
-              labels: { padding: 20, usePointStyle: true, pointStyle: 'circle' }
-            },
+            legend: { position: 'bottom', labels: { padding: 20, usePointStyle: true, pointStyle: 'circle' } },
             tooltip: {
-              backgroundColor: 'rgba(10, 10, 10, 0.9)',
+              backgroundColor: 'rgba(4, 9, 6, 0.95)',
               titleColor: '#fff',
-              bodyColor: '#A1A1AA',
-              borderColor: 'rgba(255,255,255,0.1)',
+              bodyColor: '#A1B5A8',
+              borderColor: 'rgba(37, 232, 122, 0.3)',
               borderWidth: 1,
-              padding: 12,
-              callbacks: {
-                label: function(context) {
-                  return ' ' + context.label + ': ' + context.raw + '%';
-                }
-              }
+              padding: 12
             }
           },
           cutout: '75%'

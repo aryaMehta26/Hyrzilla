@@ -35,15 +35,31 @@ if (cursorDot && cursorRing) {
   });
 }
 
+// Dynamic Ambient Scroll Mesh Glow Effect
+const bgMesh = document.querySelector('.bg-mesh');
+window.addEventListener('scroll', () => {
+  const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+  const maxScroll = document.documentElement.scrollHeight - window.innerHeight;
+  const scrollRatio = Math.min(1, Math.max(0, scrollTop / (maxScroll || 1)));
+
+  if (bgMesh) {
+    const glowY = 20 + scrollRatio * 60; // 20% to 80%
+    const glowX = 70 - scrollRatio * 40; // 70% to 30%
+    const glow2Y = 80 - scrollRatio * 50; // 80% to 30%
+
+    bgMesh.style.setProperty('--glow-y', `${glowY}%`);
+    bgMesh.style.setProperty('--glow-x', `${glowX}%`);
+    bgMesh.style.setProperty('--glow2-y', `${glow2Y}%`);
+  }
+});
+
 // Magnetic Buttons
-document.querySelectorAll('.btn').forEach(btn => {
+document.querySelectorAll('.btn, .nav-cta').forEach(btn => {
   btn.addEventListener('mousemove', (e) => {
     const rect = btn.getBoundingClientRect();
     const x = e.clientX - rect.left - rect.width / 2;
     const y = e.clientY - rect.top - rect.height / 2;
-    
-    // Move the button slightly towards the cursor
-    btn.style.transform = `translate(${x * 0.2}px, ${y * 0.2}px) scale(1.05)`;
+    btn.style.transform = `translate(${x * 0.2}px, ${y * 0.2}px) scale(1.04)`;
   });
 
   btn.addEventListener('mouseleave', () => {
@@ -58,13 +74,12 @@ document.querySelectorAll('.bento-card').forEach(card => {
     const x = e.clientX - rect.left;
     const y = e.clientY - rect.top;
     
-    // Set CSS variables for the radial gradient center
     card.style.setProperty('--mouse-x', `${x}px`);
     card.style.setProperty('--mouse-y', `${y}px`);
   });
 });
 
-// Navbar scroll hiding
+// Navbar Scroll Logic
 let lastScroll = 0;
 const navbar = document.getElementById('navbar');
 
@@ -98,7 +113,7 @@ if (hamBtn && navMob) {
   });
 }
 
-// Intersection Observer for Reveal animations
+// Reveal Observer
 const rvObserver = new IntersectionObserver((entries) => {
   entries.forEach(entry => {
     if (entry.isIntersecting) {
@@ -117,8 +132,8 @@ const numObserver = new IntersectionObserver((entries, observer) => {
       const target = parseInt(el.getAttribute('data-target'));
       const suffix = el.getAttribute('data-suffix') || '';
       let count = 0;
-      const duration = 2000; // ms
-      const inc = target / (duration / 16); // 60fps
+      const duration = 1800; // ms
+      const inc = target / (duration / 16);
       
       const update = () => {
         count += inc;
@@ -135,18 +150,4 @@ const numObserver = new IntersectionObserver((entries, observer) => {
   });
 }, { threshold: 0.5 });
 
-document.querySelectorAll('.stat-num[data-target], .bold-num[data-target]').forEach(el => numObserver.observe(el));
-
-// FAQ Accordion
-document.querySelectorAll('.faq-q').forEach(btn => {
-  btn.addEventListener('click', () => {
-    const expanded = btn.getAttribute('aria-expanded') === 'true';
-    btn.setAttribute('aria-expanded', !expanded);
-    const ans = btn.nextElementSibling;
-    if (!expanded) {
-      ans.style.maxHeight = ans.scrollHeight + "px";
-    } else {
-      ans.style.maxHeight = null;
-    }
-  });
-});
+document.querySelectorAll('.stat-num[data-target]').forEach(el => numObserver.observe(el));
