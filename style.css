@@ -96,13 +96,10 @@ h1, h2, h3, h4, h5 { font-weight:700; line-height:1.1; letter-spacing:-0.03em; }
 .bg-mesh {
   position: absolute;
   top: 0; left: 0; right: 0; bottom: 0;
-  background-image: url('assets/hero_bg.png');
-  background-size: cover;
-  background-position: center;
-  opacity: 0.6;
+  background: radial-gradient(circle at top right, rgba(37, 232, 122, 0.08), transparent 40%),
+              radial-gradient(circle at bottom left, rgba(56, 189, 248, 0.05), transparent 40%);
+  opacity: 0.8;
   z-index: 0;
-  mask-image: linear-gradient(to bottom, black 40%, transparent 100%);
-  -webkit-mask-image: linear-gradient(to bottom, black 40%, transparent 100%);
 }
 .glass-panel {
   background: var(--c-glass-2);
