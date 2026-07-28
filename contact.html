@@ -11,45 +11,39 @@
 <div class="cursor-dot" id="cursorDot" aria-hidden="true"></div>
 <div class="cursor-ring" id="cursorRing" aria-hidden="true"></div>
 
-<nav class="navbar" id="navbar">
-  <div class="container">
-    <a href="index.html" class="nav-logo"><svg class="logo-svg" width="28" height="28" viewBox="0 0 32 32" fill="none"><circle cx="5" cy="5" r="2.5" fill="#25E87A"/><circle cx="5" cy="16" r="2.5" fill="#25E87A"/><circle cx="5" cy="27" r="2.5" fill="#25E87A"/><circle cx="16" cy="16" r="2.5" fill="#25E87A"/><circle cx="27" cy="5" r="2.5" fill="#25E87A"/><circle cx="27" cy="16" r="2.5" fill="#25E87A"/><circle cx="27" cy="27" r="2.5" fill="#25E87A"/><line x1="5" y1="5" x2="5" y2="27" stroke="#25E87A" stroke-width="1.5"/><line x1="27" y1="5" x2="27" y2="27" stroke="#25E87A" stroke-width="1.5"/><line x1="5" y1="16" x2="27" y2="16" stroke="#25E87A" stroke-width="1.5"/></svg><span class="logo-wordmark">Hyrzilla</span></a>
-    <ul class="nav-links">
-      <li><a href="index.html">Home</a></li>
-      <li><a href="about.html">About</a></li>
-      <li><a href="services.html">Services</a></li>
-      <li><a href="pricing.html">Pricing</a></li>
-      <li><a href="testimonials.html">Why Us</a></li>
-      <li><a href="contact.html" class="active">Contact</a></li>
-    </ul>
-    <a href="contact.html" class="nav-cta">Let's Connect →</a>
-    <button class="nav-ham" id="hamBtn" aria-label="Open menu" aria-expanded="false"><span></span><span></span><span></span></button>
-  </div>
-</nav>
-<nav class="nav-mob" id="navMob">
-  <a href="index.html">Home</a><a href="about.html">About</a><a href="services.html">Services</a>
-  <a href="pricing.html">Pricing</a><a href="testimonials.html">Why Us</a><a href="contact.html">Contact</a>
-  <a href="contact.html" class="btn-green-fill">Let's Connect →</a>
-</nav>
+<div class="bg-mesh" aria-hidden="true"></div>
 
-<section class="page-hero grain" style="padding-bottom:40px;">
-  <div class="hero-grid-bg" aria-hidden="true"></div>
-  <div class="container" style="position:relative;z-index:1;padding-top:20px;">
-    <nav class="breadcrumb"><a href="index.html">Home</a><span>›</span><span style="color:var(--green)">Contact</span></nav>
-    <h1 class="page-title display rv d1">Initiate <span class="h-it h-green">dialogue.</span></h1>
-    <p class="rv d2" style="color:var(--t2);font-size:1.05rem;max-width:560px;margin-top:20px;line-height:1.75;">Select your objective below to schedule a strategic consultation with our advisory team.</p>
+<nav class="navbar" id="navbar"><div class="container">
+  <a href="index.html" class="nav-logo">
+    <span class="logo-wordmark">Hyrzilla</span>
+  </a>
+  <ul class="nav-links"><li><a href="index.html">Platform</a></li><li><a href="services.html">Advisory</a></li><li><a href="pricing.html">Pricing</a></li><li><a href="testimonials.html">Impact</a></li><li><a href="about.html">Company</a></li></ul>
+  <a href="contact.html" class="nav-cta active">Initiate Dialogue</a>
+  <button class="nav-ham" id="hamBtn" aria-label="Open menu" aria-expanded="false"><span></span><span></span><span></span></button>
+</div></nav>
+<nav class="nav-mob" id="navMob"><a href="index.html">Platform</a><a href="services.html">Advisory</a><a href="pricing.html">Pricing</a><a href="testimonials.html">Impact</a><a href="about.html">Company</a><a href="contact.html" class="btn btn-green">Initiate Dialogue</a></nav>
+
+<section class="page-hero" id="hero" style="padding-bottom:40px;">
+  <div class="container" style="max-width:900px; text-align:center;">
+    <div class="glass-panel rv" style="display:inline-block; padding:8px 16px; border-radius:30px; margin-bottom:24px;">
+      <span style="font-size:0.85rem; font-weight:600; color:var(--green); letter-spacing:0.05em; text-transform:uppercase;">Strategic Consultation</span>
+    </div>
+    <h1 class="display rv d1">Initiate <span class="h-green" style="font-style:italic;">dialogue.</span></h1>
+    <p class="hero-desc rv d2">Select your objective below to schedule a strategic consultation with our advisory team. We operate with strict confidentiality and discretion.</p>
   </div>
 </section>
 
-<!-- Contact Form -->
-<section class="sec-navy dot-grid" style="padding-bottom:100px;">
-  <div class="container">
-    <div class="contact-wrap rv">
-      <div class="form-tabs">
-        <button class="form-tab active" id="tab-talent">Career Advisory</button>
-        <button class="form-tab" id="tab-company">Enterprise Staffing</button>
-      </div>
+<!-- Contact Form Bento -->
+<section class="section-pad" style="border-top:1px solid var(--bd);">
+  <div class="container" style="max-width:800px;">
+    
+    <div class="form-tabs rv d3">
+      <button class="form-tab active" id="tab-talent">Career Advisory</button>
+      <button class="form-tab" id="tab-company">Enterprise Staffing</button>
+    </div>
 
+    <div class="bento-card rv d4">
+      
       <div class="form-content active" id="content-talent">
         <form action="#" method="POST" id="talentForm">
           <div class="input-group">
@@ -57,7 +51,7 @@
             <div class="input-field"><label>Email Address</label><input type="email" placeholder="john@example.com" required/></div>
           </div>
           <div class="input-group">
-            <div class="input-field"><label>Phone Number (with Country Code)</label><input type="tel" placeholder="+1 234 567 8900" required/></div>
+            <div class="input-field"><label>Phone Number</label><input type="tel" placeholder="+1 234 567 8900" required/></div>
             <div class="input-field"><label>Current Technical Domain</label>
               <select required>
                 <option value="" disabled selected>Select your core stack...</option>
@@ -109,20 +103,29 @@
           <button type="submit" class="btn btn-blue" style="width:100%;justify-content:center;margin-top:16px;">Request Enterprise Consultation</button>
         </form>
       </div>
-      
+
     </div>
   </div>
 </section>
 
-<footer><div class="container">
-  <div class="footer-grid">
-    <div><a href="index.html" class="nav-logo" style="margin-bottom:16px;display:inline-flex;"><svg class="logo-svg" width="24" height="24" viewBox="0 0 32 32" fill="none"><circle cx="5" cy="5" r="2.5" fill="#25E87A"/><circle cx="5" cy="16" r="2.5" fill="#25E87A"/><circle cx="5" cy="27" r="2.5" fill="#25E87A"/><circle cx="16" cy="16" r="2.5" fill="#25E87A"/><circle cx="27" cy="5" r="2.5" fill="#25E87A"/><circle cx="27" cy="16" r="2.5" fill="#25E87A"/><circle cx="27" cy="27" r="2.5" fill="#25E87A"/><line x1="5" y1="5" x2="5" y2="27" stroke="#25E87A" stroke-width="1.5"/><line x1="27" y1="5" x2="27" y2="27" stroke="#25E87A" stroke-width="1.5"/><line x1="5" y1="16" x2="27" y2="16" stroke="#25E87A" stroke-width="1.5"/></svg><span class="logo-wordmark">Hyrzilla</span></a><p class="footer-desc">Boutique IT Staffing & Career Advisory. Precision-matched tech talent for high-growth teams.</p><div class="socials"><a href="#" class="soc-link" aria-label="LinkedIn">in</a><a href="https://wa.me/" class="soc-link soc-wa" aria-label="WhatsApp"><svg width="13" height="13" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/><path d="M11.99 0C5.378 0 0 5.372 0 12c0 2.118.553 4.107 1.521 5.839L.015 24l6.334-1.624C8.134 23.46 10.014 24 11.99 24 18.612 24 24 18.629 24 12S18.612 0 11.99 0zm.01 21.817c-1.786 0-3.434-.479-4.864-1.315l-.348-.207-3.572.916.951-3.487-.228-.365A9.816 9.816 0 0 1 2.18 12c0-5.42 4.42-9.83 9.82-9.83 5.411 0 9.83 4.41 9.83 9.83 0 5.42-4.419 9.817-9.83 9.817z"/></svg></a></div></div>
-    <div><div class="footer-h">Company</div><ul class="footer-links"><li><a href="about.html">About Us</a></li><li><a href="services.html">Services</a></li><li><a href="pricing.html">Pricing</a></li><li><a href="testimonials.html">Why Us</a></li></ul></div>
-    <div><div class="footer-h">Consultation</div><ul class="footer-links"><li><a href="services.html#talent">Career Advisory</a></li><li><a href="pricing.html">Advisory Plans</a></li><li><a href="pricing.html#faq">FAQs</a></li><li><a href="contact.html">Let's Connect</a></li></ul></div>
-    <div><div class="footer-h">Legal</div><ul class="footer-links"><li><a href="privacy.html">Privacy Policy</a></li><li><a href="terms.html">Terms &amp; Conditions</a></li><li><a href="contact.html">Contact</a></li></ul></div>
+<footer>
+  <div class="container">
+    <div class="footer-grid">
+      <div>
+        <a href="index.html" class="nav-logo" style="margin-bottom:16px;display:inline-flex;">
+          <span class="logo-wordmark">Hyrzilla</span>
+        </a>
+        <p class="footer-desc">Boutique IT Staffing & Career Advisory. Precision-matched tech talent for high-growth teams.</p>
+      </div>
+      <div><div class="footer-h">Platform</div><ul class="footer-links"><li><a href="about.html">Company</a></li><li><a href="services.html">Advisory</a></li><li><a href="pricing.html">Pricing</a></li></ul></div>
+      <div><div class="footer-h">Connect</div><ul class="footer-links"><li><a href="contact.html">Consultation</a></li><li><a href="testimonials.html">Impact</a></li></ul></div>
+      <div><div class="footer-h">Legal</div><ul class="footer-links"><li><a href="privacy.html">Privacy</a></li><li><a href="terms.html">Terms</a></li></ul></div>
+    </div>
+    <div class="footer-bottom">
+      <p>© 2026 Hyrzilla LLC. All rights reserved.</p>
+    </div>
   </div>
-  <div class="footer-bottom"><p>© 2024 Hyrzilla LLC. All rights reserved.</p><p><a href="privacy.html" style="color:var(--t3);margin-right:14px;">Privacy</a><a href="terms.html" style="color:var(--t3);">Terms</a></p></div>
-</div></footer>
+</footer>
 <script>
   // Tab logic for contact page
   const urlParams = new URLSearchParams(window.location.search);

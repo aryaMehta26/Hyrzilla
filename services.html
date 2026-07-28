@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8"/>
   <meta name="viewport" content="width=device-width,initial-scale=1.0"/>
-  <title>Services — Hyrzilla</title>
+  <title>Advisory & Staffing — Hyrzilla</title>
   <meta name="description" content="Comprehensive IT recruitment services. Career Advisory for elite technical professionals and Enterprise Staffing for innovative companies."/>
   <link rel="stylesheet" href="style.css"/>
 </head>
@@ -11,135 +11,104 @@
 <div class="cursor-dot" id="cursorDot" aria-hidden="true"></div>
 <div class="cursor-ring" id="cursorRing" aria-hidden="true"></div>
 
-<nav class="navbar" id="navbar">
-  <div class="container">
-    <a href="index.html" class="nav-logo">
-      <svg class="logo-svg" width="28" height="28" viewBox="0 0 32 32" fill="none">
-        <circle cx="5"  cy="5"  r="2.5" fill="#25E87A"/><circle cx="5"  cy="16" r="2.5" fill="#25E87A"/>
-        <circle cx="5"  cy="27" r="2.5" fill="#25E87A"/><circle cx="16" cy="16" r="2.5" fill="#25E87A"/>
-        <circle cx="27" cy="5"  r="2.5" fill="#25E87A"/><circle cx="27" cy="16" r="2.5" fill="#25E87A"/>
-        <circle cx="27" cy="27" r="2.5" fill="#25E87A"/>
-        <line x1="5" y1="5"  x2="5"  y2="27" stroke="#25E87A" stroke-width="1.5"/>
-        <line x1="27" y1="5" x2="27" y2="27" stroke="#25E87A" stroke-width="1.5"/>
-        <line x1="5" y1="16" x2="27" y2="16" stroke="#25E87A" stroke-width="1.5"/>
-      </svg>
-      <span class="logo-wordmark">Hyrzilla</span>
-    </a>
-    <ul class="nav-links">
-      <li><a href="index.html">Home</a></li>
-      <li><a href="about.html">About</a></li>
-      <li><a href="services.html" class="active">Services</a></li>
-      <li><a href="pricing.html">Pricing</a></li>
-      <li><a href="testimonials.html">Why Us</a></li>
-      <li><a href="contact.html">Contact</a></li>
-    </ul>
-    <a href="contact.html" class="nav-cta">Let's Connect →</a>
-    <button class="nav-ham" id="hamBtn" aria-label="Open menu" aria-expanded="false"><span></span><span></span><span></span></button>
-  </div>
-</nav>
-<nav class="nav-mob" id="navMob">
-  <a href="index.html">Home</a><a href="about.html">About</a><a href="services.html">Services</a>
-  <a href="pricing.html">Pricing</a><a href="testimonials.html">Why Us</a><a href="contact.html">Contact</a>
-  <a href="contact.html" class="btn-green-fill">Let's Connect →</a>
-</nav>
+<div class="bg-mesh" aria-hidden="true"></div>
 
-<!-- Hero -->
-<section class="page-hero grain">
-  <div class="hero-grid-bg" aria-hidden="true"></div>
-  <div class="container" style="position:relative;z-index:1;">
-    <nav class="breadcrumb"><a href="index.html">Home</a><span>›</span><span style="color:var(--green)">Services</span></nav>
-    <p class="label rv">Our Solutions</p>
-    <h1 class="page-title display rv d1">Two perspectives.<br/><span class="h-it h-green">One ecosystem.</span></h1>
-    <p class="rv d2" style="color:var(--t2);font-size:1.05rem;max-width:520px;margin-top:20px;line-height:1.75;">Whether you are an engineering professional aiming to elevate your trajectory or an enterprise seeking elite technical talent, our methodologies ensure strategic alignment.</p>
-    <div class="svc-tabs rv d3 mt-32">
-      <a href="#talent" class="btn btn-green">Career Advisory ↓</a>
-      <a href="#corporate" class="btn btn-ghost">Enterprise Staffing ↓</a>
+<nav class="navbar" id="navbar"><div class="container">
+  <a href="index.html" class="nav-logo">
+    <span class="logo-wordmark">Hyrzilla</span>
+  </a>
+  <ul class="nav-links"><li><a href="index.html">Platform</a></li><li><a href="services.html" class="active">Advisory</a></li><li><a href="pricing.html">Pricing</a></li><li><a href="testimonials.html">Impact</a></li><li><a href="about.html">Company</a></li></ul>
+  <a href="contact.html" class="nav-cta">Initiate Dialogue</a>
+  <button class="nav-ham" id="hamBtn" aria-label="Open menu" aria-expanded="false"><span></span><span></span><span></span></button>
+</div></nav>
+<nav class="nav-mob" id="navMob"><a href="index.html">Platform</a><a href="services.html">Advisory</a><a href="pricing.html">Pricing</a><a href="testimonials.html">Impact</a><a href="about.html">Company</a><a href="contact.html" class="btn btn-green">Initiate Dialogue</a></nav>
+
+<section class="page-hero" id="hero">
+  <div class="container" style="max-width:900px;">
+    <div class="glass-panel rv" style="display:inline-block; padding:8px 16px; border-radius:30px; margin-bottom:24px;">
+      <span style="font-size:0.85rem; font-weight:600; color:var(--green); letter-spacing:0.05em; text-transform:uppercase;">Dual Perspectives. One Ecosystem.</span>
+    </div>
+    
+    <h1 class="display rv d1">
+      Strategic alignment,<br/>
+      <span class="h-blue" style="font-style:italic;">executed flawlessly.</span>
+    </h1>
+    
+    <p class="hero-desc rv d2">
+      We operate on both sides of the market. This dual perspective grants us unparalleled intelligence into what elite technical professionals require to thrive, and what scaling enterprises fundamentally need to succeed.
+    </p>
+  </div>
+</section>
+
+<!-- Talent Advisory -->
+<section class="section-pad" id="talent" style="border-top:1px solid var(--bd);">
+  <div class="container">
+    <div class="text-center rv" style="margin-bottom:60px;">
+      <h2 style="font-size:3rem; margin-bottom:16px;">Career <span class="h-green" style="font-style:italic;">Advisory</span></h2>
+      <p style="color:var(--t2); max-width:600px; margin:0 auto; font-size:1.1rem;">
+        Your technical expertise is profound. Our mandate is to ensure your market representation reflects the absolute depth of your capability. We navigate the hidden job market, connecting you with high-growth roles that demand top-tier talent.
+      </p>
+    </div>
+
+    <div class="bento-grid">
+      <div class="bento-card bento-6 rv d1">
+        <h4 style="margin-bottom:12px; color:var(--green);">01. Portfolio Architecture</h4>
+        <p style="color:var(--t2);">We transform your professional narrative. From algorithmic impact to high-level systems architecture, we engineer your resume and digital presence to captivate executive hiring committees and technical recruiters alike.</p>
+      </div>
+      <div class="bento-card bento-6 rv d2">
+        <h4 style="margin-bottom:12px; color:var(--green);">02. Market Representation</h4>
+        <p style="color:var(--t2);">We do not passively wait for responses. We leverage our network to aggressively advocate on your behalf, aligning your specific technical stack with enterprises actively seeking your exact profile.</p>
+      </div>
+      <div class="bento-card bento-6 rv d3">
+        <h4 style="margin-bottom:12px; color:var(--green);">03. Executive Preparation</h4>
+        <p style="color:var(--t2);">Master complex behavioral interviews and rigorous technical panels. Our industry veterans provide tailored, actionable insights to elevate your communication and command the room.</p>
+      </div>
+      <div class="bento-card bento-6 rv d4">
+        <h4 style="margin-bottom:12px; color:var(--green);">04. Strategic Negotiation</h4>
+        <p style="color:var(--t2);">Securing an offer is merely the beginning. We consult on compensation structures, equity models, and signing bonuses to ensure your final package accurately reflects your true market value.</p>
+      </div>
+    </div>
+    
+    <div class="text-center mt-32 rv">
+      <a href="pricing.html" class="btn btn-green">Review Advisory Plans</a>
     </div>
   </div>
 </section>
 
-<!-- Career Advisory (Job Seekers) -->
-<section class="sec-navy section-pad dot-grid" id="talent" style="scroll-margin-top:80px;">
+<!-- Enterprise Staffing -->
+<section class="section-pad" id="corporate" style="background:var(--c-surface-2); border-top:1px solid var(--bd);">
   <div class="container">
-    <div style="max-width:700px;margin-bottom:60px;" class="rv">
-      <p class="label">For Technical Professionals</p>
-      <h2 style="font-size:2.8rem;margin-bottom:18px;">Career <span class="h-it h-green">Advisory</span></h2>
-      <p style="color:var(--t2);font-size:1.05rem;line-height:1.75;">We analyze your technical expertise to surface the profound value you offer. Our advisory process is proactive, rigorous, and explicitly designed to position you for roles that demand top-tier talent.</p>
+    <div class="text-center rv" style="margin-bottom:60px;">
+      <h2 style="font-size:3rem; margin-bottom:16px;">Enterprise <span class="h-blue" style="font-style:italic;">Staffing</span></h2>
+      <p style="color:var(--t2); max-width:600px; margin:0 auto; font-size:1.1rem;">
+        Scaling an engineering organization is a high-stakes endeavor. Hyrzilla acts as a sophisticated extension of your talent acquisition unit, delivering rigorously vetted technical professionals at speed.
+      </p>
     </div>
-    
-    <div class="process-track">
-      <div class="process-card rv">
-        <div class="p-num">01</div>
-        <h4>Portfolio Architecture</h4>
-        <p>We transform your professional narrative. From algorithmic impact to systems architecture, we engineer your resume and digital profile to captivate elite hiring committees.</p>
-      </div>
-      <div class="process-card rv d1">
-        <div class="p-num">02</div>
-        <h4>Market Representation</h4>
-        <p>We leverage our network to advocate on your behalf. By navigating the hidden job market, we align your capabilities with enterprises actively seeking your exact technical stack.</p>
-      </div>
-      <div class="process-card rv d2">
-        <div class="p-num">03</div>
-        <h4>Executive Preparation</h4>
-        <p>Master complex behavioral interviews and technical panels. Our industry veterans provide tailored, actionable insights to elevate your communication and confidence.</p>
-      </div>
-      <div class="process-card rv d3">
-        <div class="p-num">04</div>
-        <h4>Strategic Negotiation</h4>
-        <p>Securing an offer is only the beginning. We consult on compensation structures and equity models to ensure your final package accurately reflects your market value.</p>
-      </div>
-    </div>
-    
-    <div class="card-dk mt-32 rv d4" style="text-align:center;padding:40px;background:var(--srf2);border:1px solid var(--bd2);">
-      <h4 style="margin-bottom:12px;">Ready to elevate your trajectory?</h4>
-      <p style="color:var(--t2);margin-bottom:24px;max-width:500px;margin-left:auto;margin-right:auto;">Explore our structured advisory plans and select the partnership model that aligns with your career objectives.</p>
-      <a href="pricing.html" class="btn btn-green">View Advisory Plans →</a>
-    </div>
-  </div>
-</section>
 
-<!-- Enterprise Staffing (Companies) -->
-<section class="sec-forest section-pad dot-grid" id="corporate" style="scroll-margin-top:80px;">
-  <div class="container">
-    <div style="display:grid;grid-template-columns:1fr 1fr;gap:60px;align-items:center;">
-      <div class="rv-l">
-        <p class="label">For Innovative Companies</p>
-        <h2 style="font-size:2.8rem;margin-bottom:18px;">Enterprise <span class="h-it" style="color:var(--blue)">Staffing</span></h2>
-        <p style="color:var(--t2);font-size:1.05rem;line-height:1.75;margin-bottom:24px;">Scaling an engineering organization demands precision. Hyrzilla acts as an agile extension of your talent acquisition team, providing exclusive access to a curated network of elite technical professionals.</p>
-        <ul class="split-ul" style="margin-bottom:32px;">
-          <li><span class="ic" style="color:var(--blue)">✓</span><strong>Rigorous Calibration</strong>: We conduct deep technical and cultural assessments, ensuring every presented candidate is fundamentally aligned with your roadmap.</li>
-          <li><span class="ic" style="color:var(--blue)">✓</span><strong>Risk-Free Engagement</strong>: Review comprehensively vetted profiles and conduct interviews with zero upfront retainer fees.</li>
-          <li><span class="ic" style="color:var(--blue)">✓</span><strong>Contingency Model</strong>: A seamless, transparent partnership where success fees are only realized upon successful integration of the candidate into your team.</li>
+    <div class="bento-grid">
+      <div class="bento-card bento-7 rv d1">
+        <h3 style="font-size:1.8rem; margin-bottom:16px; color:var(--blue);">The Contingency Model</h3>
+        <p style="color:var(--t2); margin-bottom:24px;">
+          We align our success directly with yours. Our enterprise partnerships operate entirely on a contingency basis, meaning you incur zero upfront friction.
+        </p>
+        <ul class="split-ul">
+          <li><span class="ic" style="color:var(--blue)">▹</span><strong>Rigorous Calibration:</strong> We assess technical depth and cultural synergy before presenting a candidate.</li>
+          <li><span class="ic" style="color:var(--blue)">▹</span><strong>Risk-Free Engagement:</strong> Review profiles and conduct technical panels with no retainer obligations.</li>
+          <li><span class="ic" style="color:var(--blue)">▹</span><strong>Net 30 Terms:</strong> Success fees are realized exclusively upon the successful start date of the candidate.</li>
         </ul>
-        <a href="contact.html?type=company" class="btn btn-blue">Initiate Partnership →</a>
+        <a href="contact.html?type=company" class="btn btn-blue" style="margin-top:16px;">Initiate Enterprise Partnership</a>
       </div>
-      <div class="rv-r">
-        <div class="card-dk" style="padding:40px;background:var(--c-hero);border:1px solid var(--bd2);">
-          <h4 style="margin-bottom:24px;border-bottom:1px solid var(--bd);padding-bottom:12px;">Domain Expertise</h4>
-          <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px;">
-            <div><span style="color:var(--blue);margin-right:8px;">▹</span>Cloud Architecture</div>
-            <div><span style="color:var(--blue);margin-right:8px;">▹</span>Platform Engineering</div>
-            <div><span style="color:var(--blue);margin-right:8px;">▹</span>Machine Learning / AI</div>
-            <div><span style="color:var(--blue);margin-right:8px;">▹</span>Data Engineering</div>
-            <div><span style="color:var(--blue);margin-right:8px;">▹</span>Cybersecurity</div>
-            <div><span style="color:var(--blue);margin-right:8px;">▹</span>Full-Stack Ecosystems</div>
-            <div><span style="color:var(--blue);margin-right:8px;">▹</span>Mobile Architecture</div>
-            <div><span style="color:var(--blue);margin-right:8px;">▹</span>SRE & Automation</div>
-          </div>
+      
+      <div class="bento-card bento-5 rv d2" style="background:var(--c-surface);">
+        <h4 style="margin-bottom:24px; color:var(--t1); border-bottom:1px solid var(--bd); padding-bottom:16px;">Our Core Domains</h4>
+        <div style="display:flex; flex-direction:column; gap:12px; color:var(--t2);">
+          <div><span style="color:var(--blue); margin-right:12px;">▹</span>Cloud Architecture</div>
+          <div><span style="color:var(--blue); margin-right:12px;">▹</span>Platform Engineering</div>
+          <div><span style="color:var(--blue); margin-right:12px;">▹</span>Machine Learning / AI</div>
+          <div><span style="color:var(--blue); margin-right:12px;">▹</span>Data Engineering</div>
+          <div><span style="color:var(--blue); margin-right:12px;">▹</span>Cybersecurity</div>
+          <div><span style="color:var(--blue); margin-right:12px;">▹</span>Full-Stack Ecosystems</div>
         </div>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- CTA -->
-<section class="sec-hero section-pad-sm">
-  <div class="container">
-    <div class="cta-wrap rv">
-      <h2>Let's discuss your<br/><span class="h-it h-green">strategic objectives.</span></h2>
-      <p style="color:var(--t2);">Connect with our advisors to architect your next successful hire or career move.</p>
-      <div class="cta-actions">
-        <a href="contact.html" class="btn btn-green">Schedule Consultation</a>
       </div>
     </div>
   </div>
@@ -150,22 +119,16 @@
     <div class="footer-grid">
       <div>
         <a href="index.html" class="nav-logo" style="margin-bottom:16px;display:inline-flex;">
-          <svg class="logo-svg" width="24" height="24" viewBox="0 0 32 32" fill="none"><circle cx="5" cy="5" r="2.5" fill="#25E87A"/><circle cx="5" cy="16" r="2.5" fill="#25E87A"/><circle cx="5" cy="27" r="2.5" fill="#25E87A"/><circle cx="16" cy="16" r="2.5" fill="#25E87A"/><circle cx="27" cy="5" r="2.5" fill="#25E87A"/><circle cx="27" cy="16" r="2.5" fill="#25E87A"/><circle cx="27" cy="27" r="2.5" fill="#25E87A"/><line x1="5" y1="5" x2="5" y2="27" stroke="#25E87A" stroke-width="1.5"/><line x1="27" y1="5" x2="27" y2="27" stroke="#25E87A" stroke-width="1.5"/><line x1="5" y1="16" x2="27" y2="16" stroke="#25E87A" stroke-width="1.5"/></svg>
           <span class="logo-wordmark">Hyrzilla</span>
         </a>
         <p class="footer-desc">Boutique IT Staffing & Career Advisory. Precision-matched tech talent for high-growth teams.</p>
-        <div class="socials">
-          <a href="#" class="soc-link" id="ft-li" aria-label="LinkedIn">in</a>
-          <a href="https://wa.me/" class="soc-link soc-wa" id="ft-wa" aria-label="WhatsApp"><svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/><path d="M11.99 0C5.378 0 0 5.372 0 12c0 2.118.553 4.107 1.521 5.839L.015 24l6.334-1.624C8.134 23.46 10.014 24 11.99 24 18.612 24 24 18.629 24 12S18.612 0 11.99 0zm.01 21.817c-1.786 0-3.434-.479-4.864-1.315l-.348-.207-3.572.916.951-3.487-.228-.365A9.816 9.816 0 0 1 2.18 12c0-5.42 4.42-9.83 9.82-9.83 5.411 0 9.83 4.41 9.83 9.83 0 5.42-4.419 9.817-9.83 9.817z"/></svg></a>
-        </div>
       </div>
-      <div><div class="footer-h">Company</div><ul class="footer-links"><li><a href="about.html">About Us</a></li><li><a href="services.html">Services</a></li><li><a href="pricing.html">Pricing</a></li><li><a href="testimonials.html">Why Us</a></li></ul></div>
-      <div><div class="footer-h">Consultation</div><ul class="footer-links"><li><a href="services.html#talent">Career Advisory</a></li><li><a href="pricing.html">Advisory Plans</a></li><li><a href="pricing.html#faq">FAQs</a></li><li><a href="contact.html">Let's Connect</a></li></ul></div>
-      <div><div class="footer-h">Legal</div><ul class="footer-links"><li><a href="privacy.html">Privacy Policy</a></li><li><a href="terms.html">Terms &amp; Conditions</a></li><li><a href="contact.html">Contact</a></li></ul></div>
+      <div><div class="footer-h">Platform</div><ul class="footer-links"><li><a href="about.html">Company</a></li><li><a href="services.html">Advisory</a></li><li><a href="pricing.html">Pricing</a></li></ul></div>
+      <div><div class="footer-h">Connect</div><ul class="footer-links"><li><a href="contact.html">Consultation</a></li><li><a href="testimonials.html">Impact</a></li></ul></div>
+      <div><div class="footer-h">Legal</div><ul class="footer-links"><li><a href="privacy.html">Privacy</a></li><li><a href="terms.html">Terms</a></li></ul></div>
     </div>
     <div class="footer-bottom">
-      <p>© 2024 Hyrzilla LLC. All rights reserved.</p>
-      <p><a href="privacy.html" style="color:var(--t3);margin-right:14px;">Privacy</a><a href="terms.html" style="color:var(--t3);">Terms</a></p>
+      <p>© 2026 Hyrzilla LLC. All rights reserved.</p>
     </div>
   </div>
 </footer>

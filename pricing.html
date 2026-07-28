@@ -11,54 +11,40 @@
 <div class="cursor-dot" id="cursorDot" aria-hidden="true"></div>
 <div class="cursor-ring" id="cursorRing" aria-hidden="true"></div>
 
-<nav class="navbar" id="navbar">
-  <div class="container">
-    <a href="index.html" class="nav-logo">
-      <svg class="logo-svg" width="28" height="28" viewBox="0 0 32 32" fill="none"><circle cx="5" cy="5" r="2.5" fill="#25E87A"/><circle cx="5" cy="16" r="2.5" fill="#25E87A"/><circle cx="5" cy="27" r="2.5" fill="#25E87A"/><circle cx="16" cy="16" r="2.5" fill="#25E87A"/><circle cx="27" cy="5" r="2.5" fill="#25E87A"/><circle cx="27" cy="16" r="2.5" fill="#25E87A"/><circle cx="27" cy="27" r="2.5" fill="#25E87A"/><line x1="5" y1="5" x2="5" y2="27" stroke="#25E87A" stroke-width="1.5"/><line x1="27" y1="5" x2="27" y2="27" stroke="#25E87A" stroke-width="1.5"/><line x1="5" y1="16" x2="27" y2="16" stroke="#25E87A" stroke-width="1.5"/></svg>
-      <span class="logo-wordmark">Hyrzilla</span>
-    </a>
-    <ul class="nav-links">
-      <li><a href="index.html">Home</a></li>
-      <li><a href="about.html">About</a></li>
-      <li><a href="services.html">Services</a></li>
-      <li><a href="pricing.html" class="active">Pricing</a></li>
-      <li><a href="testimonials.html">Why Us</a></li>
-      <li><a href="contact.html">Contact</a></li>
-    </ul>
-    <a href="contact.html" class="nav-cta">Let's Connect →</a>
-    <button class="nav-ham" id="hamBtn" aria-label="Open menu" aria-expanded="false"><span></span><span></span><span></span></button>
-  </div>
-</nav>
-<nav class="nav-mob" id="navMob">
-  <a href="index.html">Home</a><a href="about.html">About</a><a href="services.html">Services</a>
-  <a href="pricing.html">Pricing</a><a href="testimonials.html">Why Us</a><a href="contact.html">Contact</a>
-  <a href="contact.html" class="btn-green-fill">Let's Connect →</a>
-</nav>
+<div class="bg-mesh" aria-hidden="true"></div>
 
-<!-- Hero -->
-<section class="page-hero grain">
-  <div class="hero-grid-bg" aria-hidden="true"></div>
-  <div class="container" style="position:relative;z-index:1;padding-top:20px;">
-    <nav class="breadcrumb"><a href="index.html">Home</a><span>›</span><span style="color:var(--green)">Plans</span></nav>
-    <p class="label rv" style="margin-bottom:18px;">Career Advisory</p>
-    <h1 class="page-title display rv d1">Invest in your<br/><span class="h-it h-green">trajectory.</span></h1>
-    <p class="rv d2" style="color:var(--t2);font-size:1.05rem;max-width:560px;margin-top:20px;line-height:1.75;">Structured advisory frameworks designed to elevate your market positioning. Review our partnership models below and initiate your next career transition.</p>
+<nav class="navbar" id="navbar"><div class="container">
+  <a href="index.html" class="nav-logo">
+    <span class="logo-wordmark">Hyrzilla</span>
+  </a>
+  <ul class="nav-links"><li><a href="index.html">Platform</a></li><li><a href="services.html">Advisory</a></li><li><a href="pricing.html" class="active">Pricing</a></li><li><a href="testimonials.html">Impact</a></li><li><a href="about.html">Company</a></li></ul>
+  <a href="contact.html" class="nav-cta">Initiate Dialogue</a>
+  <button class="nav-ham" id="hamBtn" aria-label="Open menu" aria-expanded="false"><span></span><span></span><span></span></button>
+</div></nav>
+<nav class="nav-mob" id="navMob"><a href="index.html">Platform</a><a href="services.html">Advisory</a><a href="pricing.html">Pricing</a><a href="testimonials.html">Impact</a><a href="about.html">Company</a><a href="contact.html" class="btn btn-green">Initiate Dialogue</a></nav>
+
+<section class="page-hero" id="hero">
+  <div class="container" style="max-width:900px; text-align:center;">
+    <div class="glass-panel rv" style="display:inline-block; padding:8px 16px; border-radius:30px; margin-bottom:24px;">
+      <span style="font-size:0.85rem; font-weight:600; color:var(--green); letter-spacing:0.05em; text-transform:uppercase;">Advisory Structures</span>
+    </div>
+    <h1 class="display rv d1">Invest in your <span class="h-green" style="font-style:italic;">trajectory.</span></h1>
+    <p class="hero-desc rv d2">Structured advisory frameworks designed to elevate your market positioning. Review our partnership models below and initiate your next strategic career transition.</p>
   </div>
 </section>
 
-<!-- Pricing Cards -->
-<section class="sec-navy dot-grid section-pad">
+<!-- Pricing Grid -->
+<section class="section-pad" style="border-top:1px solid var(--bd);">
   <div class="container">
-    <div class="price-grid">
+    <div class="bento-grid">
       <!-- Base -->
-      <div class="price-card rv">
-        <h3 class="p-tier">Market Readiness</h3>
-        <div style="margin:16px 0;"><span style="font-size:2rem;font-family:'Space Grotesk',sans-serif;font-weight:700;">$499</span> <span style="color:var(--t3);font-size:0.9rem;">retainer</span></div>
-        <p class="p-desc">Essential architectural updates to your professional profile, preparing you for market entry.</p>
-        <div class="p-div"></div>
-        <ul class="p-ul">
-          <li><span class="ic green">✓</span> <strong>15%</strong> placement success fee</li>
-          <li><span class="ic green">✓</span> Technical Narrative Architecture (Resume)</li>
+      <div class="bento-card bento-4 rv d1">
+        <h3 class="price-tier">Market Readiness</h3>
+        <div class="price-val">$499 <span>retainer</span></div>
+        <p class="price-desc">Essential architectural updates to your professional profile, preparing you for market entry.</p>
+        <ul class="price-ul">
+          <li><span class="ic green">✓</span> <strong style="color:var(--t1);">15%</strong> placement success fee</li>
+          <li><span class="ic green">✓</span> Technical Narrative Architecture</li>
           <li><span class="ic green">✓</span> Active Market Representation</li>
           <li><span class="ic green">✓</span> Process Analytics Tracking</li>
           <li class="off"><span class="ic">✗</span> Digital Profile Optimization</li>
@@ -66,19 +52,18 @@
           <li class="off"><span class="ic">✗</span> Technical Panel Simulation</li>
           <li class="off"><span class="ic">✗</span> Dedicated Advisory Partner</li>
         </ul>
-        <a href="contact.html?type=talent" class="btn btn-ghost" style="width:100%;justify-content:center;margin-top:24px;">Select Partnership</a>
+        <a href="contact.html?type=talent" class="btn btn-ghost" style="width:100%;justify-content:center;margin-top:24px;border-radius:12px;">Select Partnership</a>
       </div>
 
       <!-- Growth -->
-      <div class="price-card popular rv d1">
+      <div class="bento-card bento-4 rv d2" style="border-color:rgba(37,232,122,0.3); background:var(--c-surface-2);">
         <div class="popular-badge">Most Chosen</div>
-        <h3 class="p-tier" style="color:var(--green)">Strategic Acceleration</h3>
-        <div style="margin:16px 0;"><span style="font-size:2rem;font-family:'Space Grotesk',sans-serif;font-weight:700;color:var(--green);">$1,499</span> <span style="color:var(--t3);font-size:0.9rem;">retainer</span></div>
-        <p class="p-desc">A comprehensive methodology integrating targeted advocacy with advanced interview strategy.</p>
-        <div class="p-div"></div>
-        <ul class="p-ul">
-          <li><span class="ic green">✓</span> <strong>12%</strong> placement success fee</li>
-          <li><span class="ic green">✓</span> Technical Narrative Architecture (Resume)</li>
+        <h3 class="price-tier" style="color:var(--green);">Strategic Acceleration</h3>
+        <div class="price-val" style="color:var(--green);">$1,499 <span style="color:var(--t3);">retainer</span></div>
+        <p class="price-desc">A comprehensive methodology integrating targeted advocacy with advanced interview strategy.</p>
+        <ul class="price-ul">
+          <li><span class="ic green">✓</span> <strong style="color:var(--t1);">12%</strong> placement success fee</li>
+          <li><span class="ic green">✓</span> Technical Narrative Architecture</li>
           <li><span class="ic green">✓</span> Digital Profile Optimization</li>
           <li><span class="ic green">✓</span> Priority Market Representation</li>
           <li><span class="ic green">✓</span> Behavioral Interview Strategy</li>
@@ -86,18 +71,17 @@
           <li class="off"><span class="ic">✗</span> Technical Panel Simulation</li>
           <li class="off"><span class="ic">✗</span> Dedicated Advisory Partner</li>
         </ul>
-        <a href="contact.html?type=talent" class="btn btn-green" style="width:100%;justify-content:center;margin-top:24px;">Select Partnership</a>
+        <a href="contact.html?type=talent" class="btn btn-green" style="width:100%;justify-content:center;margin-top:24px;border-radius:12px;">Select Partnership</a>
       </div>
 
       <!-- Pro -->
-      <div class="price-card rv d2">
-        <h3 class="p-tier" style="color:var(--gold)">Executive Partnership</h3>
-        <div style="margin:16px 0;"><span style="font-size:2rem;font-family:'Space Grotesk',sans-serif;font-weight:700;color:var(--gold);">$2,499</span> <span style="color:var(--t3);font-size:0.9rem;">retainer</span></div>
-        <p class="p-desc">Full-spectrum career management featuring bespoke technical preparation and dedicated counsel.</p>
-        <div class="p-div"></div>
-        <ul class="p-ul">
-          <li><span class="ic gold">✓</span> <strong>10%</strong> placement success fee</li>
-          <li><span class="ic gold">✓</span> Technical Narrative Architecture (Resume)</li>
+      <div class="bento-card bento-4 rv d3">
+        <h3 class="price-tier" style="color:var(--gold);">Executive Partnership</h3>
+        <div class="price-val" style="color:var(--gold);">$2,499 <span style="color:var(--t3);">retainer</span></div>
+        <p class="price-desc">Full-spectrum career management featuring bespoke technical preparation and dedicated counsel.</p>
+        <ul class="price-ul">
+          <li><span class="ic gold">✓</span> <strong style="color:var(--t1);">10%</strong> placement success fee</li>
+          <li><span class="ic gold">✓</span> Technical Narrative Architecture</li>
           <li><span class="ic gold">✓</span> Digital Profile Optimization</li>
           <li><span class="ic gold">✓</span> Unrestricted Market Representation</li>
           <li><span class="ic gold">✓</span> Behavioral Interview Strategy</li>
@@ -105,76 +89,37 @@
           <li><span class="ic gold">✓</span> Advanced Negotiation Strategy</li>
           <li><span class="ic gold">✓</span> Dedicated Advisory Partner</li>
         </ul>
-        <a href="contact.html?type=talent" class="btn btn-ghost" style="width:100%;justify-content:center;margin-top:24px;border-color:rgba(201,168,76,.3);color:var(--gold);">Select Partnership</a>
+        <a href="contact.html?type=talent" class="btn btn-ghost" style="width:100%;justify-content:center;margin-top:24px;border-color:rgba(201,168,76,.3);color:var(--gold);border-radius:12px;">Select Partnership</a>
       </div>
     </div>
   </div>
 </section>
 
 <!-- Companies / Agreement Note -->
-<section class="sec-gray section-pad" id="corporate">
+<section class="section-pad" id="corporate" style="background:var(--c-surface-2); border-top:1px solid var(--bd);">
   <div class="container">
-    <div style="display:grid;grid-template-columns:1fr 1fr;gap:60px;align-items:center;">
-      <div class="rv-l">
-        <p class="label label-lt">Enterprise Staffing</p>
-        <h2 style="font-family:'Space Grotesk',sans-serif;font-size:2.4rem;color:var(--lt1);margin:16px 0;">Scale with zero upfront friction.</h2>
-        <p style="color:var(--lt2);margin-bottom:24px;line-height:1.75;">We do not mandate upfront retainers for our enterprise clients. We operate purely on a contingency basis, ensuring our objectives are fundamentally aligned with your successful hires.</p>
-        
-        <div style="background:rgba(0,0,0,0.03);border-left:3px solid var(--lt1);padding:16px 20px;margin-bottom:24px;">
-          <p style="color:var(--lt1);font-weight:600;font-size:1.05rem;margin-bottom:6px;">Customized Placement Structures</p>
-          <p style="color:var(--lt2);font-size:0.9rem;margin:0;">Please contact our enterprise team to discuss your technical requirements and receive a customized placement agreement outlining our success fee structure.</p>
+    <div class="bento-grid">
+      <div class="bento-card bento-7 rv d1">
+        <h2 style="font-size:2.4rem; margin-bottom:16px;">Enterprise <span class="h-blue" style="font-style:italic;">Staffing</span></h2>
+        <p style="color:var(--t2); font-size:1.05rem; margin-bottom:24px;">
+          We do not mandate upfront retainers for our enterprise clients. We operate purely on a contingency basis, ensuring our objectives are fundamentally aligned with your successful hires.
+        </p>
+        <div style="background:var(--c-surface); border:1px solid var(--bd); padding:20px; border-radius:var(--r); margin-bottom:24px;">
+          <p style="color:var(--t1); font-weight:600; font-size:1.05rem; margin-bottom:6px;">Customized Placement Structures</p>
+          <p style="color:var(--t3); font-size:0.9rem; margin:0;">Contact our enterprise team to discuss your technical requirements and receive a customized placement agreement outlining our success fee structure.</p>
         </div>
-
-        <a href="contact.html?type=company" class="btn btn-ghost-lt">Request Enterprise Consultation</a>
-      </div>
-      <div class="rv-r">
-        <div class="card-lt" style="padding:40px;background:#fff;">
-          <h4 style="margin-bottom:16px;color:var(--lt1);">The Engagement Methodology:</h4>
-          <ul class="split-ul" style="color:var(--lt2);">
-            <li style="margin-bottom:16px;"><strong>1. Architecture Review:</strong> We consult on your technical stack, team culture, and long-term organizational objectives.</li>
-            <li style="margin-bottom:16px;"><strong>2. Strategic Alignment:</strong> Execution of our contingency agreement, aligning our resources with your exact requirements.</li>
-            <li style="margin-bottom:16px;"><strong>3. Talent Acquisition:</strong> Delivery of rigorously vetted, high-impact profiles for immediate interview scheduling.</li>
-            <li><strong>4. Seamless Integration:</strong> You secure the optimal candidate; our success fee applies only upon their successful integration.</li>
-          </ul>
-        </div>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- FAQ -->
-<section class="sec-forest section-pad dot-grid" id="faq">
-  <div class="container" style="max-width:800px;">
-    <div class="sect-head center rv">
-      <p class="label">Advisory Insights</p>
-      <h2 style="margin-top:16px;">Frequently Asked Questions</h2>
-    </div>
-    
-    <div class="faq-list">
-      
-      <div class="faq-item rv d1">
-        <button class="faq-q" aria-expanded="false">Are placement results guaranteed? <span class="faq-icon">+</span></button>
-        <div class="faq-a"><div class="faq-a-inner">We employ a highly strategic and rigorous placement methodology designed to significantly elevate your market visibility and conversion rates. However, final hiring decisions reside exclusively with the enterprise. While we cannot ethically guarantee a specific outcome, we guarantee uncompromising dedication to optimizing your profile and advocating on your behalf.</div></div>
+        <a href="contact.html?type=company" class="btn btn-blue" style="border-radius:12px;">Request Enterprise Consultation</a>
       </div>
       
-      <div class="faq-item rv d2">
-        <button class="faq-q" aria-expanded="false">How do success fees apply to roles sourced independently? <span class="faq-icon">+</span></button>
-        <div class="faq-a"><div class="faq-a-inner">Our partnership is built on mutual success. If you secure a position entirely independent of our advocacy and representation efforts, the placement success fee may be waived. Complete clarity on these parameters is defined within our formal service agreement.</div></div>
+      <div class="bento-card bento-5 rv d2">
+        <h4 style="margin-bottom:16px; color:var(--t1);">The Engagement Methodology:</h4>
+        <ul class="split-ul" style="color:var(--t2);">
+          <li><strong>1. Architecture Review:</strong> We consult on your technical stack, team culture, and long-term organizational objectives.</li>
+          <li><strong>2. Strategic Alignment:</strong> Execution of our contingency agreement, aligning our resources with your exact requirements.</li>
+          <li><strong>3. Talent Acquisition:</strong> Delivery of rigorously vetted, high-impact profiles for immediate interview scheduling.</li>
+          <li><strong>4. Seamless Integration:</strong> You secure the optimal candidate; our success fee applies only upon their successful integration.</li>
+        </ul>
       </div>
-
-      <div class="faq-item rv d3">
-        <button class="faq-q" aria-expanded="false">What is the typical timeframe for a transition? <span class="faq-icon">+</span></button>
-        <div class="faq-a"><div class="faq-a-inner">Timelines are inherently dependent on the complexity of your technical niche, seniority, and current market velocity. However, candidates engaging in our Strategic Acceleration or Executive Partnership plans typically initiate advanced-stage interviews within 3 to 4 weeks of market entry.</div></div>
-      </div>
-
-      <div class="faq-item rv d4">
-        <button class="faq-q" aria-expanded="false">Do enterprise clients pay prior to reviewing profiles? <span class="faq-icon">+</span></button>
-        <div class="faq-a"><div class="faq-a-inner">No. Enterprise clients incur zero financial obligation prior to a successful hire. We mandate a signed contingency agreement to protect the integrity of our exclusive talent network, but fees are only realized upon the candidate's start date.</div></div>
-      </div>
-    </div>
-    
-    <div class="mt-32 text-center rv d5">
-      <p style="color:var(--t3);font-size:.9rem;">Require further clarification? <a href="contact.html" style="color:var(--green);text-decoration:underline;font-weight:600;">Consult with our advisors.</a></p>
     </div>
   </div>
 </section>
@@ -184,22 +129,16 @@
     <div class="footer-grid">
       <div>
         <a href="index.html" class="nav-logo" style="margin-bottom:16px;display:inline-flex;">
-          <svg class="logo-svg" width="24" height="24" viewBox="0 0 32 32" fill="none"><circle cx="5" cy="5" r="2.5" fill="#25E87A"/><circle cx="5" cy="16" r="2.5" fill="#25E87A"/><circle cx="5" cy="27" r="2.5" fill="#25E87A"/><circle cx="16" cy="16" r="2.5" fill="#25E87A"/><circle cx="27" cy="5" r="2.5" fill="#25E87A"/><circle cx="27" cy="16" r="2.5" fill="#25E87A"/><circle cx="27" cy="27" r="2.5" fill="#25E87A"/><line x1="5" y1="5" x2="5" y2="27" stroke="#25E87A" stroke-width="1.5"/><line x1="27" y1="5" x2="27" y2="27" stroke="#25E87A" stroke-width="1.5"/><line x1="5" y1="16" x2="27" y2="16" stroke="#25E87A" stroke-width="1.5"/></svg>
           <span class="logo-wordmark">Hyrzilla</span>
         </a>
         <p class="footer-desc">Boutique IT Staffing & Career Advisory. Precision-matched tech talent for high-growth teams.</p>
-        <div class="socials">
-          <a href="#" class="soc-link" aria-label="LinkedIn">in</a>
-          <a href="https://wa.me/" class="soc-link soc-wa" aria-label="WhatsApp"><svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/><path d="M11.99 0C5.378 0 0 5.372 0 12c0 2.118.553 4.107 1.521 5.839L.015 24l6.334-1.624C8.134 23.46 10.014 24 11.99 24 18.612 24 24 18.629 24 12S18.612 0 11.99 0zm.01 21.817c-1.786 0-3.434-.479-4.864-1.315l-.348-.207-3.572.916.951-3.487-.228-.365A9.816 9.816 0 0 1 2.18 12c0-5.42 4.42-9.83 9.82-9.83 5.411 0 9.83 4.41 9.83 9.83 0 5.42-4.419 9.817-9.83 9.817z"/></svg></a>
-        </div>
       </div>
-      <div><div class="footer-h">Company</div><ul class="footer-links"><li><a href="about.html">About Us</a></li><li><a href="services.html">Services</a></li><li><a href="pricing.html">Pricing</a></li><li><a href="testimonials.html">Why Us</a></li></ul></div>
-      <div><div class="footer-h">Consultation</div><ul class="footer-links"><li><a href="services.html#talent">Career Advisory</a></li><li><a href="pricing.html">Advisory Plans</a></li><li><a href="pricing.html#faq">FAQs</a></li><li><a href="contact.html">Let's Connect</a></li></ul></div>
-      <div><div class="footer-h">Legal</div><ul class="footer-links"><li><a href="privacy.html">Privacy Policy</a></li><li><a href="terms.html">Terms &amp; Conditions</a></li><li><a href="contact.html">Contact</a></li></ul></div>
+      <div><div class="footer-h">Platform</div><ul class="footer-links"><li><a href="about.html">Company</a></li><li><a href="services.html">Advisory</a></li><li><a href="pricing.html">Pricing</a></li></ul></div>
+      <div><div class="footer-h">Connect</div><ul class="footer-links"><li><a href="contact.html">Consultation</a></li><li><a href="testimonials.html">Impact</a></li></ul></div>
+      <div><div class="footer-h">Legal</div><ul class="footer-links"><li><a href="privacy.html">Privacy</a></li><li><a href="terms.html">Terms</a></li></ul></div>
     </div>
     <div class="footer-bottom">
-      <p>© 2024 Hyrzilla LLC. All rights reserved.</p>
-      <p><a href="privacy.html" style="color:var(--t3);margin-right:14px;">Privacy</a><a href="terms.html" style="color:var(--t3);">Terms</a></p>
+      <p>© 2026 Hyrzilla LLC. All rights reserved.</p>
     </div>
   </div>
 </footer>
