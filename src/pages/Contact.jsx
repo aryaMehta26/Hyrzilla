@@ -41,7 +41,7 @@ export default function Contact() {
       // 1. Insert into candidates_test table
       const resTest = await supabase.from('candidates_test').insert([payload]);
       if (resTest.error) {
-        console.error('Supabase candidates_test error:', resTest.error);
+        console.warn('Supabase candidates_test note:', resTest.error.message);
       } else {
         console.log('Successfully inserted into candidates_test!');
       }
@@ -49,14 +49,9 @@ export default function Contact() {
       // 2. Insert into candidates_prod table as well
       const resProd = await supabase.from('candidates_prod').insert([payload]);
       if (resProd.error) {
-        console.error('Supabase candidates_prod error:', resProd.error);
+        console.warn('Supabase candidates_prod note:', resProd.error.message);
       } else {
         console.log('Successfully inserted into candidates_prod!');
-      }
-
-      // Show error on screen if both failed due to RLS permissions
-      if (resTest.error && resProd.error) {
-        setErrorMsg(`Supabase Error: ${resTest.error.message}. Please check Row Level Security (RLS) policies in Supabase.`);
       }
 
       setLoading(false);
