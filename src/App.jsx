@@ -3,6 +3,7 @@ import { BrowserRouter as Router, Routes, Route, useLocation } from 'react-route
 import Lenis from 'lenis';
 
 import CustomCursor from './components/CustomCursor';
+import ParticleCanvas from './components/ParticleCanvas';
 import Navbar from './components/Navbar';
 import Footer from './components/Footer';
 
@@ -79,6 +80,7 @@ export default function App() {
     <Router>
       <ScrollToTop />
       <CustomCursor />
+      <ParticleCanvas />
       <div className="bg-mesh-canvas" aria-hidden="true" />
       
       <div className="flex flex-col min-h-screen relative z-10">

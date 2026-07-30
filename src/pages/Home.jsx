@@ -4,8 +4,9 @@ import { motion, useScroll, useTransform, useSpring } from 'framer-motion';
 import { Chart, registerables } from 'chart.js';
 import { 
   CheckCircle2, ArrowRight, Zap, TrendingUp, Sliders, Target, 
-  Handshake, ShieldCheck, Sparkles, Award, FileText, Check 
+  Handshake, ShieldCheck, Sparkles, Award, FileText, Check, Layers, Cpu, Code2
 } from 'lucide-react';
+import AtsSimulatorWidget from '../components/AtsSimulatorWidget';
 
 Chart.register(...registerables);
 
@@ -76,7 +77,7 @@ export default function Home() {
       chartInstance.current = new Chart(ctx, {
         type: 'bar',
         data: {
-          labels: ['Unoptimized Applications', 'Standard Job Portal Outreach', 'Hyrzilla Candidate Strategy'],
+          labels: ['Unoptimized Applications', 'Standard Job Portal Outreach', 'Hyrzilla Strategy'],
           datasets: [{
             label: 'Interview Callback Rate (%)',
             data: [1.8, 4.2, 28.5],
@@ -146,7 +147,7 @@ export default function Home() {
 
   return (
     <div ref={containerRef} className="relative z-10 pt-28">
-      {/* Hero Section */}
+      {/* Parallax Hero Section */}
       <motion.section 
         style={{ y: heroY, opacity: heroOpacity, scale: heroScale }}
         className="py-24 md:py-32 text-center relative overflow-hidden"
@@ -187,7 +188,7 @@ export default function Home() {
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, delay: 0.3 }}
-            className="flex flex-wrap justify-center gap-5"
+            className="flex flex-wrap justify-center gap-5 mb-12"
           >
             <Link
               to="/pricing"
@@ -202,6 +203,9 @@ export default function Home() {
               View Services
             </Link>
           </motion.div>
+
+          {/* Interactive Hero ATS Simulator Widget */}
+          <AtsSimulatorWidget />
         </div>
       </motion.section>
 
