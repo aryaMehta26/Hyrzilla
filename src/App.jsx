@@ -9,6 +9,7 @@ import Footer from './components/Footer';
 import Home from './pages/Home';
 import Services from './pages/Services';
 import Pricing from './pages/Pricing';
+import Insights from './pages/Insights';
 import WhyUs from './pages/WhyUs';
 import About from './pages/About';
 import Contact from './pages/Contact';
@@ -87,6 +88,7 @@ export default function App() {
             <Route path="/" element={<Home />} />
             <Route path="/services" element={<Services />} />
             <Route path="/pricing" element={<Pricing />} />
+            <Route path="/insights" element={<Insights />} />
             <Route path="/why-us" element={<WhyUs />} />
             <Route path="/about" element={<About />} />
             <Route path="/contact" element={<Contact />} />

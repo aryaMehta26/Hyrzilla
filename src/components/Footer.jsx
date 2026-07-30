@@ -11,16 +11,17 @@ export default function Footer() {
               <span className="text-tMain font-bold text-xl">Hyrzilla</span>
             </Link>
             <p className="text-tMuted text-sm leading-relaxed max-w-xs">
-              IT Staffing & Placement Services. Comprehensive career support and corporate hiring solutions.
+              IT Talent Advisory & Tech Career Placement Services.
             </p>
           </div>
 
           <div>
-            <h4 className="text-xs font-bold uppercase tracking-wider text-tMain mb-4">Company</h4>
+            <h4 className="text-xs font-bold uppercase tracking-wider text-tMain mb-4">Navigation</h4>
             <ul className="space-y-3 text-sm text-tMuted">
               <li><Link to="/about" className="hover:text-brandGreen transition-colors">About Us</Link></li>
               <li><Link to="/services" className="hover:text-brandGreen transition-colors">Services</Link></li>
               <li><Link to="/pricing" className="hover:text-brandGreen transition-colors">Pricing</Link></li>
+              <li><Link to="/insights" className="hover:text-brandGreen transition-colors">Insights & FAQ</Link></li>
             </ul>
           </div>
 
@@ -43,7 +44,7 @@ export default function Footer() {
 
         <div className="border-t border-[rgba(37,232,122,0.14)] pt-6 flex flex-col md:flex-row justify-between items-center text-xs text-tSub gap-4">
           <p>© 2026 Hyrzilla LLC. All rights reserved.</p>
-          <p>Designed for technical professionals & hiring teams.</p>
+          <p>Designed for technical professionals.</p>
         </div>
       </div>
     </footer>
