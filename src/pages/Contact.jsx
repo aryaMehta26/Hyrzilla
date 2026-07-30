@@ -23,35 +23,48 @@ export default function Contact() {
     setLoading(true);
     setErrorMsg('');
 
-    try {
-      // 1. Insert lead directly into Supabase 'candidates_test' table
-      const { data, error } = await supabase
-        .from('candidates_test')
-        .insert([
-          {
-            full_name: formData.name,
-            email: formData.email,
-            phone: formData.phone,
-            selected_plan: formData.inquiryType,
-            tech_domain: formData.domain,
-            experience_years: formData.experience,
-            linkedin_url: formData.linkedin,
-            message: formData.message,
-            status: 'New Lead'
-          }
-        ]);
+    const payload = {
+      full_name: formData.name,
+      email: formData.email,
+      phone: formData.phone,
+      selected_plan: formData.inquiryType,
+      tech_domain: formData.domain,
+      experience_years: formData.experience,
+      linkedin_url: formData.linkedin,
+      message: formData.message,
+      status: 'New Lead'
+    };
 
-      if (error) {
-        console.warn('Supabase Insert Note:', error.message);
-        // If table doesn't exist yet or RLS policy is missing, proceed smoothly to UI confirmation
+    console.log('Submitting candidate lead to Supabase...', payload);
+
+    try {
+      // 1. Insert into candidates_test table
+      const resTest = await supabase.from('candidates_test').insert([payload]);
+      if (resTest.error) {
+        console.error('Supabase candidates_test error:', resTest.error);
+      } else {
+        console.log('Successfully inserted into candidates_test!');
+      }
+
+      // 2. Insert into candidates_prod table as well
+      const resProd = await supabase.from('candidates_prod').insert([payload]);
+      if (resProd.error) {
+        console.error('Supabase candidates_prod error:', resProd.error);
+      } else {
+        console.log('Successfully inserted into candidates_prod!');
+      }
+
+      // Show error on screen if both failed due to RLS permissions
+      if (resTest.error && resProd.error) {
+        setErrorMsg(`Supabase Error: ${resTest.error.message}. Please check Row Level Security (RLS) policies in Supabase.`);
       }
 
       setLoading(false);
       setShowModal(true);
     } catch (err) {
-      console.error('Submission error:', err);
+      console.error('Submission exception:', err);
       setLoading(false);
-      setShowModal(true); // Fallback so candidate always sees confirmation
+      setShowModal(true);
     }
   };
 
@@ -92,7 +105,7 @@ export default function Contact() {
           <div className="bento-card-react">
             {errorMsg && (
               <div className="mb-6 p-4 rounded-xl bg-red-500/10 border border-red-500/30 text-red-400 text-xs flex items-center gap-2">
-                <AlertCircle size={16} />
+                <AlertCircle size={16} className="shrink-0" />
                 <span>{errorMsg}</span>
               </div>
             )}
