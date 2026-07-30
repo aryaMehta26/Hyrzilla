@@ -38,20 +38,41 @@ export default function Contact() {
     console.log('Submitting candidate lead to Supabase...', payload);
 
     try {
-      // 1. Insert into candidates_test table
-      const resTest = await supabase.from('candidates_test').insert([payload]);
-      if (resTest.error) {
-        console.warn('Supabase candidates_test note:', resTest.error.message);
-      } else {
-        console.log('Successfully inserted into candidates_test!');
-      }
+      const url = 'https://llbgtukjwtpaqgrulpdh.supabase.co';
+      const anonKey = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImxsYmd0dWtqd3RwYXFncnVscGRoIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTE0MTY2MTksImV4cCI6MjA2Njk5MjYxOX0';
 
-      // 2. Insert into candidates_prod table as well
+      // Attempt 1: Standard Supabase SDK
+      const resTest = await supabase.from('candidates_test').insert([payload]);
+      console.log('SDK Insert candidates_test response:', resTest);
+
       const resProd = await supabase.from('candidates_prod').insert([payload]);
-      if (resProd.error) {
-        console.warn('Supabase candidates_prod note:', resProd.error.message);
-      } else {
-        console.log('Successfully inserted into candidates_prod!');
+      console.log('SDK Insert candidates_prod response:', resProd);
+
+      // Attempt 2: Direct Supabase REST API Fallback
+      if (resTest.error || resProd.error) {
+        console.log('Attempting Direct Supabase REST API Fetch Fallback...');
+        
+        await fetch(`${url}/rest/v1/candidates_test`, {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+            'apikey': anonKey,
+            'Authorization': `Bearer ${anonKey}`,
+            'Prefer': 'return=minimal'
+          },
+          body: JSON.stringify(payload)
+        }).catch(err => console.error('REST candidates_test fetch error:', err));
+
+        await fetch(`${url}/rest/v1/candidates_prod`, {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+            'apikey': anonKey,
+            'Authorization': `Bearer ${anonKey}`,
+            'Prefer': 'return=minimal'
+          },
+          body: JSON.stringify(payload)
+        }).catch(err => console.error('REST candidates_prod fetch error:', err));
       }
 
       setLoading(false);
