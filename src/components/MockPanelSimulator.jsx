@@ -46,14 +46,14 @@ export default function MockPanelSimulator() {
 
   return (
     <div className="glass-card text-left my-8">
-      <div className="flex items-center justify-between border-b border-white/[0.06] pb-4 mb-6">
+      <div className="flex items-center justify-between border-b border-purple-200/50 pb-4 mb-6">
         <div className="flex items-center gap-2">
-          <Target size={14} className="text-accent-violet" />
-          <span className="text-xs font-bold uppercase tracking-wider text-accent-cyan font-mono">
+          <Target size={14} className="text-violet-600" />
+          <span className="text-xs font-bold uppercase tracking-wider text-violet-800 font-mono">
             Mock Technical Interview Practice
           </span>
         </div>
-        <span className="text-xs text-text-tertiary font-mono">Sample Question</span>
+        <span className="text-xs text-purple-900/60 font-mono">Sample Question</span>
       </div>
 
       <div className="flex flex-wrap gap-2 mb-6">
@@ -63,8 +63,8 @@ export default function MockPanelSimulator() {
             onClick={() => { setSelectedDomain(key); setShowAnswer(false); }}
             className={`px-4 py-2.5 rounded-xl text-xs font-bold transition-all ${
               selectedDomain === key
-                ? 'bg-gradient-to-r from-accent-violet to-accent-cyan text-white shadow-lg shadow-accent-violet/20'
-                : 'bg-white/[0.03] border border-white/[0.06] text-text-tertiary hover:text-text-secondary'
+                ? 'bg-gradient-to-r from-violet-600 to-indigo-600 text-white shadow-md shadow-violet-500/20'
+                : 'bg-white/80 border border-purple-200/60 text-purple-900/70 hover:text-indigo-950'
             }`}
           >
             {domains[key].name}
@@ -73,9 +73,9 @@ export default function MockPanelSimulator() {
       </div>
 
       {/* Question */}
-      <div className="p-5 rounded-2xl bg-accent-violet/[0.04] border border-accent-violet/10 mb-6">
-        <span className="text-xs font-bold text-accent-violet uppercase tracking-wider block mb-2 font-mono">Interview Question:</span>
-        <p className="text-text-primary text-sm leading-relaxed font-medium">{current.question}</p>
+      <div className="p-5 rounded-2xl bg-purple-100/60 border border-purple-200/80 mb-6">
+        <span className="text-xs font-bold text-violet-800 uppercase tracking-wider block mb-2 font-mono">Interview Question:</span>
+        <p className="text-indigo-950 text-sm leading-relaxed font-medium">{current.question}</p>
       </div>
 
       {/* Reveal Button */}
@@ -105,15 +105,15 @@ export default function MockPanelSimulator() {
                 { label: 'Action — What was done', text: current.starAnswer.action },
                 { label: 'Result — The outcome', text: current.starAnswer.result },
               ].map((s, i) => (
-                <div key={i} className="p-4 rounded-xl bg-surface border border-white/[0.04]">
-                  <span className="text-xs font-bold text-accent-cyan uppercase tracking-wider block mb-1 font-mono">{s.label}</span>
-                  <p className="text-text-secondary text-sm leading-relaxed">{s.text}</p>
+                <div key={i} className="p-4 rounded-xl bg-purple-50/60 border border-purple-200/40">
+                  <span className="text-xs font-bold text-violet-700 uppercase tracking-wider block mb-1 font-mono">{s.label}</span>
+                  <p className="text-purple-900/80 text-sm leading-relaxed">{s.text}</p>
                 </div>
               ))}
             </div>
 
-            <div className="p-4 rounded-xl bg-accent-emerald/[0.04] border border-accent-emerald/10 flex items-center justify-between">
-              <span className="text-xs font-bold text-accent-emerald uppercase tracking-wider font-mono">Interview Pass Rating:</span>
+            <div className="p-4 rounded-xl bg-emerald-500/10 border border-emerald-300 flex items-center justify-between">
+              <span className="text-xs font-bold text-emerald-800 uppercase tracking-wider font-mono">Interview Pass Rating:</span>
               <span className="text-2xl font-extrabold text-aurora font-mono">{current.clearanceScore}</span>
             </div>
           </motion.div>

@@ -36,26 +36,26 @@ export default function AtsSimulatorWidget() {
 
   return (
     <div className="glass-card text-left relative overflow-hidden">
-      <div className="flex items-center justify-between border-b border-white/[0.06] pb-4 mb-6">
+      <div className="flex items-center justify-between border-b border-purple-200/50 pb-4 mb-6">
         <div className="flex items-center gap-2">
-          <div className="w-2 h-2 rounded-full bg-accent-emerald animate-pulse" />
-          <span className="text-xs font-semibold uppercase tracking-wider text-accent-cyan font-mono">Resume Score Simulator</span>
+          <div className="w-2 h-2 rounded-full bg-emerald-600 animate-pulse" />
+          <span className="text-xs font-semibold uppercase tracking-wider text-violet-800 font-mono">Resume Score Simulator</span>
         </div>
-        <span className="text-xs text-text-tertiary font-mono">Try it</span>
+        <span className="text-xs text-purple-900/60 font-mono">Try it</span>
       </div>
 
       <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
         <div className="lg:col-span-6 space-y-4">
-          <label className="block text-xs font-semibold uppercase tracking-wider text-text-tertiary font-mono">Your engineering focus:</label>
+          <label className="block text-xs font-semibold uppercase tracking-wider text-purple-900/60 font-mono">Your engineering focus:</label>
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
             {Object.keys(stacks).map((key) => (
               <button
                 key={key}
                 onClick={() => setSelectedStack(key)}
-                className={`px-4 py-3 rounded-xl text-xs font-medium transition-all text-left border ${
+                className={`px-4 py-3 rounded-xl text-xs font-semibold transition-all text-left border ${
                   selectedStack === key
-                    ? 'border-accent-violet/40 bg-accent-violet/10 text-text-primary font-semibold shadow-lg shadow-accent-violet/10'
-                    : 'border-white/[0.06] bg-white/[0.02] text-text-tertiary hover:border-white/[0.1]'
+                    ? 'border-violet-400 bg-violet-100/80 text-indigo-950 shadow-sm'
+                    : 'border-purple-200/60 bg-white/70 text-purple-900/70 hover:border-violet-300'
                 }`}
               >
                 {stacks[key].name}
@@ -64,7 +64,7 @@ export default function AtsSimulatorWidget() {
           </div>
 
           <div className="pt-2">
-            <span className="block text-xs font-semibold uppercase tracking-wider text-text-tertiary mb-2 font-mono">Keywords we optimize for:</span>
+            <span className="block text-xs font-semibold uppercase tracking-wider text-purple-900/60 mb-2 font-mono">Keywords we optimize for:</span>
             <div className="flex flex-wrap gap-1.5">
               {current.keywords.map((kw, i) => (
                 <span key={i} className="keyword-tag">
@@ -75,17 +75,17 @@ export default function AtsSimulatorWidget() {
           </div>
         </div>
 
-        <div className="lg:col-span-6 bg-surface border border-white/[0.04] rounded-xl p-6 text-center">
-          <span className="text-xs font-semibold text-text-tertiary uppercase tracking-widest block mb-4 font-mono">Your Resume Score</span>
+        <div className="lg:col-span-6 bg-purple-50/70 border border-purple-200/50 rounded-xl p-6 text-center">
+          <span className="text-xs font-semibold text-purple-900/60 uppercase tracking-widest block mb-4 font-mono">Your Resume Score</span>
           <div className="flex items-center justify-around my-4">
             <div className="text-center">
-              <span className="text-xs text-text-tertiary block mb-1">Without us</span>
-              <div className="text-3xl font-extrabold text-text-tertiary line-through font-mono">{current.beforeScore}%</div>
-              <span className="text-[10px] text-red-400 font-mono">Auto-rejected</span>
+              <span className="text-xs text-purple-900/60 block mb-1">Without us</span>
+              <div className="text-3xl font-extrabold text-purple-900/40 line-through font-mono">{current.beforeScore}%</div>
+              <span className="text-[10px] text-red-600 font-mono">Auto-rejected</span>
             </div>
-            <div className="text-xl text-accent-violet font-bold font-mono">→</div>
+            <div className="text-xl text-violet-700 font-bold font-mono">→</div>
             <div className="text-center">
-              <span className="text-xs text-accent-cyan font-semibold block mb-1">With Hyrzilla</span>
+              <span className="text-xs text-violet-700 font-semibold block mb-1">With Hyrzilla</span>
               <motion.div
                 key={selectedStack}
                 initial={{ scale: 0.9, opacity: 0 }}
@@ -95,12 +95,12 @@ export default function AtsSimulatorWidget() {
               >
                 {current.afterScore}%
               </motion.div>
-              <span className="text-[10px] text-accent-emerald font-mono font-semibold uppercase">Shortlisted</span>
+              <span className="text-[10px] text-emerald-700 font-mono font-semibold uppercase">Shortlisted</span>
             </div>
           </div>
-          <div className="mt-4 pt-4 border-t border-white/[0.06] flex items-center justify-between text-xs text-text-tertiary font-mono">
+          <div className="mt-4 pt-4 border-t border-purple-200/50 flex items-center justify-between text-xs text-purple-900/70 font-mono">
             <span>Result:</span>
-            <span className="font-semibold text-accent-cyan">{current.metric}</span>
+            <span className="font-semibold text-violet-800">{current.metric}</span>
           </div>
         </div>
       </div>

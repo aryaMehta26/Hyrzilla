@@ -35,52 +35,42 @@ export default function AuroraMesh() {
 
   return (
     <>
-      {/* Aurora Mesh Gradient Background */}
+      {/* Light Lavender Ethereal Aurora Mesh */}
       <div 
         ref={meshRef}
-        className="fixed inset-0 pointer-events-none z-0"
+        className="fixed inset-0 pointer-events-none z-0 overflow-hidden"
         style={{
           '--mx': '50%',
           '--my': '50%',
         }}
       >
-        {/* Violet Orb — follows cursor */}
+        {/* Soft Lavender Orb — follows cursor */}
         <div 
-          className="absolute w-[800px] h-[800px] rounded-full opacity-20 blur-[160px]"
+          className="absolute w-[800px] h-[800px] rounded-full opacity-35 blur-[140px]"
           style={{
-            background: 'radial-gradient(circle, #8B5CF6, transparent 70%)',
+            background: 'radial-gradient(circle, rgba(167, 139, 250, 0.4), transparent 70%)',
             left: 'calc(var(--mx) - 400px)',
             top: 'calc(var(--my) - 400px)',
             transition: 'none',
           }}
         />
 
-        {/* Cyan Orb — offset from cursor */}
+        {/* Soft Indigo Orb — offset */}
         <div 
-          className="absolute w-[600px] h-[600px] rounded-full opacity-15 blur-[140px]"
+          className="absolute w-[600px] h-[600px] rounded-full opacity-25 blur-[120px]"
           style={{
-            background: 'radial-gradient(circle, #06B6D4, transparent 70%)',
+            background: 'radial-gradient(circle, rgba(99, 102, 241, 0.3), transparent 70%)',
             right: 'calc(100% - var(--mx) - 200px)',
             bottom: 'calc(100% - var(--my) - 100px)',
             transition: 'none',
           }}
         />
 
-        {/* Emerald Orb — ambient drift */}
+        {/* Ambient Top Glow */}
         <div 
-          className="absolute w-[500px] h-[500px] rounded-full opacity-10 blur-[120px] animate-pulse"
+          className="absolute top-0 left-1/2 -translate-x-1/2 w-[1000px] h-[400px] opacity-30 blur-[130px]"
           style={{
-            background: 'radial-gradient(circle, #10B981, transparent 70%)',
-            left: '10%',
-            bottom: '10%',
-          }}
-        />
-
-        {/* Deep void base gradient */}
-        <div 
-          className="absolute inset-0"
-          style={{
-            background: 'radial-gradient(ellipse at 50% 0%, rgba(139, 92, 246, 0.06) 0%, transparent 50%), radial-gradient(ellipse at 80% 80%, rgba(6, 182, 212, 0.04) 0%, transparent 40%)',
+            background: 'radial-gradient(ellipse at center, rgba(124, 58, 237, 0.3), transparent 70%)',
           }}
         />
       </div>

@@ -91,11 +91,11 @@ export default function Services() {
           <div className="aurora-badge mb-6 mx-auto w-fit">
             What We Do
           </div>
-          <TextReveal className="text-4xl md:text-6xl font-extrabold tracking-tight text-text-primary font-display mb-6" delay={0.2}>
+          <TextReveal className="text-4xl md:text-6xl font-extrabold tracking-tight text-indigo-950 font-display mb-6" delay={0.2}>
             Everything you need to land a better role.
           </TextReveal>
           <ScrollReveal delay={0.6}>
-            <p className="text-lg text-text-secondary max-w-2xl mx-auto leading-relaxed">
+            <p className="text-lg text-purple-900/80 max-w-2xl mx-auto leading-relaxed">
               We handle the parts of job searching that most people struggle with — the resume, the interviews, the applications, and the negotiation.
             </p>
           </ScrollReveal>
@@ -108,7 +108,7 @@ export default function Services() {
           <ScrollReveal>
             <div className="text-center mb-16">
               <div className="aurora-badge mb-4 mx-auto w-fit">Our Process</div>
-              <h2 className="text-3xl md:text-5xl font-bold text-text-primary font-display tracking-tight">
+              <h2 className="text-3xl md:text-5xl font-bold text-indigo-950 font-display tracking-tight">
                 Four steps to <span className="text-aurora">your next role</span>
               </h2>
             </div>
@@ -120,18 +120,18 @@ export default function Services() {
                 <div key={i} className={p.accent ? 'glass-card-accent' : 'glass-card'}>
                   <div className={`w-11 h-11 rounded-2xl flex items-center justify-center mb-5 ${
                     p.accent
-                      ? 'bg-gradient-to-br from-accent-violet to-accent-cyan text-white shadow-lg shadow-accent-violet/20'
-                      : 'bg-accent-violet/10 border border-accent-violet/20 text-accent-violet'
+                      ? 'bg-gradient-to-br from-violet-600 to-indigo-600 text-white shadow-md shadow-violet-500/20'
+                      : 'bg-violet-100/80 border border-violet-200 text-violet-700'
                   }`}>
                     {p.icon}
                   </div>
-                  <span className="text-xs font-bold text-accent-cyan uppercase tracking-widest block mb-1 font-mono">{p.label}</span>
-                  <h3 className="text-xl font-bold text-text-primary mb-3 font-display">{p.title}</h3>
-                  <p className="text-text-secondary text-sm leading-relaxed mb-5">{p.desc}</p>
+                  <span className="text-xs font-bold text-violet-700 uppercase tracking-widest block mb-1 font-mono">{p.label}</span>
+                  <h3 className="text-xl font-bold text-indigo-950 mb-3 font-display">{p.title}</h3>
+                  <p className="text-purple-900/70 text-sm leading-relaxed mb-5">{p.desc}</p>
                   <ul className="space-y-2.5">
                     {p.items.map((item, j) => (
-                      <li key={j} className="flex items-center gap-2.5 text-sm text-text-secondary">
-                        <CheckCircle2 size={15} className="text-accent-emerald shrink-0" /> {item}
+                      <li key={j} className="flex items-center gap-2.5 text-sm text-purple-950">
+                        <CheckCircle2 size={15} className="text-emerald-600 shrink-0" /> {item}
                       </li>
                     ))}
                   </ul>
@@ -152,7 +152,7 @@ export default function Services() {
           <ScrollReveal>
             <div className="text-center mb-12">
               <div className="aurora-badge mb-4 mx-auto w-fit">Who We Help</div>
-              <h2 className="text-3xl md:text-5xl font-bold text-text-primary font-display tracking-tight">
+              <h2 className="text-3xl md:text-5xl font-bold text-indigo-950 font-display tracking-tight">
                 Engineers across <span className="text-aurora">every domain</span>
               </h2>
             </div>
@@ -166,8 +166,8 @@ export default function Services() {
                   onClick={() => setActiveStackTab(key)}
                   className={`px-5 py-2.5 rounded-full text-xs font-bold transition-all ${
                     activeStackTab === key
-                      ? 'bg-gradient-to-r from-accent-violet to-accent-cyan text-white shadow-lg shadow-accent-violet/25'
-                      : 'bg-white/[0.03] border border-white/[0.06] text-text-secondary hover:text-text-primary hover:border-accent-violet/20'
+                      ? 'bg-gradient-to-r from-violet-600 to-indigo-600 text-white shadow-md shadow-violet-500/20'
+                      : 'bg-white/80 border border-purple-200/60 text-purple-900/80 hover:text-indigo-950 hover:border-violet-300'
                   }`}
                 >
                   {stackDetails[key].title}
@@ -180,21 +180,21 @@ export default function Services() {
             <div className="glass-card p-8 text-left">
               <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
                 <div className="lg:col-span-7">
-                  <h3 className="text-2xl font-bold text-text-primary mb-4 font-display">{currentStack.title}</h3>
-                  <p className="text-text-secondary text-sm leading-relaxed mb-6">{currentStack.description}</p>
+                  <h3 className="text-2xl font-bold text-indigo-950 mb-4 font-display">{currentStack.title}</h3>
+                  <p className="text-purple-900/70 text-sm leading-relaxed mb-6">{currentStack.description}</p>
                   <div>
-                    <span className="text-xs font-semibold text-text-tertiary uppercase tracking-wider block mb-2 font-mono">Roles we place:</span>
+                    <span className="text-xs font-semibold text-purple-900/60 uppercase tracking-wider block mb-2 font-mono">Roles we place:</span>
                     <div className="flex flex-wrap gap-2">
                       {currentStack.roles.map((role, i) => (
-                        <span key={i} className="px-3 py-1.5 rounded-lg bg-white/[0.04] border border-white/[0.06] text-xs text-text-secondary font-mono">
+                        <span key={i} className="px-3 py-1.5 rounded-lg bg-purple-50/80 border border-purple-200/50 text-xs text-purple-950 font-mono">
                           {role}
                         </span>
                       ))}
                     </div>
                   </div>
                 </div>
-                <div className="lg:col-span-5 bg-surface rounded-2xl p-6 border border-white/[0.04]">
-                  <span className="text-xs font-bold text-accent-violet uppercase tracking-wider block mb-3 font-mono">What we optimize for:</span>
+                <div className="lg:col-span-5 bg-purple-50/60 rounded-2xl p-6 border border-purple-200/40">
+                  <span className="text-xs font-bold text-violet-700 uppercase tracking-wider block mb-3 font-mono">What we optimize for:</span>
                   <div className="flex flex-wrap gap-2">
                     {currentStack.keywords.map((kw, i) => (
                       <span key={i} className="keyword-tag">
@@ -213,8 +213,8 @@ export default function Services() {
       <section className="py-24 text-center px-6">
         <ScrollReveal>
           <div className="gradient-divider mb-12 max-w-lg mx-auto" />
-          <h3 className="text-2xl md:text-3xl font-bold text-text-primary mb-4 font-display">Ready to get started?</h3>
-          <p className="text-text-secondary max-w-lg mx-auto mb-8">
+          <h3 className="text-2xl md:text-3xl font-bold text-indigo-950 mb-4 font-display">Ready to get started?</h3>
+          <p className="text-purple-900/80 max-w-lg mx-auto mb-8">
             Pick a plan that fits your situation, or talk to us first — no pressure.
           </p>
           <div className="flex flex-wrap justify-center gap-4">

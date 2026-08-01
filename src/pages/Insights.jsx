@@ -36,11 +36,11 @@ export default function Insights() {
           <div className="aurora-badge mb-6 mx-auto w-fit">
             Questions & Answers
           </div>
-          <TextReveal className="text-4xl md:text-6xl font-extrabold tracking-tight text-text-primary font-display mb-6" delay={0.2}>
+          <TextReveal className="text-4xl md:text-6xl font-extrabold tracking-tight text-indigo-950 font-display mb-6" delay={0.2}>
             Everything you need to know.
           </TextReveal>
           <ScrollReveal delay={0.6}>
-            <p className="text-lg text-text-secondary max-w-2xl mx-auto leading-relaxed">
+            <p className="text-lg text-purple-900/80 max-w-2xl mx-auto leading-relaxed">
               Have questions about how Hyrzilla works, how pricing is structured, or how we rewrite resumes? We've got answers.
             </p>
           </ScrollReveal>
@@ -53,7 +53,7 @@ export default function Insights() {
           <ScrollReveal>
             <div className="text-center mb-16">
               <div className="aurora-badge mb-4 mx-auto w-fit font-mono">Market Context</div>
-              <h2 className="text-3xl md:text-5xl font-bold text-text-primary font-display tracking-tight">
+              <h2 className="text-3xl md:text-5xl font-bold text-indigo-950 font-display tracking-tight">
                 How hiring actually <span className="text-aurora">works today</span>
               </h2>
             </div>
@@ -62,12 +62,12 @@ export default function Insights() {
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6 text-left">
               {trends.map((t, i) => (
                 <div key={i} className="glass-card">
-                  <div className="w-10 h-10 rounded-xl bg-accent-violet/10 border border-accent-violet/20 flex items-center justify-center text-accent-violet mb-4">
+                  <div className="w-10 h-10 rounded-xl bg-violet-100/80 border border-violet-200 flex items-center justify-center text-violet-700 mb-4 shadow-sm">
                     {t.icon}
                   </div>
-                  <span className="text-xs font-bold text-accent-cyan tracking-widest uppercase font-mono block mb-1">{t.label}</span>
-                  <h3 className="text-xl font-bold text-text-primary mb-2 font-display">{t.title}</h3>
-                  <p className="text-text-secondary text-sm leading-relaxed">{t.desc}</p>
+                  <span className="text-xs font-bold text-violet-700 tracking-widest uppercase font-mono block mb-1">{t.label}</span>
+                  <h3 className="text-xl font-bold text-indigo-950 mb-2 font-display">{t.title}</h3>
+                  <p className="text-purple-900/70 text-sm leading-relaxed">{t.desc}</p>
                 </div>
               ))}
             </div>
@@ -80,10 +80,10 @@ export default function Insights() {
         <div className="max-w-4xl mx-auto">
           <ScrollReveal>
             <div className="text-center mb-16">
-              <div className="w-10 h-10 rounded-xl bg-accent-violet/10 border border-accent-violet/20 flex items-center justify-center text-accent-violet mx-auto mb-4">
+              <div className="w-10 h-10 rounded-xl bg-violet-100/80 border border-violet-200 flex items-center justify-center text-violet-700 mx-auto mb-4 shadow-sm">
                 <HelpCircle size={20} />
               </div>
-              <h2 className="text-3xl md:text-5xl font-bold text-text-primary font-display tracking-tight mb-4">
+              <h2 className="text-3xl md:text-5xl font-bold text-indigo-950 font-display tracking-tight mb-4">
                 Frequently Asked <span className="text-aurora">Questions</span>
               </h2>
             </div>
@@ -99,10 +99,10 @@ export default function Insights() {
                       onClick={() => setOpenFaq(isOpen ? null : index)}
                       className="w-full flex items-center justify-between text-left focus:outline-none"
                     >
-                      <span className="text-base md:text-lg font-bold text-text-primary pr-4 font-display">{faq.q}</span>
+                      <span className="text-base md:text-lg font-bold text-indigo-950 pr-4 font-display">{faq.q}</span>
                       <ChevronDown 
                         size={20} 
-                        className={`text-accent-violet shrink-0 transition-transform duration-300 ${isOpen ? 'rotate-180' : ''}`} 
+                        className={`text-violet-600 shrink-0 transition-transform duration-300 ${isOpen ? 'rotate-180' : ''}`} 
                       />
                     </button>
                     <AnimatePresence>
@@ -114,7 +114,7 @@ export default function Insights() {
                           transition={{ duration: 0.3 }}
                           className="overflow-hidden"
                         >
-                          <p className="mt-4 pt-4 border-t border-white/[0.06] text-text-secondary text-sm leading-relaxed">
+                          <p className="mt-4 pt-4 border-t border-purple-200/50 text-purple-900/80 text-sm leading-relaxed">
                             {faq.a}
                           </p>
                         </motion.div>
@@ -132,9 +132,9 @@ export default function Insights() {
       <section className="py-24 text-center px-6">
         <ScrollReveal>
           <div className="gradient-divider mb-12 max-w-sm mx-auto" />
-          <ShieldCheck size={36} className="text-accent-violet mx-auto mb-4" />
-          <h3 className="text-2xl md:text-3xl font-bold text-text-primary mb-4 font-display">Still have questions?</h3>
-          <p className="text-text-secondary max-w-lg mx-auto mb-8">Reach out to us directly and we'll be happy to walk you through everything.</p>
+          <ShieldCheck size={36} className="text-violet-600 mx-auto mb-4" />
+          <h3 className="text-2xl md:text-3xl font-bold text-indigo-950 mb-4 font-display">Still have questions?</h3>
+          <p className="text-purple-900/80 max-w-lg mx-auto mb-8">Reach out to us directly and we'll be happy to walk you through everything.</p>
           <div className="flex flex-wrap justify-center gap-4">
             <MagneticButton><Link to="/pricing" className="btn-aurora flex items-center gap-2">See Pricing <ArrowRight size={16} /></Link></MagneticButton>
             <MagneticButton><Link to="/contact" className="btn-ghost">Contact Us</Link></MagneticButton>

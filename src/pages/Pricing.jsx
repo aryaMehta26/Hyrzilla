@@ -74,11 +74,11 @@ export default function Pricing() {
           <div className="aurora-badge mb-6 mx-auto w-fit">
             Simple Pricing
           </div>
-          <TextReveal className="text-4xl md:text-6xl font-extrabold tracking-tight text-text-primary font-display mb-6" delay={0.2}>
+          <TextReveal className="text-4xl md:text-6xl font-extrabold tracking-tight text-indigo-950 font-display mb-6" delay={0.2}>
             Pay when you succeed.
           </TextReveal>
           <ScrollReveal delay={0.6}>
-            <p className="text-lg text-text-secondary max-w-2xl mx-auto leading-relaxed">
+            <p className="text-lg text-purple-900/80 max-w-2xl mx-auto leading-relaxed">
               We charge a straightforward upfront fee to cover our time and resources, plus a placement fee that's only due after you accept an offer and start your new job.
             </p>
           </ScrollReveal>
@@ -93,27 +93,27 @@ export default function Pricing() {
               {plans.map((plan, i) => (
                 <div key={i} className={`${plan.accent ? 'glass-card-accent' : 'glass-card'} flex flex-col justify-between relative`}>
                   {plan.popular && (
-                    <div className="absolute -top-3 right-6 px-4 py-1 rounded-full bg-gradient-to-r from-accent-violet to-accent-cyan text-white text-[10px] font-extrabold tracking-wider uppercase font-mono shadow-lg shadow-accent-violet/25">
+                    <div className="absolute -top-3 right-6 px-4 py-1 rounded-full bg-gradient-to-r from-violet-600 to-indigo-600 text-white text-[10px] font-extrabold tracking-wider uppercase font-mono shadow-md shadow-violet-500/20">
                       Most Popular
                     </div>
                   )}
 
                   <div>
-                    <span className="text-xs font-bold text-text-tertiary tracking-widest uppercase block mb-2 font-mono">{plan.tier}</span>
-                    <h3 className="text-2xl font-bold text-text-primary mb-2 font-display">{plan.name}</h3>
-                    <p className="text-text-tertiary text-xs mb-6">{plan.desc}</p>
+                    <span className="text-xs font-bold text-purple-900/60 tracking-widest uppercase block mb-2 font-mono">{plan.tier}</span>
+                    <h3 className="text-2xl font-bold text-indigo-950 mb-2 font-display">{plan.name}</h3>
+                    <p className="text-purple-900/60 text-xs mb-6">{plan.desc}</p>
 
-                    <div className="mb-6 p-4 rounded-2xl bg-surface border border-white/[0.04]">
-                      <div className="text-3xl font-extrabold text-text-primary mb-1 font-mono">
-                        {plan.upfront} <span className="text-xs font-normal text-text-tertiary">upfront</span>
+                    <div className="mb-6 p-4 rounded-2xl bg-white/90 border border-purple-200/60">
+                      <div className="text-3xl font-extrabold text-indigo-950 mb-1 font-mono">
+                        {plan.upfront} <span className="text-xs font-normal text-purple-900/60">upfront</span>
                       </div>
-                      <div className="text-xs font-bold text-accent-cyan font-mono">+ {plan.fee} Placement Fee (After Job Start)</div>
+                      <div className="text-xs font-bold text-violet-700 font-mono">+ {plan.fee} Placement Fee (After Job Start)</div>
                     </div>
 
-                    <ul className="space-y-3 text-sm text-text-secondary mb-8">
+                    <ul className="space-y-3 text-sm text-purple-950 mb-8">
                       {plan.features.map((f, j) => (
                         <li key={j} className="flex items-center gap-2.5">
-                          <Check size={15} className="text-accent-emerald shrink-0" /> {f}
+                          <Check size={15} className="text-emerald-600 shrink-0" /> {f}
                         </li>
                       ))}
                     </ul>
@@ -124,8 +124,8 @@ export default function Pricing() {
                       to="/contact"
                       className={`w-full py-3.5 rounded-xl text-center text-sm font-semibold block transition-all ${
                         plan.accent
-                          ? 'bg-gradient-to-r from-accent-violet to-accent-cyan text-white shadow-lg shadow-accent-violet/20 hover:shadow-accent-violet/30'
-                          : 'bg-white/[0.04] border border-white/[0.08] text-text-secondary hover:text-text-primary hover:border-accent-violet/20'
+                          ? 'bg-gradient-to-r from-violet-600 to-indigo-600 text-white shadow-md shadow-violet-500/20 hover:shadow-violet-500/30'
+                          : 'bg-white/80 border border-purple-200/70 text-purple-950 hover:border-violet-400'
                       }`}
                     >
                       Get Started with {plan.name}
@@ -143,13 +143,13 @@ export default function Pricing() {
         <div className="max-w-4xl mx-auto">
           <ScrollReveal>
             <div className="text-center mb-12">
-              <div className="w-10 h-10 rounded-xl bg-accent-violet/10 border border-accent-violet/20 flex items-center justify-center text-accent-violet mx-auto mb-4">
+              <div className="w-10 h-10 rounded-xl bg-violet-100/80 border border-violet-200 flex items-center justify-center text-violet-700 mx-auto mb-4 shadow-sm">
                 <Calculator size={20} />
               </div>
-              <h2 className="text-3xl md:text-4xl font-bold text-text-primary font-display tracking-tight mb-3">
+              <h2 className="text-3xl md:text-4xl font-bold text-indigo-950 font-display tracking-tight mb-3">
                 Estimate your <span className="text-aurora">placement fee</span>
               </h2>
-              <p className="text-text-secondary text-sm max-w-lg mx-auto">
+              <p className="text-purple-900/70 text-sm max-w-lg mx-auto">
                 Adjust your expected salary to see what the post-hire placement fee would look like.
               </p>
             </div>
@@ -160,7 +160,7 @@ export default function Pricing() {
               <div className="space-y-6">
                 <div>
                   <div className="flex justify-between items-center mb-3">
-                    <label className="text-xs font-bold uppercase tracking-wider text-text-secondary font-mono">Target Annual Salary:</label>
+                    <label className="text-xs font-bold uppercase tracking-wider text-purple-900/70 font-mono">Target Annual Salary:</label>
                     <span className="text-2xl font-extrabold text-aurora font-mono">${targetSalary.toLocaleString()}</span>
                   </div>
                   <input
@@ -177,21 +177,21 @@ export default function Pricing() {
                       onClick={() => setSelectedPlanFee(p.fee)}
                       className={`p-3 rounded-xl border text-center transition-all ${
                         selectedPlanFee === p.fee
-                          ? 'border-accent-violet/40 bg-accent-violet/10 text-text-primary font-bold'
-                          : 'border-white/[0.06] bg-white/[0.02] text-text-tertiary hover:border-accent-violet/20'
+                          ? 'border-violet-400 bg-violet-100/80 text-indigo-950 font-bold shadow-sm'
+                          : 'border-purple-200/60 bg-white/70 text-purple-900/60 hover:border-violet-300'
                       }`}
                     >
                       <span className="block text-xs">{p.label}</span>
-                      <span className="text-sm font-extrabold text-accent-cyan">{p.fee}% Fee</span>
+                      <span className="text-sm font-extrabold text-violet-700">{p.fee}% Fee</span>
                     </button>
                   ))}
                 </div>
 
-                <div className="pt-6 border-t border-white/[0.06] grid grid-cols-1 md:grid-cols-2 gap-4 items-center">
+                <div className="pt-6 border-t border-purple-200/50 grid grid-cols-1 md:grid-cols-2 gap-4 items-center">
                   <div>
-                    <span className="text-xs font-bold text-text-tertiary uppercase tracking-wider block font-mono">Estimated Fee After Hiring:</span>
+                    <span className="text-xs font-bold text-purple-900/60 uppercase tracking-wider block font-mono">Estimated Fee After Hiring:</span>
                     <div className="text-4xl font-extrabold text-aurora font-mono">${calculatedSuccessFee.toLocaleString()}</div>
-                    <span className="text-[11px] text-text-tertiary font-mono">Payable in monthly installments once you start</span>
+                    <span className="text-[11px] text-purple-900/60 font-mono">Payable in monthly installments once you start</span>
                   </div>
                   <div className="md:text-right">
                     <MagneticButton>
@@ -215,9 +215,9 @@ export default function Pricing() {
       <section className="py-20 text-center px-6">
         <ScrollReveal>
           <div className="gradient-divider mb-12 max-w-sm mx-auto" />
-          <ShieldCheck size={36} className="text-accent-violet mx-auto mb-4" />
-          <h3 className="text-2xl font-bold text-text-primary mb-3 font-display">Zero Risk Placement Guarantee</h3>
-          <p className="text-text-secondary text-sm max-w-lg mx-auto">
+          <ShieldCheck size={36} className="text-violet-600 mx-auto mb-4" />
+          <h3 className="text-2xl font-bold text-indigo-950 mb-3 font-display">Zero Risk Placement Guarantee</h3>
+          <p className="text-purple-900/70 text-sm max-w-lg mx-auto">
             If you don't land a job during our work together, you owe zero placement fees. Simple as that.
           </p>
         </ScrollReveal>

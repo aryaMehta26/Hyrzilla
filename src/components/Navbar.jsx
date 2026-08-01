@@ -35,17 +35,17 @@ export default function Navbar() {
         transition={{ duration: 0.8, delay: 0.2, ease: [0.16, 1, 0.3, 1] }}
         className={`fixed top-0 left-0 right-0 h-20 z-50 transition-all duration-500 ${
           scrolled 
-            ? 'bg-void/80 backdrop-blur-2xl border-b border-white/[0.04] shadow-lg shadow-black/20' 
+            ? 'bg-white/80 backdrop-blur-2xl border-b border-purple-200/50 shadow-sm' 
             : 'bg-transparent'
         }`}
       >
         <div className="max-w-7xl mx-auto px-6 h-full flex items-center justify-between">
           {/* Logo */}
           <Link to="/" className="flex items-center gap-2.5 group">
-            <div className="w-8 h-8 rounded-xl bg-gradient-to-br from-accent-violet to-accent-cyan flex items-center justify-center text-white font-bold text-sm shadow-lg shadow-accent-violet/20 group-hover:shadow-accent-violet/40 transition-shadow">
+            <div className="w-8 h-8 rounded-xl bg-gradient-to-br from-violet-600 to-indigo-600 flex items-center justify-center text-white font-bold text-sm shadow-md shadow-violet-500/20 group-hover:shadow-violet-500/40 transition-shadow">
               H
             </div>
-            <span className="text-text-primary font-bold text-xl font-display tracking-tight">Hyrzilla</span>
+            <span className="text-indigo-950 font-bold text-xl font-display tracking-tight">Hyrzilla</span>
           </Link>
 
           {/* Desktop Nav */}
@@ -56,16 +56,16 @@ export default function Navbar() {
                 <Link
                   key={link.name}
                   to={link.path}
-                  className={`relative px-4 py-2 rounded-lg text-sm font-medium transition-all ${
+                  className={`relative px-4 py-2 rounded-lg text-sm font-semibold transition-all ${
                     active 
-                      ? 'text-text-primary' 
-                      : 'text-text-secondary hover:text-text-primary'
+                      ? 'text-violet-900' 
+                      : 'text-indigo-950/70 hover:text-indigo-950'
                   }`}
                 >
                   {active && (
                     <motion.div
                       layoutId="navbar-active"
-                      className="absolute inset-0 rounded-lg bg-white/[0.06] border border-white/[0.06]"
+                      className="absolute inset-0 rounded-lg bg-violet-100/60 border border-violet-200/80"
                       transition={{ type: 'spring', bounce: 0.2, duration: 0.6 }}
                     />
                   )}
@@ -88,7 +88,7 @@ export default function Navbar() {
           {/* Mobile Toggle */}
           <button
             onClick={() => setMobileOpen(!mobileOpen)}
-            className="md:hidden text-text-primary p-2"
+            className="md:hidden text-indigo-950 p-2"
             aria-label="Toggle menu"
           >
             {mobileOpen ? <X size={24} /> : <Menu size={24} />}
@@ -103,7 +103,7 @@ export default function Navbar() {
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
-            className="fixed inset-0 z-40 bg-void/95 backdrop-blur-2xl flex flex-col items-center justify-center gap-6 md:hidden"
+            className="fixed inset-0 z-40 bg-white/95 backdrop-blur-2xl flex flex-col items-center justify-center gap-6 md:hidden"
           >
             {navLinks.map((link, i) => (
               <motion.div
@@ -114,7 +114,7 @@ export default function Navbar() {
               >
                 <Link
                   to={link.path}
-                  className="text-2xl font-bold text-text-primary hover:text-aurora transition-colors font-display"
+                  className="text-2xl font-bold text-indigo-950 hover:text-violet-700 transition-colors font-display"
                 >
                   {link.name}
                 </Link>

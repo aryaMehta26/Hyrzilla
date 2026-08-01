@@ -90,11 +90,11 @@ export default function Contact() {
       <section className="py-20 text-center px-6">
         <div className="max-w-4xl mx-auto">
           <div className="aurora-badge mb-6 mx-auto w-fit">Get In Touch</div>
-          <TextReveal className="text-4xl md:text-6xl font-extrabold tracking-tight text-text-primary font-display mb-6" delay={0.2}>
+          <TextReveal className="text-4xl md:text-6xl font-extrabold tracking-tight text-indigo-950 font-display mb-6" delay={0.2}>
             Let's talk about your search.
           </TextReveal>
           <ScrollReveal delay={0.6}>
-            <p className="text-lg text-text-secondary max-w-2xl mx-auto leading-relaxed">
+            <p className="text-lg text-purple-900/80 max-w-2xl mx-auto leading-relaxed">
               Fill out the form below and we'll get back to you within 24 hours to discuss your situation and answer any questions.
             </p>
           </ScrollReveal>
@@ -106,7 +106,7 @@ export default function Contact() {
           <ScrollReveal>
             <div className="glass-card p-8 text-left">
               {errorMsg && (
-                <div className="mb-6 p-4 rounded-xl bg-red-500/10 border border-red-500/20 text-red-400 text-xs flex items-center gap-2 font-mono">
+                <div className="mb-6 p-4 rounded-xl bg-red-500/10 border border-red-500/20 text-red-700 text-xs flex items-center gap-2 font-mono">
                   <AlertCircle size={16} className="shrink-0" /> <span>{errorMsg}</span>
                 </div>
               )}
@@ -115,7 +115,7 @@ export default function Contact() {
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                   {fields.map((f) => (
                     <div key={f.key}>
-                      <label className="block text-xs font-bold text-text-secondary uppercase tracking-wider mb-2 font-mono">{f.label}</label>
+                      <label className="block text-xs font-bold text-indigo-950 uppercase tracking-wider mb-2 font-mono">{f.label}</label>
                       {f.type === 'select' ? (
                         <select
                           value={formData[f.key]}
@@ -140,7 +140,7 @@ export default function Contact() {
                 </div>
 
                 <div>
-                  <label className="block text-xs font-bold text-text-secondary uppercase tracking-wider mb-2 font-mono">LinkedIn Profile URL (Optional)</label>
+                  <label className="block text-xs font-bold text-indigo-950 uppercase tracking-wider mb-2 font-mono">LinkedIn Profile URL (Optional)</label>
                   <input
                     type="url" placeholder="https://linkedin.com/in/yourprofile"
                     value={formData.linkedin}
@@ -150,7 +150,7 @@ export default function Contact() {
                 </div>
 
                 <div>
-                  <label className="block text-xs font-bold text-text-secondary uppercase tracking-wider mb-2 font-mono">Anything specific you'd like us to know?</label>
+                  <label className="block text-xs font-bold text-indigo-950 uppercase tracking-wider mb-2 font-mono">Anything specific you'd like us to know?</label>
                   <textarea
                     rows={4} placeholder="Tell us a bit about your current situation, target roles, or questions..."
                     value={formData.message}
@@ -173,14 +173,14 @@ export default function Contact() {
 
       {/* Confirmation Modal */}
       {showModal && (
-        <div className="fixed inset-0 z-50 bg-void/80 backdrop-blur-xl flex items-center justify-center p-6">
-          <div className="glass-card max-w-md w-full text-center p-8">
-            <div className="w-16 h-16 rounded-full bg-gradient-to-br from-accent-violet/20 to-accent-cyan/10 border border-accent-violet/20 text-accent-emerald flex items-center justify-center text-2xl mx-auto mb-5">
+        <div className="fixed inset-0 z-50 bg-indigo-950/40 backdrop-blur-xl flex items-center justify-center p-6">
+          <div className="glass-card max-w-md w-full text-center p-8 bg-white/95">
+            <div className="w-16 h-16 rounded-full bg-emerald-100 border border-emerald-300 text-emerald-700 flex items-center justify-center text-2xl mx-auto mb-5 shadow-sm">
               <Check size={28} />
             </div>
-            <h3 className="text-2xl font-bold text-text-primary mb-3 font-display">Message Sent!</h3>
-            <p className="text-text-secondary text-sm leading-relaxed mb-6">
-              Thanks for reaching out. We'll get back to you via <span className="text-accent-cyan font-semibold">WhatsApp or Email</span> within 24 hours.
+            <h3 className="text-2xl font-bold text-indigo-950 mb-3 font-display">Message Sent!</h3>
+            <p className="text-purple-900/80 text-sm leading-relaxed mb-6">
+              Thanks for reaching out. We'll get back to you via <span className="text-violet-700 font-semibold">WhatsApp or Email</span> within 24 hours.
             </p>
             <button onClick={handleModalClose} className="btn-aurora w-full py-3">Got It</button>
           </div>

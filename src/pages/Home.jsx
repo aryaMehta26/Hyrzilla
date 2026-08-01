@@ -6,14 +6,15 @@ import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { Chart, registerables } from 'chart.js';
 import {
   ArrowRight, Zap, TrendingUp, Target, Award, ShieldCheck,
-  CheckCircle2, FileText, Handshake, Sliders
+  FileText, Handshake, Sliders
 } from 'lucide-react';
 
 import TextReveal from '../components/TextReveal';
 import ScrollReveal from '../components/ScrollReveal';
 import AnimatedCounter from '../components/AnimatedCounter';
-import MarqueeStrip from '../components/MarqueeStrip';
+import TiltCard from '../components/TiltCard';
 import MagneticButton from '../components/MagneticButton';
+import ArchitectureVisualizer from '../components/ArchitectureVisualizer';
 import AtsSimulatorWidget from '../components/AtsSimulatorWidget';
 import AtsRewriterWidget from '../components/AtsRewriterWidget';
 import RequisitionHeatmap from '../components/RequisitionHeatmap';
@@ -72,11 +73,11 @@ export default function Home() {
             label: 'Callback Rate (%)',
             data: [1.8, 4.2, 28.5],
             backgroundColor: [
-              'rgba(148, 163, 184, 0.15)',
-              'rgba(148, 163, 184, 0.25)',
-              'rgba(139, 92, 246, 0.6)'
+              'rgba(148, 163, 184, 0.2)',
+              'rgba(167, 139, 250, 0.4)',
+              '#7C3AED'
             ],
-            borderColor: ['transparent', 'transparent', '#8B5CF6'],
+            borderColor: ['transparent', 'transparent', '#A78BFA'],
             borderWidth: [0, 0, 1],
             borderRadius: 8
           }]
@@ -87,10 +88,10 @@ export default function Home() {
           plugins: {
             legend: { display: false },
             tooltip: {
-              backgroundColor: '#0A0F1E',
-              titleColor: '#F1F5F9',
-              bodyColor: '#94A3B8',
-              borderColor: 'rgba(139, 92, 246, 0.3)',
+              backgroundColor: '#090D16',
+              titleColor: '#FFFFFF',
+              bodyColor: '#C4B5FD',
+              borderColor: 'rgba(167, 139, 250, 0.4)',
               borderWidth: 1,
               padding: 14,
               callbacks: { label: (c) => ` ${c.raw}% Callback Rate` }
@@ -98,7 +99,7 @@ export default function Home() {
           },
           scales: {
             y: {
-              grid: { color: 'rgba(148, 163, 184, 0.06)' },
+              grid: { color: 'rgba(255, 255, 255, 0.08)' },
               beginAtZero: true,
               ticks: { callback: (v) => `${v}%` }
             },
@@ -147,8 +148,8 @@ export default function Home() {
 
   return (
     <div className="relative z-10 pt-24">
-      {/* ═══════════ HERO ═══════════ */}
-      <section className="min-h-[90vh] flex flex-col items-center justify-center text-center px-6 relative">
+      {/* ═══════════ ZONE 1: HERO (SOFT LAVENDER PATCH) ═══════════ */}
+      <section className="patch-hero min-h-[90vh] flex flex-col items-center justify-center text-center px-6 relative py-12">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
@@ -160,7 +161,7 @@ export default function Home() {
           </div>
         </motion.div>
 
-        <TextReveal className="text-4xl md:text-6xl lg:text-[5rem] font-extrabold tracking-tight leading-[1.05] text-text-primary max-w-5xl font-display mb-8" delay={0.4}>
+        <TextReveal className="text-4xl md:text-6xl lg:text-[5rem] font-extrabold tracking-tight leading-[1.05] text-indigo-950 max-w-5xl font-display mb-8" delay={0.4}>
           We help engineers land better jobs, faster.
         </TextReveal>
 
@@ -168,7 +169,7 @@ export default function Home() {
           initial={{ opacity: 0, y: 30 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8, delay: 1.2 }}
-          className="text-lg md:text-xl text-text-secondary max-w-2xl mx-auto mb-12 leading-relaxed"
+          className="text-lg md:text-xl text-purple-900/80 max-w-2xl mx-auto mb-12 leading-relaxed"
         >
           Hyrzilla is a placement advisory for software engineers, cloud professionals, and data specialists. We rebuild your resume, prep you for interviews, and actively help you get hired.
         </motion.p>
@@ -177,7 +178,7 @@ export default function Home() {
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6, delay: 1.5 }}
-          className="flex flex-wrap justify-center gap-4 mb-20"
+          className="flex flex-wrap justify-center gap-4 mb-16"
         >
           <MagneticButton>
             <Link to="/pricing" className="btn-aurora flex items-center gap-2">
@@ -193,114 +194,139 @@ export default function Home() {
 
         {/* ATS Simulator */}
         <ScrollReveal className="w-full max-w-4xl mx-auto">
-          <AtsSimulatorWidget />
+          <TiltCard className="rounded-3xl">
+            <AtsSimulatorWidget />
+          </TiltCard>
         </ScrollReveal>
       </section>
 
-      {/* ═══════════ MARQUEE ═══════════ */}
-      <MarqueeStrip />
-
-      {/* ═══════════ ATS REWRITER TOOL ═══════════ */}
-      <section className="py-24 px-6">
-        <div className="max-w-4xl mx-auto">
+      {/* ═══════════ ZONE 2: RESUME REWRITER (DEEP MIDNIGHT VOID PATCH) ═══════════ */}
+      <section className="patch-dark py-24 px-6 relative border-y border-white/10">
+        <div className="max-w-5xl mx-auto">
           <ScrollReveal>
             <div className="text-center mb-12">
-              <div className="aurora-badge mb-4 mx-auto w-fit">
+              <div className="aurora-badge mb-4 mx-auto w-fit bg-white/10 text-violet-300 border-white/20">
                 Resume Before & After
               </div>
-              <h2 className="text-3xl md:text-5xl font-bold text-text-primary font-display tracking-tight mb-4">
-                See what a real <span className="text-aurora">resume rewrite</span> looks like
+              <h2 className="text-3xl md:text-5xl font-bold text-white font-display tracking-tight mb-4">
+                See what a real <span className="text-aurora-dark">resume rewrite</span> looks like
               </h2>
-              <p className="text-text-secondary max-w-lg mx-auto">
+              <p className="text-white/70 max-w-lg mx-auto text-base">
                 Generic bullet points get filtered out. Specific, metrics-driven ones get callbacks. Here's the difference.
               </p>
             </div>
           </ScrollReveal>
+
           <ScrollReveal>
-            <AtsRewriterWidget />
+            <TiltCard className="rounded-3xl">
+              <AtsRewriterWidget />
+            </TiltCard>
           </ScrollReveal>
         </div>
       </section>
 
-      {/* ═══════════ HORIZONTAL SCROLL SHOWCASE ═══════════ */}
-      <section ref={horizontalRef} className="relative overflow-hidden">
+      {/* ═══════════ ZONE 3: WORKFLOW SHOWCASE (SOFT PERIWINKLE PATCH) ═══════════ */}
+      <section ref={horizontalRef} className="patch-purple relative overflow-hidden py-12">
         <div className="h-screen flex items-center">
           <div ref={horizontalTrackRef} className="flex gap-8 px-[10vw] will-change-transform">
             {/* Intro Card */}
             <div className="flex-shrink-0 w-[40vw] min-w-[340px] flex flex-col justify-center pr-8">
               <div className="aurora-badge mb-4 w-fit">How We Work</div>
-              <h2 className="text-3xl md:text-5xl font-bold text-text-primary font-display tracking-tight mb-4">
+              <h2 className="text-3xl md:text-5xl font-bold text-indigo-950 font-display tracking-tight mb-4">
                 From resume to <span className="text-aurora">signed offer</span>
               </h2>
-              <p className="text-text-secondary text-base max-w-sm">
+              <p className="text-purple-900/80 text-base max-w-sm">
                 Four steps. One goal. Get you hired at a company and salary you actually deserve.
               </p>
             </div>
 
-            {/* Step Cards */}
+            {/* Step Cards with 3D Tilt */}
             {steps.map((step, idx) => (
-              <div 
-                key={idx} 
-                className="flex-shrink-0 w-[380px] glass-card flex flex-col justify-between h-[420px]"
-              >
-                <div>
-                  <div className="w-12 h-12 rounded-2xl bg-gradient-to-br from-accent-violet/20 to-accent-cyan/10 border border-white/[0.06] flex items-center justify-center text-accent-violet mb-6">
-                    {step.icon}
-                  </div>
-                  <span className="text-xs font-bold text-accent-cyan uppercase tracking-widest block mb-1 font-mono">
-                    Step {String(idx + 1).padStart(2, '0')}
-                  </span>
-                  <h3 className="text-xl font-bold text-text-primary mb-1 font-display">{step.title}</h3>
-                  <p className="text-sm text-text-primary/80 mb-3">{step.subtitle}</p>
-                  <p className="text-text-secondary text-sm leading-relaxed">{step.desc}</p>
-                </div>
+              <div key={idx} className="flex-shrink-0 w-[380px] h-[430px]">
+                <TiltCard className="h-full rounded-3xl">
+                  <div className="glass-card flex flex-col justify-between h-full p-8">
+                    <div>
+                      <div className="w-12 h-12 rounded-2xl bg-violet-100/80 border border-violet-200 flex items-center justify-center text-violet-700 mb-6 shadow-sm">
+                        {step.icon}
+                      </div>
+                      <span className="text-xs font-bold text-violet-700 uppercase tracking-widest block mb-1 font-mono">
+                        Step {String(idx + 1).padStart(2, '0')}
+                      </span>
+                      <h3 className="text-xl font-bold text-indigo-950 mb-1 font-display">{step.title}</h3>
+                      <p className="text-sm text-indigo-900/90 mb-3 font-medium">{step.subtitle}</p>
+                      <p className="text-purple-900/70 text-sm leading-relaxed">{step.desc}</p>
+                    </div>
 
-                <div className="pt-6 border-t border-white/[0.06] flex items-center justify-between">
-                  <span className="text-2xl font-extrabold text-aurora font-mono">{step.metric}</span>
-                  <span className="text-xs text-text-tertiary font-mono">{step.metricLabel}</span>
-                </div>
+                    <div className="pt-6 border-t border-purple-200/50 flex items-center justify-between">
+                      <span className="text-2xl font-extrabold text-aurora font-mono">{step.metric}</span>
+                      <span className="text-xs text-purple-900/60 font-mono">{step.metricLabel}</span>
+                    </div>
+                  </div>
+                </TiltCard>
               </div>
             ))}
           </div>
         </div>
       </section>
 
-      {/* ═══════════ ANIMATED STATS ═══════════ */}
-      <section className="py-24 px-6">
-        <div className="max-w-7xl mx-auto">
-          <ScrollReveal stagger={0.1}>
-            <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
-              <div className="glass-card text-center py-10">
-                <AnimatedCounter target={96} suffix="%" className="text-4xl font-extrabold text-aurora font-mono block" />
-                <span className="text-xs text-text-tertiary mt-2 block font-mono">Resume Pass Rate</span>
+      {/* ═══════════ ZONE 4: INTERACTIVE PIPELINE NODE FLOW (DARK ELECTRIC SLATE PATCH) ═══════════ */}
+      <section className="patch-slate py-24 px-6 border-y border-white/10 relative">
+        <div className="max-w-6xl mx-auto">
+          <ScrollReveal>
+            <div className="text-center mb-12">
+              <div className="aurora-badge mb-4 mx-auto w-fit bg-white/10 text-violet-300 border-white/20">
+                Interactive Pipeline
               </div>
-              <div className="glass-card text-center py-10">
-                <AnimatedCounter target={3.4} suffix="x" decimals={1} className="text-4xl font-extrabold text-aurora font-mono block" />
-                <span className="text-xs text-text-tertiary mt-2 block font-mono">More Interviews</span>
-              </div>
-              <div className="glass-card text-center py-10">
-                <AnimatedCounter target={24500} prefix="$" className="text-4xl font-extrabold text-aurora font-mono block" />
-                <span className="text-xs text-text-tertiary mt-2 block font-mono">Avg. Salary Increase</span>
-              </div>
-              <div className="glass-card text-center py-10">
-                <AnimatedCounter target={78} suffix="%" className="text-4xl font-extrabold text-aurora font-mono block" />
-                <span className="text-xs text-text-tertiary mt-2 block font-mono">Resumes Auto-Rejected</span>
-              </div>
+              <h2 className="text-3xl md:text-5xl font-bold text-white font-display tracking-tight mb-4">
+                How candidate applications <span className="text-aurora-dark">reach hiring managers</span>
+              </h2>
+              <p className="text-white/70 max-w-lg mx-auto text-base">
+                Click through each stage to see how our placement support converts your application into interview rounds.
+              </p>
             </div>
+          </ScrollReveal>
+
+          <ScrollReveal>
+            <TiltCard className="rounded-3xl">
+              <ArchitectureVisualizer />
+            </TiltCard>
           </ScrollReveal>
         </div>
       </section>
 
-      {/* ═══════════ MARKET INTELLIGENCE ═══════════ */}
-      <section className="py-24 px-6">
+      {/* ═══════════ ZONE 5: ANIMATED STATS & MARKET INTEL (SOFT MINT PATCH) ═══════════ */}
+      <section className="patch-mint py-24 px-6 relative">
         <div className="max-w-7xl mx-auto">
+          <ScrollReveal stagger={0.1}>
+            <div className="grid grid-cols-2 md:grid-cols-4 gap-6 mb-20">
+              <div className="glass-card text-center py-10 bg-white/90 border-emerald-200">
+                <AnimatedCounter target={96} suffix="%" className="text-4xl font-extrabold text-emerald-700 font-mono block" />
+                <span className="text-xs text-emerald-900/70 mt-2 block font-mono">Resume Pass Rate</span>
+              </div>
+              <div className="glass-card text-center py-10 bg-white/90 border-emerald-200">
+                <AnimatedCounter target={3.4} suffix="x" decimals={1} className="text-4xl font-extrabold text-emerald-700 font-mono block" />
+                <span className="text-xs text-emerald-900/70 mt-2 block font-mono">More Interviews</span>
+              </div>
+              <div className="glass-card text-center py-10 bg-white/90 border-emerald-200">
+                <AnimatedCounter target={24500} prefix="$" className="text-4xl font-extrabold text-emerald-700 font-mono block" />
+                <span className="text-xs text-emerald-900/70 mt-2 block font-mono">Avg. Salary Increase</span>
+              </div>
+              <div className="glass-card text-center py-10 bg-white/90 border-emerald-200">
+                <AnimatedCounter target={78} suffix="%" className="text-4xl font-extrabold text-emerald-700 font-mono block" />
+                <span className="text-xs text-emerald-900/70 mt-2 block font-mono">Resumes Auto-Rejected</span>
+              </div>
+            </div>
+          </ScrollReveal>
+
           <ScrollReveal>
             <div className="text-center mb-16">
-              <div className="aurora-badge mb-4 mx-auto w-fit">The Problem</div>
-              <h2 className="text-3xl md:text-5xl font-bold text-text-primary font-display tracking-tight mb-4">
-                Why qualified engineers <span className="text-aurora">aren't getting callbacks</span>
+              <div className="aurora-badge mb-4 mx-auto w-fit bg-emerald-100 text-emerald-800 border-emerald-300">
+                The Hiring Problem
+              </div>
+              <h2 className="text-3xl md:text-5xl font-bold text-emerald-950 font-display tracking-tight mb-4">
+                Why qualified engineers aren't getting callbacks
               </h2>
-              <p className="text-text-secondary max-w-xl mx-auto">
+              <p className="text-emerald-900/80 max-w-xl mx-auto">
                 It's not your skills. It's how your resume talks about them. Most applications never reach a human.
               </p>
             </div>
@@ -308,35 +334,35 @@ export default function Home() {
 
           <ScrollReveal stagger={0.1}>
             <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 mb-12">
-              <div className="lg:col-span-7 glass-card text-left">
+              <div className="lg:col-span-7 glass-card text-left bg-white/90 border-emerald-200">
                 <div className="flex items-center justify-between mb-6">
-                  <h3 className="text-lg font-bold text-text-primary font-display">Interview Callback Rates</h3>
-                  <TrendingUp size={20} className="text-accent-violet" />
+                  <h3 className="text-lg font-bold text-emerald-950 font-display">Interview Callback Rates</h3>
+                  <TrendingUp size={20} className="text-emerald-600" />
                 </div>
                 <div className="relative h-72 mb-4">
                   <canvas ref={chartRef}></canvas>
                 </div>
-                <p className="text-sm text-text-secondary">
-                  <span className="text-text-primary font-semibold">The reality:</span> applying through portals without an optimized resume gives you less than a <span className="text-accent-cyan font-semibold">2% chance</span> of hearing back.
+                <p className="text-sm text-emerald-900/80">
+                  <span className="text-emerald-950 font-semibold">The reality:</span> applying through portals without an optimized resume gives you less than a <span className="text-emerald-700 font-semibold">2% chance</span> of hearing back.
                 </p>
               </div>
 
               <div className="lg:col-span-5 flex flex-col gap-6">
-                <div className="glass-card flex-1">
-                  <div className="w-10 h-10 rounded-xl bg-accent-violet/10 border border-accent-violet/20 flex items-center justify-center text-accent-violet mb-4">
+                <div className="glass-card flex-1 bg-white/90 border-emerald-200">
+                  <div className="w-10 h-10 rounded-xl bg-emerald-100 border border-emerald-300 flex items-center justify-center text-emerald-700 mb-4 shadow-sm">
                     <Zap size={20} />
                   </div>
-                  <h4 className="text-lg font-bold text-text-primary mb-2 font-display">78% Never Seen by Humans</h4>
-                  <p className="text-sm text-text-secondary leading-relaxed">
+                  <h4 className="text-lg font-bold text-emerald-950 mb-2 font-display">78% Never Seen by Humans</h4>
+                  <p className="text-sm text-emerald-900/70 leading-relaxed">
                     Automated filters scan for specific keywords and formats. If your resume doesn't match, it's rejected before anyone reads it.
                   </p>
                 </div>
-                <div className="glass-card-accent flex-1">
-                  <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-accent-violet to-accent-cyan text-white flex items-center justify-center mb-4 shadow-lg shadow-accent-violet/20">
+                <div className="glass-card flex-1 bg-gradient-to-br from-emerald-100 to-teal-100 border-emerald-300">
+                  <div className="w-10 h-10 rounded-xl bg-emerald-600 text-white flex items-center justify-center mb-4 shadow-md shadow-emerald-500/20">
                     <Award size={20} />
                   </div>
-                  <h4 className="text-lg font-bold text-text-primary mb-2 font-display">3.4x More Interviews</h4>
-                  <p className="text-sm text-text-secondary leading-relaxed">
+                  <h4 className="text-lg font-bold text-emerald-950 mb-2 font-display">3.4x More Interviews</h4>
+                  <p className="text-sm text-emerald-900/80 leading-relaxed">
                     Candidates who work with us get significantly more interview calls because their resumes actually reach the right people.
                   </p>
                 </div>
@@ -350,14 +376,13 @@ export default function Home() {
         </div>
       </section>
 
-      {/* ═══════════ CTA ═══════════ */}
-      <section className="py-24 text-center px-6">
+      {/* ═══════════ ZONE 6: FINAL CTA (DEEP INDIGO VELVET PATCH) ═══════════ */}
+      <section className="patch-indigo py-24 text-center px-6 relative">
         <ScrollReveal>
           <div className="max-w-3xl mx-auto">
-            <div className="gradient-divider mb-12" />
-            <ShieldCheck size={36} className="text-accent-violet mx-auto mb-6" />
-            <h3 className="text-2xl md:text-4xl font-bold text-text-primary mb-4 font-display">No hidden fees. No surprises.</h3>
-            <p className="text-text-secondary max-w-lg mx-auto mb-8">
+            <ShieldCheck size={40} className="text-violet-400 mx-auto mb-6" />
+            <h3 className="text-2xl md:text-4xl font-bold text-white mb-4 font-display">No hidden fees. No surprises.</h3>
+            <p className="text-white/80 max-w-lg mx-auto mb-8">
               You pay an upfront advisory fee, and the placement fee is due only after you actually start your new job.
             </p>
             <MagneticButton>

@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Sparkles, ArrowRight, CheckCircle2 } from 'lucide-react';
+import { Sparkles } from 'lucide-react';
 
 export default function AtsRewriterWidget() {
   const [selectedBullet, setSelectedBullet] = useState(0);
@@ -30,11 +30,14 @@ export default function AtsRewriterWidget() {
 
   return (
     <div className="glass-card text-left">
-      <div className="flex items-center justify-between border-b border-white/[0.06] pb-4 mb-6">
-        <span className="text-xs font-bold uppercase tracking-wider text-accent-cyan font-mono">
-          Resume Before & After
-        </span>
-        <span className="text-xs text-text-tertiary font-mono">Try each sample</span>
+      <div className="flex items-center justify-between border-b border-purple-200/50 pb-4 mb-6">
+        <div className="flex items-center gap-2">
+          <Sparkles size={14} className="text-violet-600 animate-pulse" />
+          <span className="text-xs font-bold uppercase tracking-wider text-violet-800 font-mono">
+            Resume Before & After
+          </span>
+        </div>
+        <span className="text-xs text-purple-900/60 font-mono">Try each sample</span>
       </div>
 
       <div className="flex flex-wrap gap-2 mb-6">
@@ -44,8 +47,8 @@ export default function AtsRewriterWidget() {
             onClick={() => setSelectedBullet(i)}
             className={`px-4 py-2 rounded-xl text-xs font-semibold transition-all ${
               selectedBullet === i
-                ? 'bg-gradient-to-r from-accent-violet to-accent-cyan text-white shadow-lg shadow-accent-violet/20'
-                : 'bg-white/[0.03] border border-white/[0.06] text-text-tertiary hover:text-text-secondary'
+                ? 'bg-gradient-to-r from-violet-600 to-indigo-600 text-white shadow-md shadow-violet-500/20'
+                : 'bg-white/80 border border-purple-200/60 text-purple-900/70 hover:text-indigo-950'
             }`}
           >
             Example {i + 1}
@@ -54,13 +57,13 @@ export default function AtsRewriterWidget() {
       </div>
 
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-6">
-        <div className="p-5 rounded-2xl bg-red-500/[0.04] border border-red-500/10">
-          <span className="text-xs font-bold text-red-400 uppercase tracking-wider block mb-2 font-mono">Before:</span>
-          <p className="text-text-secondary text-sm leading-relaxed italic">"{current.before}"</p>
+        <div className="p-5 rounded-2xl bg-red-500/5 border border-red-200">
+          <span className="text-xs font-bold text-red-600 uppercase tracking-wider block mb-2 font-mono">Before:</span>
+          <p className="text-purple-900/70 text-sm leading-relaxed italic">"{current.before}"</p>
         </div>
 
-        <div className="p-5 rounded-2xl bg-accent-emerald/[0.04] border border-accent-emerald/10">
-          <span className="text-xs font-bold text-accent-emerald uppercase tracking-wider block mb-2 font-mono">After:</span>
+        <div className="p-5 rounded-2xl bg-emerald-500/5 border border-emerald-200">
+          <span className="text-xs font-bold text-emerald-700 uppercase tracking-wider block mb-2 font-mono">After:</span>
           <AnimatePresence mode="wait">
             <motion.p
               key={selectedBullet}
@@ -68,7 +71,7 @@ export default function AtsRewriterWidget() {
               animate={{ opacity: 1, y: 0 }}
               exit={{ opacity: 0, y: -10 }}
               transition={{ duration: 0.3 }}
-              className="text-text-primary text-sm leading-relaxed font-medium"
+              className="text-indigo-950 text-sm leading-relaxed font-medium"
             >
               "{current.after}"
             </motion.p>
@@ -77,13 +80,13 @@ export default function AtsRewriterWidget() {
       </div>
 
       <div className="grid grid-cols-2 gap-4">
-        <div className="p-4 rounded-xl bg-surface border border-white/[0.04] text-center">
-          <span className="text-xs text-text-tertiary block mb-1 font-mono">Estimated Salary Impact:</span>
+        <div className="p-4 rounded-xl bg-purple-50/60 border border-purple-200/40 text-center">
+          <span className="text-xs text-purple-900/60 block mb-1 font-mono">Estimated Salary Impact:</span>
           <div className="text-xl font-extrabold text-aurora font-mono">{current.salaryLift}</div>
         </div>
-        <div className="p-4 rounded-xl bg-surface border border-white/[0.04] text-center">
-          <span className="text-xs text-text-tertiary block mb-1 font-mono">Resume Pass Rate:</span>
-          <div className="text-xl font-extrabold text-accent-cyan font-mono">{current.passRate}</div>
+        <div className="p-4 rounded-xl bg-purple-50/60 border border-purple-200/40 text-center">
+          <span className="text-xs text-purple-900/60 block mb-1 font-mono">Resume Pass Rate:</span>
+          <div className="text-xl font-extrabold text-violet-700 font-mono">{current.passRate}</div>
         </div>
       </div>
     </div>
