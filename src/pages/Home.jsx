@@ -225,48 +225,48 @@ export default function Home() {
         </div>
       </section>
 
-      {/* ═══════════ WORKFLOW SHOWCASE SECTION (COMPACT HEIGHT HIGHLIGHT ZONE) ═══════════ */}
+      {/* ═══════════ WORKFLOW SHOWCASE SECTION (GRADIENT LIGHT PURPLE BACKGROUND) ═══════════ */}
       <section 
         ref={horizontalRef} 
-        className="relative overflow-hidden py-14 bg-gradient-to-br from-[#130B2E] via-[#230F50] to-[#0B061D] text-white border-y border-violet-500/30 shadow-2xl my-10"
+        className="relative overflow-hidden py-14 bg-gradient-to-r from-purple-100/90 via-violet-100/80 to-indigo-100/90 border-y border-purple-200/70 shadow-sm text-indigo-950 my-10"
       >
         <div className="flex items-center py-6">
           <div ref={horizontalTrackRef} className="flex gap-6 px-[8vw] items-center will-change-transform">
             {/* Intro Column */}
             <div className="flex-shrink-0 w-[36vw] min-w-[300px] flex flex-col justify-center pr-6">
-              <div className="aurora-badge mb-3 w-fit bg-violet-500/20 text-violet-200 border-violet-400/40">
+              <div className="aurora-badge mb-3 w-fit">
                 How We Work
               </div>
-              <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold font-display tracking-tight mb-3 text-white">
-                From resume to <span className="text-aurora-glow">signed offer</span>
+              <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold font-display tracking-tight mb-3 text-indigo-950">
+                From resume to <span className="text-aurora">signed offer</span>
               </h2>
-              <p className="text-purple-200/80 text-sm max-w-sm">
+              <p className="text-purple-900/80 text-sm max-w-sm">
                 Four steps. One goal. Get you hired at a company and salary you actually deserve.
               </p>
             </div>
 
-            {/* Step Cards in Compact Height (360px) */}
+            {/* Step Cards in Frosted Light Glass */}
             {steps.map((step, idx) => (
               <div key={idx} className="flex-shrink-0 w-[350px] h-[360px]">
                 <TiltCard className="h-full rounded-2xl">
-                  <div className="glass-card-dark-lavender flex flex-col justify-between h-full p-6">
+                  <div className="glass-card flex flex-col justify-between h-full p-6">
                     <div>
                       <div className="flex items-center justify-between mb-4">
-                        <div className="w-10 h-10 rounded-xl bg-violet-500/20 border border-violet-400/40 flex items-center justify-center text-violet-300 shadow-md">
+                        <div className="w-10 h-10 rounded-xl bg-violet-100/90 border border-violet-200 flex items-center justify-center text-violet-700 shadow-sm">
                           {step.icon}
                         </div>
-                        <span className="text-xs font-bold text-violet-300 uppercase tracking-widest font-mono">
+                        <span className="text-xs font-bold text-violet-700 uppercase tracking-widest font-mono">
                           Step 0{idx + 1}
                         </span>
                       </div>
-                      <h3 className="text-lg font-bold text-white mb-1 font-display">{step.title}</h3>
-                      <p className="text-xs text-purple-200 mb-2 font-medium">{step.subtitle}</p>
-                      <p className="text-purple-200/80 text-xs leading-relaxed">{step.desc}</p>
+                      <h3 className="text-lg font-bold text-indigo-950 mb-1 font-display">{step.title}</h3>
+                      <p className="text-xs text-indigo-900/90 mb-2 font-medium">{step.subtitle}</p>
+                      <p className="text-purple-900/70 text-xs leading-relaxed">{step.desc}</p>
                     </div>
 
-                    <div className="pt-4 border-t border-white/10 flex items-center justify-between">
-                      <span className="text-xl font-extrabold text-aurora-glow font-mono">{step.metric}</span>
-                      <span className="text-[11px] text-purple-300/70 font-mono">{step.metricLabel}</span>
+                    <div className="pt-4 border-t border-purple-200/50 flex items-center justify-between">
+                      <span className="text-xl font-extrabold text-aurora font-mono">{step.metric}</span>
+                      <span className="text-[11px] text-purple-900/60 font-mono">{step.metricLabel}</span>
                     </div>
                   </div>
                 </TiltCard>
