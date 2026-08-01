@@ -43,7 +43,7 @@ export default function Home() {
         trigger: section,
         pin: true,
         scrub: 1,
-        start: 'top top',
+        start: 'top top+=80',
         end: () => `+=${totalScroll}`,
         invalidateOnRefresh: true,
       }
@@ -113,23 +113,23 @@ export default function Home() {
 
   const steps = [
     {
-      icon: <FileText size={24} />,
+      icon: <FileText size={22} />,
       title: 'Resume Rebuild',
       subtitle: 'We rewrite your resume — not with templates, but with real metrics from your experience.',
-      desc: 'Most resumes get auto-rejected because they lack the specific keywords and numbers hiring managers look for. We fix that.',
+      desc: 'Most resumes get auto-rejected because they lack specific keywords and numbers. We fix that.',
       metric: '96%',
       metricLabel: 'Pass Rate After'
     },
     {
-      icon: <Target size={24} />,
+      icon: <Target size={22} />,
       title: 'Interview Prep',
       subtitle: 'Practice real technical interviews with people who have been on the other side of the table.',
-      desc: 'We run mock system design and behavioral interviews so you walk into your real ones with confidence, not anxiety.',
+      desc: 'Mock system design and behavioral interviews so you walk in with confidence.',
       metric: '3.4x',
       metricLabel: 'Better Clearance'
     },
     {
-      icon: <Sliders size={24} />,
+      icon: <Sliders size={22} />,
       title: 'Application Support',
       subtitle: 'We help you apply to the right roles, not just spray and pray across job boards.',
       desc: 'Targeted applications to roles that actually match your background. Quality over quantity.',
@@ -137,7 +137,7 @@ export default function Home() {
       metricLabel: 'Weekly Apps'
     },
     {
-      icon: <Handshake size={24} />,
+      icon: <Handshake size={22} />,
       title: 'Offer Negotiation',
       subtitle: 'Most engineers leave money on the table. We make sure you don\'t.',
       desc: 'We help you evaluate offers, compare compensation packages, and negotiate confidently.',
@@ -149,12 +149,12 @@ export default function Home() {
   return (
     <div className="relative z-10 pt-24">
       {/* ═══════════ HERO SECTION ═══════════ */}
-      <section className="min-h-[90vh] flex flex-col items-center justify-center text-center px-6 relative py-12">
+      <section className="min-h-[85vh] flex flex-col items-center justify-center text-center px-6 relative py-10">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6, delay: 0.3 }}
-          className="mb-8"
+          className="mb-6"
         >
           <div className="aurora-badge">
             IT Staffing & Career Advisory
@@ -201,7 +201,7 @@ export default function Home() {
       </section>
 
       {/* ═══════════ RESUME REWRITER SECTION ═══════════ */}
-      <section className="py-24 px-6 relative">
+      <section className="py-20 px-6 relative">
         <div className="max-w-5xl mx-auto">
           <ScrollReveal>
             <div className="text-center mb-12">
@@ -225,46 +225,48 @@ export default function Home() {
         </div>
       </section>
 
-      {/* ═══════════ WORKFLOW SHOWCASE SECTION (HIGHLIGHT ZONE: DARK LAVENDER PURPLE) ═══════════ */}
+      {/* ═══════════ WORKFLOW SHOWCASE SECTION (COMPACT HEIGHT HIGHLIGHT ZONE) ═══════════ */}
       <section 
         ref={horizontalRef} 
-        className="relative overflow-hidden py-12 bg-gradient-to-br from-[#130B2E] via-[#230F50] to-[#0B061D] text-white border-y border-violet-500/30 shadow-2xl"
+        className="relative overflow-hidden py-14 bg-gradient-to-br from-[#130B2E] via-[#230F50] to-[#0B061D] text-white border-y border-violet-500/30 shadow-2xl my-10"
       >
-        <div className="h-screen flex items-center">
-          <div ref={horizontalTrackRef} className="flex gap-8 px-[10vw] will-change-transform">
+        <div className="flex items-center py-6">
+          <div ref={horizontalTrackRef} className="flex gap-6 px-[8vw] items-center will-change-transform">
             {/* Intro Column */}
-            <div className="flex-shrink-0 w-[40vw] min-w-[340px] flex flex-col justify-center pr-8">
-              <div className="aurora-badge mb-4 w-fit bg-violet-500/20 text-violet-200 border-violet-400/40">
+            <div className="flex-shrink-0 w-[36vw] min-w-[300px] flex flex-col justify-center pr-6">
+              <div className="aurora-badge mb-3 w-fit bg-violet-500/20 text-violet-200 border-violet-400/40">
                 How We Work
               </div>
-              <h2 className="text-3xl md:text-5xl font-bold font-display tracking-tight mb-4 text-white">
+              <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold font-display tracking-tight mb-3 text-white">
                 From resume to <span className="text-aurora-glow">signed offer</span>
               </h2>
-              <p className="text-purple-200/80 text-base max-w-sm">
+              <p className="text-purple-200/80 text-sm max-w-sm">
                 Four steps. One goal. Get you hired at a company and salary you actually deserve.
               </p>
             </div>
 
-            {/* Step Cards in Dark Luminous Glass */}
+            {/* Step Cards in Compact Height (360px) */}
             {steps.map((step, idx) => (
-              <div key={idx} className="flex-shrink-0 w-[380px] h-[430px]">
-                <TiltCard className="h-full rounded-3xl">
-                  <div className="glass-card-dark-lavender flex flex-col justify-between h-full p-8">
+              <div key={idx} className="flex-shrink-0 w-[350px] h-[360px]">
+                <TiltCard className="h-full rounded-2xl">
+                  <div className="glass-card-dark-lavender flex flex-col justify-between h-full p-6">
                     <div>
-                      <div className="w-12 h-12 rounded-2xl bg-violet-500/20 border border-violet-400/40 flex items-center justify-center text-violet-300 mb-6 shadow-lg shadow-purple-950/50">
-                        {step.icon}
+                      <div className="flex items-center justify-between mb-4">
+                        <div className="w-10 h-10 rounded-xl bg-violet-500/20 border border-violet-400/40 flex items-center justify-center text-violet-300 shadow-md">
+                          {step.icon}
+                        </div>
+                        <span className="text-xs font-bold text-violet-300 uppercase tracking-widest font-mono">
+                          Step 0{idx + 1}
+                        </span>
                       </div>
-                      <span className="text-xs font-bold text-violet-300 uppercase tracking-widest block mb-1 font-mono">
-                        Step {String(idx + 1).padStart(2, '0')}
-                      </span>
-                      <h3 className="text-xl font-bold text-white mb-1 font-display">{step.title}</h3>
-                      <p className="text-sm text-purple-200 mb-3 font-medium">{step.subtitle}</p>
-                      <p className="text-purple-200/80 text-sm leading-relaxed">{step.desc}</p>
+                      <h3 className="text-lg font-bold text-white mb-1 font-display">{step.title}</h3>
+                      <p className="text-xs text-purple-200 mb-2 font-medium">{step.subtitle}</p>
+                      <p className="text-purple-200/80 text-xs leading-relaxed">{step.desc}</p>
                     </div>
 
-                    <div className="pt-6 border-t border-white/10 flex items-center justify-between">
-                      <span className="text-2xl font-extrabold text-aurora-glow font-mono">{step.metric}</span>
-                      <span className="text-xs text-purple-300/70 font-mono">{step.metricLabel}</span>
+                    <div className="pt-4 border-t border-white/10 flex items-center justify-between">
+                      <span className="text-xl font-extrabold text-aurora-glow font-mono">{step.metric}</span>
+                      <span className="text-[11px] text-purple-300/70 font-mono">{step.metricLabel}</span>
                     </div>
                   </div>
                 </TiltCard>
@@ -275,7 +277,7 @@ export default function Home() {
       </section>
 
       {/* ═══════════ INTERACTIVE PIPELINE NODE FLOW ═══════════ */}
-      <section className="py-24 px-6 relative">
+      <section className="py-20 px-6 relative">
         <div className="max-w-6xl mx-auto">
           <ScrollReveal>
             <div className="text-center mb-12">
@@ -300,7 +302,7 @@ export default function Home() {
       </section>
 
       {/* ═══════════ ANIMATED STATS & MARKET INTEL ═══════════ */}
-      <section className="py-24 px-6 relative">
+      <section className="py-20 px-6 relative">
         <div className="max-w-7xl mx-auto">
           <ScrollReveal stagger={0.1}>
             <div className="grid grid-cols-2 md:grid-cols-4 gap-6 mb-20">
@@ -382,7 +384,7 @@ export default function Home() {
       </section>
 
       {/* ═══════════ FINAL CTA ═══════════ */}
-      <section className="py-24 text-center px-6 relative">
+      <section className="py-20 text-center px-6 relative">
         <ScrollReveal>
           <div className="max-w-3xl mx-auto">
             <div className="gradient-divider mb-12" />
