@@ -225,41 +225,46 @@ export default function Home() {
         </div>
       </section>
 
-      {/* ═══════════ WORKFLOW SHOWCASE SECTION (HORIZONTAL SCROLL) ═══════════ */}
-      <section ref={horizontalRef} className="relative overflow-hidden py-12">
+      {/* ═══════════ WORKFLOW SHOWCASE SECTION (HIGHLIGHT ZONE: DARK LAVENDER PURPLE) ═══════════ */}
+      <section 
+        ref={horizontalRef} 
+        className="relative overflow-hidden py-12 bg-gradient-to-br from-[#130B2E] via-[#230F50] to-[#0B061D] text-white border-y border-violet-500/30 shadow-2xl"
+      >
         <div className="h-screen flex items-center">
           <div ref={horizontalTrackRef} className="flex gap-8 px-[10vw] will-change-transform">
-            {/* Intro Card */}
+            {/* Intro Column */}
             <div className="flex-shrink-0 w-[40vw] min-w-[340px] flex flex-col justify-center pr-8">
-              <div className="aurora-badge mb-4 w-fit">How We Work</div>
-              <h2 className="text-3xl md:text-5xl font-bold text-indigo-950 font-display tracking-tight mb-4">
-                From resume to <span className="text-aurora">signed offer</span>
+              <div className="aurora-badge mb-4 w-fit bg-violet-500/20 text-violet-200 border-violet-400/40">
+                How We Work
+              </div>
+              <h2 className="text-3xl md:text-5xl font-bold font-display tracking-tight mb-4 text-white">
+                From resume to <span className="text-aurora-glow">signed offer</span>
               </h2>
-              <p className="text-purple-900/80 text-base max-w-sm">
+              <p className="text-purple-200/80 text-base max-w-sm">
                 Four steps. One goal. Get you hired at a company and salary you actually deserve.
               </p>
             </div>
 
-            {/* Step Cards with 3D Tilt */}
+            {/* Step Cards in Dark Luminous Glass */}
             {steps.map((step, idx) => (
               <div key={idx} className="flex-shrink-0 w-[380px] h-[430px]">
                 <TiltCard className="h-full rounded-3xl">
-                  <div className="glass-card flex flex-col justify-between h-full p-8">
+                  <div className="glass-card-dark-lavender flex flex-col justify-between h-full p-8">
                     <div>
-                      <div className="w-12 h-12 rounded-2xl bg-violet-100/80 border border-violet-200 flex items-center justify-center text-violet-700 mb-6 shadow-sm">
+                      <div className="w-12 h-12 rounded-2xl bg-violet-500/20 border border-violet-400/40 flex items-center justify-center text-violet-300 mb-6 shadow-lg shadow-purple-950/50">
                         {step.icon}
                       </div>
-                      <span className="text-xs font-bold text-violet-700 uppercase tracking-widest block mb-1 font-mono">
+                      <span className="text-xs font-bold text-violet-300 uppercase tracking-widest block mb-1 font-mono">
                         Step {String(idx + 1).padStart(2, '0')}
                       </span>
-                      <h3 className="text-xl font-bold text-indigo-950 mb-1 font-display">{step.title}</h3>
-                      <p className="text-sm text-indigo-900/90 mb-3 font-medium">{step.subtitle}</p>
-                      <p className="text-purple-900/70 text-sm leading-relaxed">{step.desc}</p>
+                      <h3 className="text-xl font-bold text-white mb-1 font-display">{step.title}</h3>
+                      <p className="text-sm text-purple-200 mb-3 font-medium">{step.subtitle}</p>
+                      <p className="text-purple-200/80 text-sm leading-relaxed">{step.desc}</p>
                     </div>
 
-                    <div className="pt-6 border-t border-purple-200/50 flex items-center justify-between">
-                      <span className="text-2xl font-extrabold text-aurora font-mono">{step.metric}</span>
-                      <span className="text-xs text-purple-900/60 font-mono">{step.metricLabel}</span>
+                    <div className="pt-6 border-t border-white/10 flex items-center justify-between">
+                      <span className="text-2xl font-extrabold text-aurora-glow font-mono">{step.metric}</span>
+                      <span className="text-xs text-purple-300/70 font-mono">{step.metricLabel}</span>
                     </div>
                   </div>
                 </TiltCard>

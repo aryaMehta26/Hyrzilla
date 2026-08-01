@@ -70,6 +70,13 @@
   background-clip: text;
 }
 
+.text-aurora-glow {
+  background: linear-gradient(135deg, #FFFFFF 20%, #DDD6FE 60%, #C4B5FD 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
 /* ── Unified Luminous Frosted Glass Card ── */
 .glass-card {
   background: rgba(255, 255, 255, 0.85);
@@ -122,6 +129,30 @@
 .glass-card-accent:hover {
   border-color: rgba(124, 58, 237, 0.6);
   box-shadow: 0 24px 55px -10px rgba(124, 58, 237, 0.18);
+}
+
+/* ── Glass Card Dark Lavender (For Highlight Zone) ── */
+.glass-card-dark-lavender {
+  background: rgba(255, 255, 255, 0.07);
+  backdrop-filter: blur(24px);
+  -webkit-backdrop-filter: blur(24px);
+  border: 1px solid rgba(196, 181, 253, 0.3);
+  border-radius: 24px;
+  padding: 2rem;
+  transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+  position: relative;
+  overflow: hidden;
+  box-shadow: 
+    0 20px 50px -10px rgba(0, 0, 0, 0.4),
+    0 0 30px -5px rgba(167, 139, 250, 0.15);
+}
+
+.glass-card-dark-lavender:hover {
+  border-color: rgba(196, 181, 253, 0.6);
+  background: rgba(255, 255, 255, 0.1);
+  box-shadow: 
+    0 25px 60px -10px rgba(0, 0, 0, 0.5),
+    0 0 45px -5px rgba(167, 139, 250, 0.25);
 }
 
 /* ── Button Styles ── */
