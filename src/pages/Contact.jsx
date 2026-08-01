@@ -2,20 +2,16 @@ import React, { useState } from 'react';
 import { Check, Send, AlertCircle, Loader2 } from 'lucide-react';
 import { supabase } from '../lib/supabase';
 
+import TextReveal from '../components/TextReveal';
+import ScrollReveal from '../components/ScrollReveal';
+
 export default function Contact() {
   const [showModal, setShowModal] = useState(false);
   const [loading, setLoading] = useState(false);
   const [errorMsg, setErrorMsg] = useState('');
-
   const [formData, setFormData] = useState({
-    name: '',
-    email: '',
-    phone: '',
-    inquiryType: 'acceleration',
-    domain: 'software',
-    experience: '3-5',
-    linkedin: '',
-    message: ''
+    name: '', email: '', phone: '', inquiryType: 'acceleration',
+    domain: 'software', experience: '3-5', linkedin: '', message: ''
   });
 
   const handleSubmit = async (e) => {
@@ -24,61 +20,36 @@ export default function Contact() {
     setErrorMsg('');
 
     const payload = {
-      full_name: formData.name,
-      email: formData.email,
-      phone: formData.phone,
-      selected_plan: formData.inquiryType,
-      tech_domain: formData.domain,
-      experience_years: formData.experience,
-      linkedin_url: formData.linkedin,
-      message: formData.message,
-      status: 'New Lead'
+      full_name: formData.name, email: formData.email, phone: formData.phone,
+      selected_plan: formData.inquiryType, tech_domain: formData.domain,
+      experience_years: formData.experience, linkedin_url: formData.linkedin,
+      message: formData.message, status: 'New Lead'
     };
-
-    console.log('Submitting candidate lead to Supabase...', payload);
 
     try {
       const url = 'https://llbgtukjwtpaqgrulpdh.supabase.co';
       const anonKey = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImxsYmd0dWtqd3RwYXFncnVscGRoIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTE0MTY2MTksImV4cCI6MjA2Njk5MjYxOX0';
 
-      // Attempt 1: Standard Supabase SDK
       const resTest = await supabase.from('candidates_test').insert([payload]);
-      console.log('SDK Insert candidates_test response:', resTest);
+      if (resTest.error) console.warn('candidates_test:', resTest.error.message);
 
       const resProd = await supabase.from('candidates_prod').insert([payload]);
-      console.log('SDK Insert candidates_prod response:', resProd);
+      if (resProd.error) console.warn('candidates_prod:', resProd.error.message);
 
-      // Attempt 2: Direct Supabase REST API Fallback
       if (resTest.error || resProd.error) {
-        console.log('Attempting Direct Supabase REST API Fetch Fallback...');
-        
-        await fetch(`${url}/rest/v1/candidates_test`, {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json',
-            'apikey': anonKey,
-            'Authorization': `Bearer ${anonKey}`,
-            'Prefer': 'return=minimal'
-          },
-          body: JSON.stringify(payload)
-        }).catch(err => console.error('REST candidates_test fetch error:', err));
-
-        await fetch(`${url}/rest/v1/candidates_prod`, {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json',
-            'apikey': anonKey,
-            'Authorization': `Bearer ${anonKey}`,
-            'Prefer': 'return=minimal'
-          },
-          body: JSON.stringify(payload)
-        }).catch(err => console.error('REST candidates_prod fetch error:', err));
+        for (const table of ['candidates_test', 'candidates_prod']) {
+          await fetch(`${url}/rest/v1/${table}`, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json', 'apikey': anonKey, 'Authorization': `Bearer ${anonKey}`, 'Prefer': 'return=minimal' },
+            body: JSON.stringify(payload)
+          }).catch(err => console.error(`REST ${table}:`, err));
+        }
       }
 
       setLoading(false);
       setShowModal(true);
     } catch (err) {
-      console.error('Submission exception:', err);
+      console.error('Submission error:', err);
       setLoading(false);
       setShowModal(true);
     }
@@ -86,185 +57,132 @@ export default function Contact() {
 
   const handleModalClose = () => {
     setShowModal(false);
-    setFormData({
-      name: '',
-      email: '',
-      phone: '',
-      inquiryType: 'acceleration',
-      domain: 'software',
-      experience: '3-5',
-      linkedin: '',
-      message: ''
-    });
+    setFormData({ name: '', email: '', phone: '', inquiryType: 'acceleration', domain: 'software', experience: '3-5', linkedin: '', message: '' });
   };
+
+  const fields = [
+    { label: 'Full Name', type: 'text', key: 'name', placeholder: 'e.g. Rahul Sharma', required: true, half: true },
+    { label: 'Email Address', type: 'email', key: 'email', placeholder: 'rahul@example.com', required: true, half: true },
+    { label: 'Phone / WhatsApp', type: 'tel', key: 'phone', placeholder: '+91 98765 43210', required: true, half: true },
+    { label: 'Plan You Are Considering', type: 'select', key: 'inquiryType', half: true, options: [
+      { value: 'readiness', label: 'Market Readiness ($499 + 15%)' },
+      { value: 'acceleration', label: 'Strategic Acceleration ($1,499 + 12%)' },
+      { value: 'executive', label: 'Executive Partnership ($2,499 + 10%)' },
+      { value: 'general', label: 'Just Have Questions' }
+    ]},
+    { label: 'Primary Field', type: 'select', key: 'domain', required: true, half: true, options: [
+      { value: 'software', label: 'Full-Stack / Backend Engineering' },
+      { value: 'cloud', label: 'Cloud / DevOps' },
+      { value: 'data', label: 'Data Engineering' },
+      { value: 'cyber', label: 'Cybersecurity' },
+      { value: 'other', label: 'Other Field' }
+    ]},
+    { label: 'Years of Experience', type: 'select', key: 'experience', half: true, options: [
+      { value: '0-2', label: '0 - 2 Years' },
+      { value: '3-5', label: '3 - 5 Years' },
+      { value: '6-9', label: '6 - 9 Years' },
+      { value: '10+', label: '10+ Years' }
+    ]},
+  ];
 
   return (
     <div className="relative z-10 pt-28">
-      <section className="py-20 text-center">
-        <div className="max-w-4xl mx-auto px-6">
-          <div className="inline-block px-5 py-2 rounded-full border border-[rgba(37,232,122,0.2)] bg-cardBg backdrop-blur-md mb-6">
-            <span className="text-xs font-semibold text-brandGreen tracking-wider uppercase">
-              Get In Touch
-            </span>
-          </div>
-          <h1 className="text-4xl md:text-6xl font-extrabold tracking-tight mb-6">
-            Let's start the <span className="h-green-gradient italic">conversation.</span>
-          </h1>
-          <p className="text-lg text-tMuted max-w-2xl mx-auto">
-            Fill out the form below to reach out to our team. Have questions about candidate plans, resume architecture, or placement support? We're here to help.
-          </p>
+      <section className="py-20 text-center px-6">
+        <div className="max-w-4xl mx-auto">
+          <div className="aurora-badge mb-6 mx-auto w-fit">Get In Touch</div>
+          <TextReveal className="text-4xl md:text-6xl font-extrabold tracking-tight text-text-primary font-display mb-6" delay={0.2}>
+            Let's talk about your search.
+          </TextReveal>
+          <ScrollReveal delay={0.6}>
+            <p className="text-lg text-text-secondary max-w-2xl mx-auto leading-relaxed">
+              Fill out the form below and we'll get back to you within 24 hours to discuss your situation and answer any questions.
+            </p>
+          </ScrollReveal>
         </div>
       </section>
 
-      <section className="py-24 bg-accentBg border-y border-[rgba(37,232,122,0.16)] shadow-[inset_0_0_80px_rgba(0,0,0,0.6)]">
-        <div className="max-w-3xl mx-auto px-6">
-          <div className="bento-card-react">
-            {errorMsg && (
-              <div className="mb-6 p-4 rounded-xl bg-red-500/10 border border-red-500/30 text-red-400 text-xs flex items-center gap-2">
-                <AlertCircle size={16} className="shrink-0" />
-                <span>{errorMsg}</span>
-              </div>
-            )}
+      <section className="py-24 px-6">
+        <div className="max-w-3xl mx-auto">
+          <ScrollReveal>
+            <div className="glass-card p-8 text-left">
+              {errorMsg && (
+                <div className="mb-6 p-4 rounded-xl bg-red-500/10 border border-red-500/20 text-red-400 text-xs flex items-center gap-2 font-mono">
+                  <AlertCircle size={16} className="shrink-0" /> <span>{errorMsg}</span>
+                </div>
+              )}
 
-            <form onSubmit={handleSubmit} className="space-y-6">
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+              <form onSubmit={handleSubmit} className="space-y-6">
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                  {fields.map((f) => (
+                    <div key={f.key}>
+                      <label className="block text-xs font-bold text-text-secondary uppercase tracking-wider mb-2 font-mono">{f.label}</label>
+                      {f.type === 'select' ? (
+                        <select
+                          value={formData[f.key]}
+                          onChange={(e) => setFormData({ ...formData, [f.key]: e.target.value })}
+                          className="glass-input"
+                          required={f.required}
+                        >
+                          {f.options.map(o => <option key={o.value} value={o.value}>{o.label}</option>)}
+                        </select>
+                      ) : (
+                        <input
+                          type={f.type}
+                          required={f.required}
+                          placeholder={f.placeholder}
+                          value={formData[f.key]}
+                          onChange={(e) => setFormData({ ...formData, [f.key]: e.target.value })}
+                          className="glass-input"
+                        />
+                      )}
+                    </div>
+                  ))}
+                </div>
+
                 <div>
-                  <label className="block text-xs font-semibold text-tMuted mb-2">Full Name</label>
+                  <label className="block text-xs font-bold text-text-secondary uppercase tracking-wider mb-2 font-mono">LinkedIn Profile URL (Optional)</label>
                   <input
-                    type="text"
-                    required
-                    placeholder="e.g. Rahul Sharma"
-                    value={formData.name}
-                    onChange={(e) => setFormData({ ...formData, name: e.target.value })}
-                    className="w-full px-4 py-3 rounded-xl bg-bgDark/90 border border-[rgba(37,232,122,0.14)] text-tMain placeholder-tSub focus:border-brandGreen focus:outline-none focus:ring-2 focus:ring-brandGlow transition-all text-sm"
+                    type="url" placeholder="https://linkedin.com/in/yourprofile"
+                    value={formData.linkedin}
+                    onChange={(e) => setFormData({ ...formData, linkedin: e.target.value })}
+                    className="glass-input"
                   />
                 </div>
+
                 <div>
-                  <label className="block text-xs font-semibold text-tMuted mb-2">Email Address</label>
-                  <input
-                    type="email"
-                    required
-                    placeholder="rahul@example.com"
-                    value={formData.email}
-                    onChange={(e) => setFormData({ ...formData, email: e.target.value })}
-                    className="w-full px-4 py-3 rounded-xl bg-bgDark/90 border border-[rgba(37,232,122,0.14)] text-tMain placeholder-tSub focus:border-brandGreen focus:outline-none focus:ring-2 focus:ring-brandGlow transition-all text-sm"
+                  <label className="block text-xs font-bold text-text-secondary uppercase tracking-wider mb-2 font-mono">Anything specific you'd like us to know?</label>
+                  <textarea
+                    rows={4} placeholder="Tell us a bit about your current situation, target roles, or questions..."
+                    value={formData.message}
+                    onChange={(e) => setFormData({ ...formData, message: e.target.value })}
+                    className="glass-input"
                   />
                 </div>
-              </div>
 
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                <div>
-                  <label className="block text-xs font-semibold text-tMuted mb-2">Phone / WhatsApp Number</label>
-                  <input
-                    type="tel"
-                    required
-                    placeholder="+91 98765 43210 / +1..."
-                    value={formData.phone}
-                    onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
-                    className="w-full px-4 py-3 rounded-xl bg-bgDark/90 border border-[rgba(37,232,122,0.14)] text-tMain placeholder-tSub focus:border-brandGreen focus:outline-none focus:ring-2 focus:ring-brandGlow transition-all text-sm"
-                  />
-                </div>
-                <div>
-                  <label className="block text-xs font-semibold text-tMuted mb-2">Selected Enrollment Plan</label>
-                  <select
-                    value={formData.inquiryType}
-                    onChange={(e) => setFormData({ ...formData, inquiryType: e.target.value })}
-                    className="w-full px-4 py-3 rounded-xl bg-bgDark/90 border border-[rgba(37,232,122,0.14)] text-tMain focus:border-brandGreen focus:outline-none focus:ring-2 focus:ring-brandGlow transition-all text-sm"
-                  >
-                    <option value="readiness">Market Readiness ($499 + 15%)</option>
-                    <option value="acceleration">Strategic Acceleration ($1,499 + 12%)</option>
-                    <option value="executive">Executive Partnership ($2,499 + 10%)</option>
-                    <option value="general">General Question / Career Consultation</option>
-                  </select>
-                </div>
-              </div>
-
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                <div>
-                  <label className="block text-xs font-semibold text-tMuted mb-2">Primary Tech Domain</label>
-                  <select
-                    required
-                    value={formData.domain}
-                    onChange={(e) => setFormData({ ...formData, domain: e.target.value })}
-                    className="w-full px-4 py-3 rounded-xl bg-bgDark/90 border border-[rgba(37,232,122,0.14)] text-tMain focus:border-brandGreen focus:outline-none focus:ring-2 focus:ring-brandGlow transition-all text-sm"
-                  >
-                    <option value="cloud">Cloud / DevOps (AWS, Azure, K8s)</option>
-                    <option value="data">Data Engineering / Science (PySpark, SQL)</option>
-                    <option value="software">Full-Stack / Backend Engineering</option>
-                    <option value="cyber">Cybersecurity</option>
-                    <option value="other">Other Tech Stack</option>
-                  </select>
-                </div>
-                <div>
-                  <label className="block text-xs font-semibold text-tMuted mb-2">Years of Experience</label>
-                  <select
-                    value={formData.experience}
-                    onChange={(e) => setFormData({ ...formData, experience: e.target.value })}
-                    className="w-full px-4 py-3 rounded-xl bg-bgDark/90 border border-[rgba(37,232,122,0.14)] text-tMain focus:border-brandGreen focus:outline-none focus:ring-2 focus:ring-brandGlow transition-all text-sm"
-                  >
-                    <option value="0-2">0 - 2 Years</option>
-                    <option value="3-5">3 - 5 Years</option>
-                    <option value="6-9">6 - 9 Years</option>
-                    <option value="10+">10+ Years</option>
-                  </select>
-                </div>
-              </div>
-
-              <div>
-                <label className="block text-xs font-semibold text-tMuted mb-2">LinkedIn / Portfolio URL (Optional)</label>
-                <input
-                  type="url"
-                  placeholder="https://linkedin.com/in/yourprofile"
-                  value={formData.linkedin}
-                  onChange={(e) => setFormData({ ...formData, linkedin: e.target.value })}
-                  className="w-full px-4 py-3 rounded-xl bg-bgDark/90 border border-[rgba(37,232,122,0.14)] text-tMain placeholder-tSub focus:border-brandGreen focus:outline-none focus:ring-2 focus:ring-brandGlow transition-all text-sm"
-                />
-              </div>
-
-              <div>
-                <label className="block text-xs font-semibold text-tMuted mb-2">Message / Details</label>
-                <textarea
-                  rows={4}
-                  placeholder="Tell us about your background, target roles, or questions..."
-                  value={formData.message}
-                  onChange={(e) => setFormData({ ...formData, message: e.target.value })}
-                  className="w-full px-4 py-3 rounded-xl bg-bgDark/90 border border-[rgba(37,232,122,0.14)] text-tMain placeholder-tSub focus:border-brandGreen focus:outline-none focus:ring-2 focus:ring-brandGlow transition-all text-sm"
-                />
-              </div>
-
-              <button
-                type="submit"
-                disabled={loading}
-                className="w-full py-4 rounded-xl bg-brandGreen text-black font-semibold text-sm shadow-emeraldGlow hover:shadow-emeraldGlowLg transition-all flex items-center justify-center gap-2 disabled:opacity-50"
-              >
-                {loading ? (
-                  <>Submitting <Loader2 size={16} className="animate-spin" /></>
-                ) : (
-                  <>Submit Inquiry <Send size={16} /></>
-                )}
-              </button>
-            </form>
-          </div>
+                <button
+                  type="submit" disabled={loading}
+                  className="btn-aurora w-full py-4 disabled:opacity-50 flex items-center justify-center gap-2"
+                >
+                  {loading ? (<>Submitting <Loader2 size={16} className="animate-spin" /></>) : (<>Send Message <Send size={16} /></>)}
+                </button>
+              </form>
+            </div>
+          </ScrollReveal>
         </div>
       </section>
 
       {/* Confirmation Modal */}
       {showModal && (
-        <div className="fixed inset-0 z-50 bg-bgDark/85 backdrop-blur-md flex items-center justify-center p-6">
-          <div className="bg-[rgba(9,20,14,0.95)] border border-[rgba(37,232,122,0.3)] rounded-3xl p-8 max-w-md w-full text-center shadow-[0_20px_50px_rgba(0,0,0,0.8),0_0_40px_rgba(37,232,122,0.16)]">
-            <div className="w-16 h-16 rounded-full bg-[rgba(37,232,122,0.15)] border border-brandGreen text-brandGreen flex items-center justify-center text-2xl mx-auto mb-5 shadow-emeraldGlow">
+        <div className="fixed inset-0 z-50 bg-void/80 backdrop-blur-xl flex items-center justify-center p-6">
+          <div className="glass-card max-w-md w-full text-center p-8">
+            <div className="w-16 h-16 rounded-full bg-gradient-to-br from-accent-violet/20 to-accent-cyan/10 border border-accent-violet/20 text-accent-emerald flex items-center justify-center text-2xl mx-auto mb-5">
               <Check size={28} />
             </div>
-            <h3 className="text-2xl font-bold text-tMain mb-3">Inquiry Received!</h3>
-            <p className="text-tMuted text-sm leading-relaxed mb-6">
-              Thank you for reaching out. Your candidate inquiry has been logged. Our advisory team will reach out to you via <strong className="text-brandGreen">WhatsApp / Email</strong> within 24 hours.
+            <h3 className="text-2xl font-bold text-text-primary mb-3 font-display">Message Sent!</h3>
+            <p className="text-text-secondary text-sm leading-relaxed mb-6">
+              Thanks for reaching out. We'll get back to you via <span className="text-accent-cyan font-semibold">WhatsApp or Email</span> within 24 hours.
             </p>
-            <button
-              onClick={handleModalClose}
-              className="w-full py-3 rounded-xl bg-brandGreen text-black font-semibold text-sm shadow-emeraldGlow"
-            >
-              Done
-            </button>
+            <button onClick={handleModalClose} className="btn-aurora w-full py-3">Got It</button>
           </div>
         </div>
       )}

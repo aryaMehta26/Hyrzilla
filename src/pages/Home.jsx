@@ -1,92 +1,82 @@
-import React, { useEffect, useRef } from 'react';
+import React, { useRef, useEffect } from 'react';
 import { Link } from 'react-router-dom';
-import { motion, useScroll, useTransform, useSpring } from 'framer-motion';
+import { motion } from 'framer-motion';
+import { gsap } from 'gsap';
+import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { Chart, registerables } from 'chart.js';
-import { 
-  CheckCircle2, ArrowRight, Zap, TrendingUp, Sliders, Target, 
-  Handshake, ShieldCheck, Sparkles, Award, FileText, Check, Layers, Cpu, Code2
+import {
+  ArrowRight, Zap, TrendingUp, Target, Award, ShieldCheck,
+  CheckCircle2, FileText, Handshake, Sliders
 } from 'lucide-react';
+
+import TextReveal from '../components/TextReveal';
+import ScrollReveal from '../components/ScrollReveal';
+import AnimatedCounter from '../components/AnimatedCounter';
+import MarqueeStrip from '../components/MarqueeStrip';
+import MagneticButton from '../components/MagneticButton';
 import AtsSimulatorWidget from '../components/AtsSimulatorWidget';
+import AtsRewriterWidget from '../components/AtsRewriterWidget';
+import RequisitionHeatmap from '../components/RequisitionHeatmap';
 
+gsap.registerPlugin(ScrollTrigger);
 Chart.register(...registerables);
-
-// Interactive 3D Card Component
-function TiltCard({ children, className = '', borderGlow = false }) {
-  const cardRef = useRef(null);
-
-  const handleMouseMove = (e) => {
-    if (!cardRef.current) return;
-    const rect = cardRef.current.getBoundingClientRect();
-    const x = e.clientX - rect.left;
-    const y = e.clientY - rect.top;
-    const centerX = rect.width / 2;
-    const centerY = rect.height / 2;
-
-    const rotateX = ((y - centerY) / centerY) * -7;
-    const rotateY = ((x - centerX) / centerX) * 7;
-
-    cardRef.current.style.transform = `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) scale3d(1.015, 1.015, 1.015)`;
-    cardRef.current.style.setProperty('--mouse-x', `${x}px`);
-    cardRef.current.style.setProperty('--mouse-y', `${y}px`);
-  };
-
-  const handleMouseLeave = () => {
-    if (!cardRef.current) return;
-    cardRef.current.style.transform = 'perspective(1000px) rotateX(0deg) rotateY(0deg) scale3d(1, 1, 1)';
-  };
-
-  return (
-    <div
-      ref={cardRef}
-      onMouseMove={handleMouseMove}
-      onMouseLeave={handleMouseLeave}
-      className={`bento-card-react ${borderGlow ? 'border-[rgba(37,232,122,0.4)] shadow-emeraldGlow' : ''} ${className}`}
-    >
-      {borderGlow && <div className="border-beam" />}
-      <div className="relative z-10">{children}</div>
-    </div>
-  );
-}
 
 export default function Home() {
   const chartRef = useRef(null);
   const chartInstance = useRef(null);
-  const containerRef = useRef(null);
+  const horizontalRef = useRef(null);
+  const horizontalTrackRef = useRef(null);
 
-  const { scrollYProgress } = useScroll({
-    target: containerRef,
-    offset: ['start start', 'end end']
-  });
+  // Horizontal scroll showcase
+  useEffect(() => {
+    const section = horizontalRef.current;
+    const track = horizontalTrackRef.current;
+    if (!section || !track) return;
 
-  const smoothProgress = useSpring(scrollYProgress, { stiffness: 100, damping: 30, restDelta: 0.001 });
+    const totalScroll = track.scrollWidth - window.innerWidth;
 
-  const heroY = useTransform(smoothProgress, [0, 0.25], [0, -60]);
-  const heroOpacity = useTransform(smoothProgress, [0, 0.2], [1, 0.3]);
-  const heroScale = useTransform(smoothProgress, [0, 0.25], [1, 0.94]);
+    const tween = gsap.to(track, {
+      x: -totalScroll,
+      ease: 'none',
+      scrollTrigger: {
+        trigger: section,
+        pin: true,
+        scrub: 1,
+        start: 'top top',
+        end: () => `+=${totalScroll}`,
+        invalidateOnRefresh: true,
+      }
+    });
 
+    return () => {
+      tween.kill();
+      ScrollTrigger.getAll().forEach(t => {
+        if (t.trigger === section) t.kill();
+      });
+    };
+  }, []);
+
+  // Chart
   useEffect(() => {
     if (chartRef.current) {
-      if (chartInstance.current) {
-        chartInstance.current.destroy();
-      }
-
+      if (chartInstance.current) chartInstance.current.destroy();
       const ctx = chartRef.current.getContext('2d');
-      Chart.defaults.color = '#A1B5A8';
-      Chart.defaults.font.family = "'Plus Jakarta Sans', sans-serif";
+      Chart.defaults.color = '#94A3B8';
+      Chart.defaults.font.family = "'Inter', sans-serif";
 
       chartInstance.current = new Chart(ctx, {
         type: 'bar',
         data: {
-          labels: ['Unoptimized Applications', 'Standard Job Portal Outreach', 'Hyrzilla Strategy'],
+          labels: ['Applying on Your Own', 'Traditional Recruiter', 'With Hyrzilla'],
           datasets: [{
-            label: 'Interview Callback Rate (%)',
+            label: 'Callback Rate (%)',
             data: [1.8, 4.2, 28.5],
             backgroundColor: [
-              'rgba(255, 255, 255, 0.18)',
-              'rgba(255, 255, 255, 0.45)',
-              'rgba(37, 232, 122, 0.9)'
+              'rgba(148, 163, 184, 0.15)',
+              'rgba(148, 163, 184, 0.25)',
+              'rgba(139, 92, 246, 0.6)'
             ],
-            borderColor: '#25E87A',
+            borderColor: ['transparent', 'transparent', '#8B5CF6'],
             borderWidth: [0, 0, 1],
             borderRadius: 8
           }]
@@ -97,373 +87,286 @@ export default function Home() {
           plugins: {
             legend: { display: false },
             tooltip: {
-              backgroundColor: 'rgba(4, 9, 6, 0.95)',
-              titleColor: '#fff',
-              bodyColor: '#A1B5A8',
-              borderColor: 'rgba(37, 232, 122, 0.3)',
+              backgroundColor: '#0A0F1E',
+              titleColor: '#F1F5F9',
+              bodyColor: '#94A3B8',
+              borderColor: 'rgba(139, 92, 246, 0.3)',
               borderWidth: 1,
-              padding: 12,
-              callbacks: {
-                label: (context) => ` Callback Rate: ${context.raw}%`
-              }
+              padding: 14,
+              callbacks: { label: (c) => ` ${c.raw}% Callback Rate` }
             }
           },
           scales: {
             y: {
-              grid: { color: 'rgba(37,232,122,0.06)' },
+              grid: { color: 'rgba(148, 163, 184, 0.06)' },
               beginAtZero: true,
-              ticks: { callback: (val) => `${val}%` }
+              ticks: { callback: (v) => `${v}%` }
             },
             x: { grid: { display: false } }
           }
         }
       });
     }
-
-    return () => {
-      if (chartInstance.current) {
-        chartInstance.current.destroy();
-      }
-    };
+    return () => { if (chartInstance.current) chartInstance.current.destroy(); };
   }, []);
 
-  const containerVariants = {
-    hidden: { opacity: 0 },
-    visible: {
-      opacity: 1,
-      transition: { staggerChildren: 0.12 }
+  const steps = [
+    {
+      icon: <FileText size={24} />,
+      title: 'Resume Rebuild',
+      subtitle: 'We rewrite your resume — not with templates, but with real metrics from your experience.',
+      desc: 'Most resumes get auto-rejected because they lack the specific keywords and numbers hiring managers look for. We fix that.',
+      metric: '96%',
+      metricLabel: 'Pass Rate After'
+    },
+    {
+      icon: <Target size={24} />,
+      title: 'Interview Prep',
+      subtitle: 'Practice real technical interviews with people who have been on the other side of the table.',
+      desc: 'We run mock system design and behavioral interviews so you walk into your real ones with confidence, not anxiety.',
+      metric: '3.4x',
+      metricLabel: 'Better Clearance'
+    },
+    {
+      icon: <Sliders size={24} />,
+      title: 'Application Support',
+      subtitle: 'We help you apply to the right roles, not just spray and pray across job boards.',
+      desc: 'Targeted applications to roles that actually match your background. Quality over quantity.',
+      metric: '150+',
+      metricLabel: 'Weekly Apps'
+    },
+    {
+      icon: <Handshake size={24} />,
+      title: 'Offer Negotiation',
+      subtitle: 'Most engineers leave money on the table. We make sure you don\'t.',
+      desc: 'We help you evaluate offers, compare compensation packages, and negotiate confidently.',
+      metric: '+$24.5K',
+      metricLabel: 'Avg. Salary Lift'
     }
-  };
-
-  const itemVariants = {
-    hidden: { opacity: 0, y: 35, scale: 0.96 },
-    visible: { 
-      opacity: 1, 
-      y: 0, 
-      scale: 1,
-      transition: { duration: 0.7, ease: [0.16, 1, 0.3, 1] } 
-    }
-  };
+  ];
 
   return (
-    <div ref={containerRef} className="relative z-10 pt-28">
-      {/* Parallax Hero Section */}
-      <motion.section 
-        style={{ y: heroY, opacity: heroOpacity, scale: heroScale }}
-        className="py-24 md:py-32 text-center relative overflow-hidden"
-      >
-        <div className="max-w-5xl mx-auto px-6 relative z-10">
-          <motion.div 
-            initial={{ opacity: 0, scale: 0.85 }}
-            animate={{ opacity: 1, scale: 1 }}
-            transition={{ duration: 0.6 }}
-            className="inline-flex items-center gap-2 px-5 py-2 rounded-full border border-[rgba(37,232,122,0.3)] bg-[rgba(10,24,16,0.85)] backdrop-blur-xl mb-8 shadow-emeraldGlow"
-          >
-            <Sparkles size={14} className="text-brandGreen animate-pulse" />
-            <span className="text-xs font-semibold text-brandGreen tracking-wider uppercase">
-              Tech Placement & Career Acceleration
-            </span>
-          </motion.div>
+    <div className="relative z-10 pt-24">
+      {/* ═══════════ HERO ═══════════ */}
+      <section className="min-h-[90vh] flex flex-col items-center justify-center text-center px-6 relative">
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.6, delay: 0.3 }}
+          className="mb-8"
+        >
+          <div className="aurora-badge">
+            IT Staffing & Career Advisory
+          </div>
+        </motion.div>
 
-          <motion.h1 
-            initial={{ opacity: 0, y: 30 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8, delay: 0.1, ease: [0.16, 1, 0.3, 1] }}
-            className="text-4xl md:text-6xl lg:text-7xl font-extrabold tracking-tight mb-8 leading-[1.1]"
-          >
-            Accelerating tech careers. <br />
-            <span className="h-green-gradient italic">Landing top engineering roles.</span>
-          </motion.h1>
+        <TextReveal className="text-4xl md:text-6xl lg:text-[5rem] font-extrabold tracking-tight leading-[1.05] text-text-primary max-w-5xl font-display mb-8" delay={0.4}>
+          We help engineers land better jobs, faster.
+        </TextReveal>
 
-          <motion.p 
-            initial={{ opacity: 0, y: 30 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8, delay: 0.2, ease: [0.16, 1, 0.3, 1] }}
-            className="text-lg md:text-xl text-tMuted max-w-2xl mx-auto mb-12 leading-relaxed"
-          >
-            Hyrzilla equips software engineers, data architects, and cloud leads with ATS resume architecture, 1-on-1 mock interview coaching, and active application placement to secure top offers.
-          </motion.p>
+        <motion.p
+          initial={{ opacity: 0, y: 30 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.8, delay: 1.2 }}
+          className="text-lg md:text-xl text-text-secondary max-w-2xl mx-auto mb-12 leading-relaxed"
+        >
+          Hyrzilla is a placement advisory for software engineers, cloud professionals, and data specialists. We rebuild your resume, prep you for interviews, and actively help you get hired.
+        </motion.p>
 
-          <motion.div 
-            initial={{ opacity: 0, y: 30 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, delay: 0.3 }}
-            className="flex flex-wrap justify-center gap-5 mb-12"
-          >
-            <Link
-              to="/pricing"
-              className="px-8 py-4 rounded-full text-base font-semibold bg-brandGreen text-black hover:scale-105 transition-all shadow-emeraldGlow flex items-center gap-2"
-            >
-              Explore Candidate Plans <ArrowRight size={18} />
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.6, delay: 1.5 }}
+          className="flex flex-wrap justify-center gap-4 mb-20"
+        >
+          <MagneticButton>
+            <Link to="/pricing" className="btn-aurora flex items-center gap-2">
+              See Our Plans <ArrowRight size={16} />
             </Link>
-            <Link
-              to="/services"
-              className="px-8 py-4 rounded-full text-base font-semibold border border-[rgba(37,232,122,0.3)] bg-cardBg text-tMain hover:border-brandGreen hover:bg-[rgba(37,232,122,0.08)] transition-all"
-            >
-              View Services
+          </MagneticButton>
+          <MagneticButton>
+            <Link to="/services" className="btn-ghost">
+              How It Works
             </Link>
-          </motion.div>
+          </MagneticButton>
+        </motion.div>
 
-          {/* Interactive Hero ATS Simulator Widget */}
+        {/* ATS Simulator */}
+        <ScrollReveal className="w-full max-w-4xl mx-auto">
           <AtsSimulatorWidget />
-        </div>
-      </motion.section>
+        </ScrollReveal>
+      </section>
 
-      {/* Market Intelligence Section (Distinct Contrast Background) */}
-      <section className="py-24 bg-accentBg border-y border-[rgba(37,232,122,0.16)] shadow-[inset_0_0_80px_rgba(0,0,0,0.6)]">
-        <div className="max-w-7xl mx-auto px-6">
-          <motion.div 
-            initial={{ opacity: 0, y: 30 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.7 }}
-            className="text-center mb-16"
-          >
-            <span className="inline-block px-4 py-1.5 rounded-full border border-[rgba(37,232,122,0.25)] bg-[rgba(37,232,122,0.08)] text-xs font-bold text-brandGreen uppercase tracking-widest mb-4">
-              Market Intelligence
-            </span>
-            <h2 className="text-3xl md:text-5xl font-bold tracking-tight mb-4">
-              The Reality of the <span className="h-green-gradient italic">US Tech Job Market</span>
-            </h2>
-            <p className="text-tMuted text-base md:text-lg max-w-2xl mx-auto">
-              In today's hiring landscape, over 75% of qualified engineers get filtered out before a human recruiter ever opens their resume. Strategic positioning changes the game.
-            </p>
-          </motion.div>
+      {/* ═══════════ MARQUEE ═══════════ */}
+      <MarqueeStrip />
 
-          <motion.div 
-            variants={containerVariants}
-            initial="hidden"
-            whileInView="visible"
-            viewport={{ once: true, margin: "-100px" }}
-            className="grid grid-cols-1 lg:grid-cols-12 gap-8"
-          >
-            {/* Story Chart */}
-            <motion.div variants={itemVariants} className="lg:col-span-7">
-              <TiltCard borderGlow={true}>
-                <div className="flex items-center justify-between mb-6">
-                  <h3 className="text-xl font-bold text-tMain">Application Success Rate Benchmark</h3>
-                  <TrendingUp size={22} className="text-brandGreen" />
-                </div>
-                <div className="relative h-72 mb-6">
-                  <canvas ref={chartRef}></canvas>
-                </div>
-                <p className="text-sm text-tMuted leading-relaxed">
-                  <strong className="text-tMain">The Cold Application Bottleneck:</strong> Traditional job portal applications yield a <strong className="text-brandGreen">&lt;1.8% callback rate</strong> due to automated keyword filters and generic resume formatting.
-                </p>
-              </TiltCard>
-            </motion.div>
-
-            {/* Key Data Cards */}
-            <div className="lg:col-span-5 flex flex-col gap-6">
-              <motion.div variants={itemVariants} className="flex-1">
-                <TiltCard className="h-full">
-                  <div className="w-12 h-12 rounded-2xl bg-[rgba(37,232,122,0.12)] border border-[rgba(37,232,122,0.3)] flex items-center justify-center text-brandGreen mb-4 shadow-emeraldGlow">
-                    <Zap size={22} />
-                  </div>
-                  <h4 className="text-lg font-bold text-tMain mb-2">78% Filtered by ATS Algorithms</h4>
-                  <p className="text-sm text-tMuted leading-relaxed">
-                    Without tailored technical keyword architecture, even highly senior engineers fail initial keyword screenings.
-                  </p>
-                </TiltCard>
-              </motion.div>
-
-              <motion.div variants={itemVariants} className="flex-1">
-                <TiltCard borderGlow={true} className="h-full bg-[rgba(14,34,23,0.85)]">
-                  <div className="w-12 h-12 rounded-2xl bg-[rgba(37,232,122,0.2)] border border-brandGreen flex items-center justify-center text-brandGreen mb-4 shadow-emeraldGlow">
-                    <Award size={22} />
-                  </div>
-                  <h4 className="text-lg font-bold text-brandGreen mb-2">3.4x Higher Interview Rate</h4>
-                  <p className="text-sm text-tMuted leading-relaxed">
-                    Candidates paired with Hyrzilla profile optimization and interview coaching secure significantly more screening calls and offer rounds.
-                  </p>
-                </TiltCard>
-              </motion.div>
+      {/* ═══════════ ATS REWRITER TOOL ═══════════ */}
+      <section className="py-24 px-6">
+        <div className="max-w-4xl mx-auto">
+          <ScrollReveal>
+            <div className="text-center mb-12">
+              <div className="aurora-badge mb-4 mx-auto w-fit">
+                Resume Before & After
+              </div>
+              <h2 className="text-3xl md:text-5xl font-bold text-text-primary font-display tracking-tight mb-4">
+                See what a real <span className="text-aurora">resume rewrite</span> looks like
+              </h2>
+              <p className="text-text-secondary max-w-lg mx-auto">
+                Generic bullet points get filtered out. Specific, metrics-driven ones get callbacks. Here's the difference.
+              </p>
             </div>
-          </motion.div>
+          </ScrollReveal>
+          <ScrollReveal>
+            <AtsRewriterWidget />
+          </ScrollReveal>
         </div>
       </section>
 
-      {/* Candidate Services Bento Section (Dark Background) */}
-      <section className="py-24 bg-bgDark">
-        <div className="max-w-7xl mx-auto px-6">
-          <motion.div 
-            initial={{ opacity: 0, y: 30 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.7 }}
-            className="text-center mb-16"
-          >
-            <span className="inline-block px-4 py-1.5 rounded-full border border-[rgba(37,232,122,0.2)] bg-[rgba(37,232,122,0.08)] text-xs font-bold text-brandGreen uppercase tracking-widest mb-4">
-              Comprehensive Support
-            </span>
-            <h2 className="text-3xl md:text-5xl font-bold tracking-tight mb-4">
-              Designed Exclusively for <span className="h-green-gradient italic">Job Seekers</span>
-            </h2>
-          </motion.div>
+      {/* ═══════════ HORIZONTAL SCROLL SHOWCASE ═══════════ */}
+      <section ref={horizontalRef} className="relative overflow-hidden">
+        <div className="h-screen flex items-center">
+          <div ref={horizontalTrackRef} className="flex gap-8 px-[10vw] will-change-transform">
+            {/* Intro Card */}
+            <div className="flex-shrink-0 w-[40vw] min-w-[340px] flex flex-col justify-center pr-8">
+              <div className="aurora-badge mb-4 w-fit">How We Work</div>
+              <h2 className="text-3xl md:text-5xl font-bold text-text-primary font-display tracking-tight mb-4">
+                From resume to <span className="text-aurora">signed offer</span>
+              </h2>
+              <p className="text-text-secondary text-base max-w-sm">
+                Four steps. One goal. Get you hired at a company and salary you actually deserve.
+              </p>
+            </div>
 
-          <motion.div 
-            variants={containerVariants}
-            initial="hidden"
-            whileInView="visible"
-            viewport={{ once: true, margin: "-100px" }}
-            className="grid grid-cols-1 md:grid-cols-2 gap-8"
-          >
-            {/* Service 1 */}
-            <motion.div variants={itemVariants}>
-              <TiltCard className="h-full">
-                <div className="w-12 h-12 rounded-2xl bg-[rgba(37,232,122,0.12)] border border-[rgba(37,232,122,0.3)] flex items-center justify-center text-brandGreen mb-4 shadow-emeraldGlow">
-                  <FileText size={22} />
+            {/* Step Cards */}
+            {steps.map((step, idx) => (
+              <div 
+                key={idx} 
+                className="flex-shrink-0 w-[380px] glass-card flex flex-col justify-between h-[420px]"
+              >
+                <div>
+                  <div className="w-12 h-12 rounded-2xl bg-gradient-to-br from-accent-violet/20 to-accent-cyan/10 border border-white/[0.06] flex items-center justify-center text-accent-violet mb-6">
+                    {step.icon}
+                  </div>
+                  <span className="text-xs font-bold text-accent-cyan uppercase tracking-widest block mb-1 font-mono">
+                    Step {String(idx + 1).padStart(2, '0')}
+                  </span>
+                  <h3 className="text-xl font-bold text-text-primary mb-1 font-display">{step.title}</h3>
+                  <p className="text-sm text-text-primary/80 mb-3">{step.subtitle}</p>
+                  <p className="text-text-secondary text-sm leading-relaxed">{step.desc}</p>
                 </div>
-                <h3 className="text-xl font-bold text-tMain mb-3">Resume Architecture & ATS Optimization</h3>
-                <p className="text-tMuted text-sm leading-relaxed mb-4">
-                  We overhaul your resume format and technical keyword balance to pass modern applicant tracking systems and captivate engineering managers.
-                </p>
-                <ul className="space-y-2 text-sm text-tMuted">
-                  <li className="flex items-center gap-2"><CheckCircle2 size={16} className="text-brandGreen" /> Hard Tech Stack Framing</li>
-                  <li className="flex items-center gap-2"><CheckCircle2 size={16} className="text-brandGreen" /> Quantified Metrics & Accomplishments</li>
-                  <li className="flex items-center gap-2"><CheckCircle2 size={16} className="text-brandGreen" /> High-Impact Formatting</li>
-                </ul>
-              </TiltCard>
-            </motion.div>
 
-            {/* Service 2 */}
-            <motion.div variants={itemVariants}>
-              <TiltCard className="h-full">
-                <div className="w-12 h-12 rounded-2xl bg-[rgba(37,232,122,0.12)] border border-[rgba(37,232,122,0.3)] flex items-center justify-center text-brandGreen mb-4 shadow-emeraldGlow">
-                  <Target size={22} />
+                <div className="pt-6 border-t border-white/[0.06] flex items-center justify-between">
+                  <span className="text-2xl font-extrabold text-aurora font-mono">{step.metric}</span>
+                  <span className="text-xs text-text-tertiary font-mono">{step.metricLabel}</span>
                 </div>
-                <h3 className="text-xl font-bold text-tMain mb-3">1-on-1 Mock Interview Prep</h3>
-                <p className="text-tMuted text-sm leading-relaxed mb-4">
-                  Practice technical domain questions and behavioral scenarios with experienced mentors to eliminate anxiety and clear interview rounds.
-                </p>
-                <ul className="space-y-2 text-sm text-tMuted">
-                  <li className="flex items-center gap-2"><CheckCircle2 size={16} className="text-brandGreen" /> Technical Architecture Simulation</li>
-                  <li className="flex items-center gap-2"><CheckCircle2 size={16} className="text-brandGreen" /> Behavioral STAR Framework Practice</li>
-                  <li className="flex items-center gap-2"><CheckCircle2 size={16} className="text-brandGreen" /> Detailed Performance Feedback</li>
-                </ul>
-              </TiltCard>
-            </motion.div>
-
-            {/* Service 3 */}
-            <motion.div variants={itemVariants}>
-              <TiltCard className="h-full">
-                <div className="w-12 h-12 rounded-2xl bg-[rgba(37,232,122,0.12)] border border-[rgba(37,232,122,0.3)] flex items-center justify-center text-brandGreen mb-4 shadow-emeraldGlow">
-                  <Sliders size={22} />
-                </div>
-                <h3 className="text-xl font-bold text-tMain mb-3">Active Job Application Placement</h3>
-                <p className="text-tMuted text-sm leading-relaxed mb-4">
-                  We assist with active application submission across top job boards and portal requisitions tailored to your tech stack.
-                </p>
-                <ul className="space-y-2 text-sm text-tMuted">
-                  <li className="flex items-center gap-2"><CheckCircle2 size={16} className="text-brandGreen" /> Stack-Specific Requisition Matching</li>
-                  <li className="flex items-center gap-2"><CheckCircle2 size={16} className="text-brandGreen" /> Daily Application Outreach</li>
-                  <li className="flex items-center gap-2"><CheckCircle2 size={16} className="text-brandGreen" /> Real-time Application Tracking</li>
-                </ul>
-              </TiltCard>
-            </motion.div>
-
-            {/* Service 4 */}
-            <motion.div variants={itemVariants}>
-              <TiltCard className="h-full">
-                <div className="w-12 h-12 rounded-2xl bg-[rgba(37,232,122,0.12)] border border-[rgba(37,232,122,0.3)] flex items-center justify-center text-brandGreen mb-4 shadow-emeraldGlow">
-                  <Handshake size={22} />
-                </div>
-                <h3 className="text-xl font-bold text-tMain mb-3">Offer & Salary Negotiation</h3>
-                <p className="text-tMuted text-sm leading-relaxed mb-4">
-                  Evaluate multiple offer letters, negotiate base salary and equity, and receive guidance on background check onboarding.
-                </p>
-                <ul className="space-y-2 text-sm text-tMuted">
-                  <li className="flex items-center gap-2"><CheckCircle2 size={16} className="text-brandGreen" /> Compensation Breakdown Evaluation</li>
-                  <li className="flex items-center gap-2"><CheckCircle2 size={16} className="text-brandGreen" /> Strategic Counter-Offer Scripting</li>
-                  <li className="flex items-center gap-2"><CheckCircle2 size={16} className="text-brandGreen" /> Onboarding Verification Guidance</li>
-                </ul>
-              </TiltCard>
-            </motion.div>
-          </motion.div>
-        </div>
-      </section>
-
-      {/* 3D Framework Steps (Distinct Accent Background) */}
-      <section className="py-24 bg-accentBg border-y border-[rgba(37,232,122,0.16)] shadow-[inset_0_0_80px_rgba(0,0,0,0.6)]">
-        <div className="max-w-7xl mx-auto px-6">
-          <motion.div 
-            initial={{ opacity: 0, y: 30 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.7 }}
-            className="text-center mb-16"
-          >
-            <h2 className="text-3xl md:text-5xl font-bold tracking-tight mb-4">
-              The Hyrzilla <span className="h-green-gradient italic">Framework</span>
-            </h2>
-            <p className="text-tMuted text-base md:text-lg max-w-xl mx-auto">
-              A structured, transparent methodology engineered for rapid career placement.
-            </p>
-          </motion.div>
-
-          <motion.div 
-            variants={containerVariants}
-            initial="hidden"
-            whileInView="visible"
-            viewport={{ once: true, margin: "-100px" }}
-            className="grid grid-cols-1 md:grid-cols-3 gap-8"
-          >
-            <motion.div variants={itemVariants}>
-              <TiltCard className="h-full">
-                <div className="w-12 h-12 rounded-2xl bg-[rgba(37,232,122,0.12)] border border-[rgba(37,232,122,0.3)] flex items-center justify-center text-brandGreen mb-4 shadow-emeraldGlow">
-                  <Sliders size={22} />
-                </div>
-                <span className="text-xs font-bold text-brandGreen tracking-widest uppercase">01</span>
-                <h3 className="text-xl font-bold text-tMain my-3">Profile Calibration</h3>
-                <p className="text-sm text-tMuted leading-relaxed">
-                  We analyze your technical accomplishments and restructure your resume and portfolio to pass modern keyword filters and captivate recruiters.
-                </p>
-              </TiltCard>
-            </motion.div>
-
-            <motion.div variants={itemVariants}>
-              <TiltCard className="h-full">
-                <div className="w-12 h-12 rounded-2xl bg-[rgba(37,232,122,0.12)] border border-[rgba(37,232,122,0.3)] flex items-center justify-center text-brandGreen mb-4 shadow-emeraldGlow">
-                  <Target size={22} />
-                </div>
-                <span className="text-xs font-bold text-brandGreen tracking-widest uppercase">02</span>
-                <h3 className="text-xl font-bold text-tMain my-3">Interview Simulation</h3>
-                <p className="text-sm text-tMuted leading-relaxed">
-                  Conduct realistic mock technical panels and behavioral coaching to eliminate interview anxiety and ensure round clearance.
-                </p>
-              </TiltCard>
-            </motion.div>
-
-            <motion.div variants={itemVariants}>
-              <TiltCard className="h-full">
-                <div className="w-12 h-12 rounded-2xl bg-[rgba(37,232,122,0.12)] border border-[rgba(37,232,122,0.3)] flex items-center justify-center text-brandGreen mb-4 shadow-emeraldGlow">
-                  <Handshake size={22} />
-                </div>
-                <span className="text-xs font-bold text-brandGreen tracking-widest uppercase">03</span>
-                <h3 className="text-xl font-bold text-tMain my-3">Placement & Onboarding</h3>
-                <p className="text-sm text-tMuted leading-relaxed">
-                  We assist with active application outreach, salary negotiation, and onboarding support to secure your ideal compensation package.
-                </p>
-              </TiltCard>
-            </motion.div>
-          </motion.div>
-        </div>
-      </section>
-
-      {/* Trust & CTA Section */}
-      <section className="py-20 text-center bg-bgDark">
-        <div className="max-w-4xl mx-auto px-6">
-          <ShieldCheck size={36} className="text-brandGreen mx-auto mb-4" />
-          <h3 className="text-2xl md:text-3xl font-bold text-tMain mb-4">Transparent Candidate Plans</h3>
-          <p className="text-tMuted text-base max-w-xl mx-auto mb-8">
-            Candidate plans start from $499 upfront with success fees due only upon job start.
-          </p>
-          <div className="flex justify-center">
-            <Link to="/pricing" className="px-8 py-4 rounded-full text-base font-semibold bg-brandGreen text-black shadow-emeraldGlow flex items-center gap-2">
-              View Candidate Pricing Plans <ArrowRight size={18} />
-            </Link>
+              </div>
+            ))}
           </div>
         </div>
+      </section>
+
+      {/* ═══════════ ANIMATED STATS ═══════════ */}
+      <section className="py-24 px-6">
+        <div className="max-w-7xl mx-auto">
+          <ScrollReveal stagger={0.1}>
+            <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
+              <div className="glass-card text-center py-10">
+                <AnimatedCounter target={96} suffix="%" className="text-4xl font-extrabold text-aurora font-mono block" />
+                <span className="text-xs text-text-tertiary mt-2 block font-mono">Resume Pass Rate</span>
+              </div>
+              <div className="glass-card text-center py-10">
+                <AnimatedCounter target={3.4} suffix="x" decimals={1} className="text-4xl font-extrabold text-aurora font-mono block" />
+                <span className="text-xs text-text-tertiary mt-2 block font-mono">More Interviews</span>
+              </div>
+              <div className="glass-card text-center py-10">
+                <AnimatedCounter target={24500} prefix="$" className="text-4xl font-extrabold text-aurora font-mono block" />
+                <span className="text-xs text-text-tertiary mt-2 block font-mono">Avg. Salary Increase</span>
+              </div>
+              <div className="glass-card text-center py-10">
+                <AnimatedCounter target={78} suffix="%" className="text-4xl font-extrabold text-aurora font-mono block" />
+                <span className="text-xs text-text-tertiary mt-2 block font-mono">Resumes Auto-Rejected</span>
+              </div>
+            </div>
+          </ScrollReveal>
+        </div>
+      </section>
+
+      {/* ═══════════ MARKET INTELLIGENCE ═══════════ */}
+      <section className="py-24 px-6">
+        <div className="max-w-7xl mx-auto">
+          <ScrollReveal>
+            <div className="text-center mb-16">
+              <div className="aurora-badge mb-4 mx-auto w-fit">The Problem</div>
+              <h2 className="text-3xl md:text-5xl font-bold text-text-primary font-display tracking-tight mb-4">
+                Why qualified engineers <span className="text-aurora">aren't getting callbacks</span>
+              </h2>
+              <p className="text-text-secondary max-w-xl mx-auto">
+                It's not your skills. It's how your resume talks about them. Most applications never reach a human.
+              </p>
+            </div>
+          </ScrollReveal>
+
+          <ScrollReveal stagger={0.1}>
+            <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 mb-12">
+              <div className="lg:col-span-7 glass-card text-left">
+                <div className="flex items-center justify-between mb-6">
+                  <h3 className="text-lg font-bold text-text-primary font-display">Interview Callback Rates</h3>
+                  <TrendingUp size={20} className="text-accent-violet" />
+                </div>
+                <div className="relative h-72 mb-4">
+                  <canvas ref={chartRef}></canvas>
+                </div>
+                <p className="text-sm text-text-secondary">
+                  <span className="text-text-primary font-semibold">The reality:</span> applying through portals without an optimized resume gives you less than a <span className="text-accent-cyan font-semibold">2% chance</span> of hearing back.
+                </p>
+              </div>
+
+              <div className="lg:col-span-5 flex flex-col gap-6">
+                <div className="glass-card flex-1">
+                  <div className="w-10 h-10 rounded-xl bg-accent-violet/10 border border-accent-violet/20 flex items-center justify-center text-accent-violet mb-4">
+                    <Zap size={20} />
+                  </div>
+                  <h4 className="text-lg font-bold text-text-primary mb-2 font-display">78% Never Seen by Humans</h4>
+                  <p className="text-sm text-text-secondary leading-relaxed">
+                    Automated filters scan for specific keywords and formats. If your resume doesn't match, it's rejected before anyone reads it.
+                  </p>
+                </div>
+                <div className="glass-card-accent flex-1">
+                  <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-accent-violet to-accent-cyan text-white flex items-center justify-center mb-4 shadow-lg shadow-accent-violet/20">
+                    <Award size={20} />
+                  </div>
+                  <h4 className="text-lg font-bold text-text-primary mb-2 font-display">3.4x More Interviews</h4>
+                  <p className="text-sm text-text-secondary leading-relaxed">
+                    Candidates who work with us get significantly more interview calls because their resumes actually reach the right people.
+                  </p>
+                </div>
+              </div>
+            </div>
+          </ScrollReveal>
+
+          <ScrollReveal>
+            <RequisitionHeatmap />
+          </ScrollReveal>
+        </div>
+      </section>
+
+      {/* ═══════════ CTA ═══════════ */}
+      <section className="py-24 text-center px-6">
+        <ScrollReveal>
+          <div className="max-w-3xl mx-auto">
+            <div className="gradient-divider mb-12" />
+            <ShieldCheck size={36} className="text-accent-violet mx-auto mb-6" />
+            <h3 className="text-2xl md:text-4xl font-bold text-text-primary mb-4 font-display">No hidden fees. No surprises.</h3>
+            <p className="text-text-secondary max-w-lg mx-auto mb-8">
+              You pay an upfront advisory fee, and the placement fee is due only after you actually start your new job.
+            </p>
+            <MagneticButton>
+              <Link to="/pricing" className="btn-aurora flex items-center gap-2 mx-auto w-fit">
+                View Plans & Pricing <ArrowRight size={16} />
+              </Link>
+            </MagneticButton>
+          </div>
+        </ScrollReveal>
       </section>
     </div>
   );

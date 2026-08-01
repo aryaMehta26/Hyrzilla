@@ -1,31 +1,66 @@
 import React, { useEffect, useRef } from 'react';
+import { Link } from 'react-router-dom';
 import { Chart, registerables } from 'chart.js';
+import { TrendingUp, ShieldCheck, Zap, Award, Target, ArrowRight, PieChart, BarChart2 } from 'lucide-react';
+
+import TextReveal from '../components/TextReveal';
+import ScrollReveal from '../components/ScrollReveal';
+import MagneticButton from '../components/MagneticButton';
 
 Chart.register(...registerables);
 
 export default function WhyUs() {
-  const chartRolesRef = useRef(null);
-  const chartPlansRef = useRef(null);
+  const pieRef = useRef(null);
+  const barRef = useRef(null);
+  const pieInst = useRef(null);
+  const barInst = useRef(null);
 
   useEffect(() => {
-    let rolesChart, plansChart;
+    const chartDefaults = () => {
+      Chart.defaults.color = '#94A3B8';
+      Chart.defaults.font.family = "'Inter', sans-serif";
+    };
+    chartDefaults();
 
-    Chart.defaults.color = '#A1B5A8';
-    Chart.defaults.font.family = "'Plus Jakarta Sans', sans-serif";
+    if (pieRef.current) {
+      if (pieInst.current) pieInst.current.destroy();
+      pieInst.current = new Chart(pieRef.current.getContext('2d'), {
+        type: 'doughnut',
+        data: {
+          labels: ['Full-Stack / Backend', 'Cloud / DevOps', 'Data Engineering', 'AI & Security'],
+          datasets: [{
+            data: [38, 28, 20, 14],
+            backgroundColor: ['#8B5CF6', '#06B6D4', '#10B981', '#334155'],
+            borderColor: '#0A0F1E',
+            borderWidth: 3
+          }]
+        },
+        options: {
+          responsive: true,
+          maintainAspectRatio: false,
+          plugins: {
+            legend: {
+              position: 'bottom',
+              labels: { color: '#94A3B8', font: { size: 11 }, padding: 16 }
+            }
+          }
+        }
+      });
+    }
 
-    if (chartRolesRef.current) {
-      const ctx = chartRolesRef.current.getContext('2d');
-      rolesChart = new Chart(ctx, {
+    if (barRef.current) {
+      if (barInst.current) barInst.current.destroy();
+      barInst.current = new Chart(barRef.current.getContext('2d'), {
         type: 'bar',
         data: {
-          labels: ['Cloud Infra', 'Data Eng', 'AI / ML', 'Full-Stack', 'Cybersecurity'],
+          labels: ['Week 1', 'Week 2', 'Week 3', 'Week 4+'],
           datasets: [{
-            label: 'Placements',
-            data: [142, 118, 85, 210, 64],
-            backgroundColor: 'rgba(37, 232, 122, 0.85)',
-            borderColor: '#25E87A',
+            label: 'Callback Rate (%)',
+            data: [12, 44, 78, 92],
+            backgroundColor: 'rgba(139, 92, 246, 0.5)',
+            borderColor: '#8B5CF6',
             borderWidth: 1,
-            borderRadius: 6
+            borderRadius: 8
           }]
         },
         options: {
@@ -33,131 +68,119 @@ export default function WhyUs() {
           maintainAspectRatio: false,
           plugins: { legend: { display: false } },
           scales: {
-            y: { grid: { color: 'rgba(37,232,122,0.06)' }, beginAtZero: true },
+            y: { grid: { color: 'rgba(148,163,184,0.06)' }, beginAtZero: true, ticks: { callback: v => `${v}%` } },
             x: { grid: { display: false } }
           }
         }
       });
     }
 
-    if (chartPlansRef.current) {
-      const ctx = chartPlansRef.current.getContext('2d');
-      plansChart = new Chart(ctx, {
-        type: 'doughnut',
-        data: {
-          labels: ['Market Readiness ($499)', 'Strategic Acceleration ($1499)', 'Executive Partnership ($2499)'],
-          datasets: [{
-            data: [25, 55, 20],
-            backgroundColor: [
-              'rgba(255, 255, 255, 0.8)',
-              'rgba(37, 232, 122, 0.9)',
-              'rgba(37, 232, 122, 0.5)'
-            ],
-            borderColor: '#040906',
-            borderWidth: 4,
-            hoverOffset: 6
-          }]
-        },
-        options: {
-          responsive: true,
-          maintainAspectRatio: false,
-          plugins: {
-            legend: { position: 'bottom', labels: { padding: 20, usePointStyle: true, pointStyle: 'circle' } }
-          },
-          cutout: '75%'
-        }
-      });
-    }
-
     return () => {
-      if (rolesChart) rolesChart.destroy();
-      if (plansChart) plansChart.destroy();
+      if (pieInst.current) pieInst.current.destroy();
+      if (barInst.current) barInst.current.destroy();
     };
   }, []);
 
   return (
-    <div className="relative z-10 pt-32">
-      <section className="py-20 text-center">
-        <div className="max-w-4xl mx-auto px-6">
-          <div className="inline-block px-5 py-2 rounded-full border border-[rgba(37,232,122,0.2)] bg-cardBg backdrop-blur-md mb-6">
-            <span className="text-xs font-semibold text-brandGreen tracking-wider uppercase">
-              Proven Placement Results
-            </span>
+    <div className="relative z-10 pt-28">
+      {/* Hero */}
+      <section className="py-20 text-center px-6">
+        <div className="max-w-4xl mx-auto">
+          <div className="aurora-badge mb-6 mx-auto w-fit">
+            Why Work With Us
           </div>
-          <h1 className="text-4xl md:text-6xl font-extrabold tracking-tight mb-6">
-            Driven by <span className="h-green-gradient italic">results.</span>
-          </h1>
-          <p className="text-lg text-tMuted max-w-2xl mx-auto">
-            We measure our success through the tech careers we accelerate and the engineering placements we help secure.
-          </p>
-        </div>
-      </section>
-
-      {/* Data Visualization */}
-      <section className="py-24 bg-accentBg border-y border-[rgba(37,232,122,0.14)]">
-        <div className="max-w-7xl mx-auto px-6">
-          <div className="bento-card-react mb-8">
-            <h3 className="text-2xl font-bold text-tMain mb-2">Technical Placement Distribution</h3>
-            <p className="text-tMuted text-sm mb-8">Overview of technical roles placed across core engineering domains.</p>
-            
-            <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
-              <div className="p-6 rounded-2xl bg-bgDark/85 border border-[rgba(37,232,122,0.14)]">
-                <h4 className="text-sm font-semibold text-tMuted text-center mb-6">Placements by Domain (Trailing 12 Months)</h4>
-                <div className="relative h-72"><canvas ref={chartRolesRef}></canvas></div>
-              </div>
-              <div className="p-6 rounded-2xl bg-bgDark/85 border border-[rgba(37,232,122,0.14)]">
-                <h4 className="text-sm font-semibold text-tMuted text-center mb-6">Advisory Plan Selection Breakdown</h4>
-                <div className="relative h-72"><canvas ref={chartPlansRef}></canvas></div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* Testimonials */}
-      <section className="py-24">
-        <div className="max-w-7xl mx-auto px-6">
-          <div className="text-center mb-16">
-            <h2 className="text-3xl md:text-5xl font-bold tracking-tight mb-4">
-              What Our <span className="h-green-gradient italic">Clients Say</span>
-            </h2>
-            <p className="text-tMuted text-base md:text-lg max-w-xl mx-auto">
-              Feedback from software engineers and tech leads who work with Hyrzilla.
+          <TextReveal className="text-4xl md:text-6xl font-extrabold tracking-tight text-text-primary font-display mb-6" delay={0.2}>
+            Built by engineers who understand hiring.
+          </TextReveal>
+          <ScrollReveal delay={0.6}>
+            <p className="text-lg text-text-secondary max-w-2xl mx-auto leading-relaxed">
+              We know what it's like to apply for dozens of jobs and get zero responses. We built Hyrzilla to give candidates a real edge in today's market.
             </p>
-          </div>
-
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-            <div className="bento-card-react flex flex-col justify-between">
-              <p className="text-tMuted text-sm leading-relaxed mb-6">
-                "Hyrzilla helped restructure my resume and LinkedIn profile. The interview coaching gave me the exact push I needed to land my senior cloud role."
-              </p>
-              <div>
-                <h4 className="font-bold text-tMain">Sarah L.</h4>
-                <p className="text-xs text-tSub">Cloud Engineer</p>
-              </div>
-            </div>
-
-            <div className="bento-card-react flex flex-col justify-between">
-              <p className="text-tMuted text-sm leading-relaxed mb-6">
-                "Clear communication from day one. Their mock interview feedback was realistic and directly prepared me for my technical screening calls."
-              </p>
-              <div>
-                <h4 className="font-bold text-tMain">Michael R.</h4>
-                <p className="text-xs text-tSub">Full-Stack Developer</p>
-              </div>
-            </div>
-
-            <div className="bento-card-react flex flex-col justify-between">
-              <p className="text-tMuted text-sm leading-relaxed mb-6">
-                "Saves so much time on job applications. Their team kept me updated on callbacks and helped negotiate my final compensation package."
-              </p>
-              <div>
-                <h4 className="font-bold text-tMain">Priya K.</h4>
-                <p className="text-xs text-tSub">Data Engineer</p>
-              </div>
-            </div>
-          </div>
+          </ScrollReveal>
         </div>
+      </section>
+
+      {/* Charts */}
+      <section className="py-24 px-6">
+        <div className="max-w-7xl mx-auto">
+          <ScrollReveal>
+            <div className="text-center mb-16">
+              <div className="aurora-badge mb-4 mx-auto w-fit font-mono">Our Results</div>
+              <h2 className="text-3xl md:text-5xl font-bold text-text-primary font-display tracking-tight">
+                Where candidates land & <span className="text-aurora">how fast</span>
+              </h2>
+            </div>
+          </ScrollReveal>
+
+          <ScrollReveal stagger={0.1}>
+            <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 mb-16">
+              <div className="glass-card text-left">
+                <div className="flex items-center justify-between mb-6">
+                  <h3 className="text-lg font-bold text-text-primary font-display">Placements by Domain</h3>
+                  <PieChart size={20} className="text-accent-violet" />
+                </div>
+                <div className="relative h-72"><canvas ref={pieRef}></canvas></div>
+              </div>
+              <div className="glass-card text-left">
+                <div className="flex items-center justify-between mb-6">
+                  <h3 className="text-lg font-bold text-text-primary font-display">Interview Callback Timeline</h3>
+                  <BarChart2 size={20} className="text-accent-cyan" />
+                </div>
+                <div className="relative h-72"><canvas ref={barRef}></canvas></div>
+              </div>
+            </div>
+          </ScrollReveal>
+        </div>
+      </section>
+
+      {/* Differentiation */}
+      <section className="py-24 px-6">
+        <div className="max-w-7xl mx-auto">
+          <ScrollReveal stagger={0.1}>
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-6 text-left">
+              <div className="glass-card">
+                <div className="w-10 h-10 rounded-xl bg-accent-violet/10 border border-accent-violet/20 flex items-center justify-center text-accent-violet mb-4">
+                  <Zap size={20} />
+                </div>
+                <h3 className="text-xl font-bold text-text-primary mb-3 font-display">No Copy-Paste Resumes</h3>
+                <p className="text-text-secondary text-sm leading-relaxed">
+                  We write every resume from scratch based on your actual achievements, infrastructure scale, and project impact.
+                </p>
+              </div>
+              <div className="glass-card-accent">
+                <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-accent-violet to-accent-cyan text-white flex items-center justify-center mb-4 shadow-lg shadow-accent-violet/20">
+                  <Target size={20} />
+                </div>
+                <h3 className="text-xl font-bold text-text-primary mb-3 font-display">Realistic Interview Prep</h3>
+                <p className="text-text-secondary text-sm leading-relaxed">
+                  Practice system design and whiteboarding with experienced engineers who give you honest, actionable feedback.
+                </p>
+              </div>
+              <div className="glass-card">
+                <div className="w-10 h-10 rounded-xl bg-accent-violet/10 border border-accent-violet/20 flex items-center justify-center text-accent-violet mb-4">
+                  <Award size={20} />
+                </div>
+                <h3 className="text-xl font-bold text-text-primary mb-3 font-display">Aligned Incentives</h3>
+                <p className="text-text-secondary text-sm leading-relaxed">
+                  We only make money when you get hired. That keeps us focused on getting you real results, not just selling services.
+                </p>
+              </div>
+            </div>
+          </ScrollReveal>
+        </div>
+      </section>
+
+      {/* CTA */}
+      <section className="py-24 text-center px-6">
+        <ScrollReveal>
+          <div className="gradient-divider mb-12 max-w-sm mx-auto" />
+          <ShieldCheck size={36} className="text-accent-violet mx-auto mb-4" />
+          <h3 className="text-2xl md:text-3xl font-bold text-text-primary mb-4 font-display">Ready to land your next role?</h3>
+          <p className="text-text-secondary max-w-lg mx-auto mb-8">Take a look at our plans or get in touch with our team.</p>
+          <MagneticButton>
+            <Link to="/pricing" className="btn-aurora flex items-center gap-2 mx-auto w-fit">See Plans <ArrowRight size={16} /></Link>
+          </MagneticButton>
+        </ScrollReveal>
       </section>
     </div>
   );

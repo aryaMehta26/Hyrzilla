@@ -1,40 +1,35 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
+import ScrollReveal from '../components/ScrollReveal';
 
 export default function Privacy() {
   return (
-    <div className="relative z-10 pt-32 pb-24">
-      <section className="py-12 text-center">
-        <div className="max-w-4xl mx-auto px-6">
-          <div className="inline-block px-5 py-2 rounded-full border border-[rgba(37,232,122,0.2)] bg-cardBg backdrop-blur-md mb-6">
-            <span className="text-xs font-semibold text-brandGreen tracking-wider uppercase">
-              Data Operations
-            </span>
+    <div className="relative z-10 pt-28 pb-24">
+      <div className="max-w-4xl mx-auto px-6 text-left">
+        <ScrollReveal>
+          <h1 className="text-4xl font-extrabold text-text-primary mb-6 font-display">Privacy Policy</h1>
+          <p className="text-text-tertiary text-xs font-mono mb-8">Last Updated: July 2026</p>
+        </ScrollReveal>
+
+        <ScrollReveal stagger={0.08}>
+          <div className="space-y-6 text-text-secondary text-sm leading-relaxed">
+            <section className="glass-card">
+              <h2 className="text-lg font-bold text-text-primary mb-2 font-display">1. Information Collection</h2>
+              <p>We collect candidate contact information (name, email, phone), target engineering stack, experience level, and optional LinkedIn URL strictly for advisory and requisition placement.</p>
+            </section>
+            <section className="glass-card">
+              <h2 className="text-lg font-bold text-text-primary mb-2 font-display">2. Data Security & Storage</h2>
+              <p>Candidate submissions are stored securely in encrypted PostgreSQL database tables on Supabase. We do not sell or trade your data to third-party brokers.</p>
+            </section>
+            <section className="glass-card">
+              <h2 className="text-lg font-bold text-text-primary mb-2 font-display">3. Contact & Inquiries</h2>
+              <p>If you have questions regarding your data or wish to request deletion, contact our team at support@hyrzilla.com.</p>
+            </section>
           </div>
-          <h1 className="text-4xl md:text-5xl font-extrabold tracking-tight">
-            Privacy <span className="h-green-gradient italic">Policy</span>
-          </h1>
-        </div>
-      </section>
+        </ScrollReveal>
 
-      <div className="max-w-3xl mx-auto px-6">
-        <div className="bento-card-react space-y-6 text-tMuted text-sm leading-relaxed">
-          <p className="text-xs text-tSub border-b border-[rgba(37,232,122,0.14)] pb-4">
-            Effective Date: January 1, 2026 · Last Updated: November 2026
-          </p>
-
-          <p>Hyrzilla LLC ("Hyrzilla," "we," "us," or "our") respects your privacy and is committed to protecting your personal data.</p>
-
-          <h2 className="text-lg font-bold text-tMain pt-4">1. Information We Collect</h2>
-          <ul className="list-disc pl-6 space-y-2">
-            <li><strong>Identity Data:</strong> Name, email address, phone/WhatsApp number, and LinkedIn profiles.</li>
-            <li><strong>Professional Data:</strong> Resumes, technical portfolios, employment history, and interview screening notes.</li>
-          </ul>
-
-          <h2 className="text-lg font-bold text-tMain pt-4">2. Utilization of Data</h2>
-          <p>We process your data exclusively to facilitate profile optimization, candidate placement, and corporate recruitment matching.</p>
-
-          <h2 className="text-lg font-bold text-tMain pt-4">3. Data Security</h2>
-          <p>We implement robust cryptographic and operational security measures to prevent unauthorized access to your data.</p>
+        <div className="mt-10">
+          <Link to="/" className="text-accent-violet font-semibold hover:underline text-sm font-mono">← Return to Homepage</Link>
         </div>
       </div>
     </div>

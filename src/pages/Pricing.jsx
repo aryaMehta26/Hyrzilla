@@ -1,132 +1,226 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
-import { Check, ArrowRight } from 'lucide-react';
+import { Check, ArrowRight, ShieldCheck, Calculator } from 'lucide-react';
+
+import TextReveal from '../components/TextReveal';
+import ScrollReveal from '../components/ScrollReveal';
+import MagneticButton from '../components/MagneticButton';
+import OfferNegotiatorWidget from '../components/OfferNegotiatorWidget';
 
 export default function Pricing() {
+  const [targetSalary, setTargetSalary] = useState(140000);
+  const [selectedPlanFee, setSelectedPlanFee] = useState(12);
+  const calculatedSuccessFee = Math.round((targetSalary * selectedPlanFee) / 100);
+
+  const plans = [
+    {
+      tier: 'Tier 01',
+      name: 'Market Readiness',
+      desc: 'Resume rewrite, keyword optimization, and foundational prep.',
+      upfront: '$499',
+      fee: '15%',
+      feeNum: 15,
+      features: [
+        'Complete resume rebuild',
+        'Keyword & metric optimization',
+        'LinkedIn profile cleanup',
+        '1-on-1 mock interview session',
+        'Job targeting & strategy guide'
+      ],
+      accent: false,
+      popular: false,
+    },
+    {
+      tier: 'Tier 02',
+      name: 'Strategic Acceleration',
+      desc: 'Full hands-on application support, interview prep, and offer negotiation.',
+      upfront: '$1,499',
+      fee: '12%',
+      feeNum: 12,
+      features: [
+        'Everything in Market Readiness',
+        'Active application support',
+        'Unlimited mock interview coaching',
+        'System design & coding practice',
+        'Salary & offer negotiation guidance'
+      ],
+      accent: true,
+      popular: true,
+    },
+    {
+      tier: 'Tier 03',
+      name: 'Executive Partnership',
+      desc: 'Tailored placement for Staff, Principal, and Lead Engineers.',
+      upfront: '$2,499',
+      fee: '10%',
+      feeNum: 10,
+      features: [
+        'Everything in Strategic Acceleration',
+        'Dedicated senior advisor',
+        'Executive resume & bio writing',
+        'Direct referral targeting',
+        'Background check & onboarding support'
+      ],
+      accent: false,
+      popular: false,
+    }
+  ];
+
   return (
     <div className="relative z-10 pt-28">
-      <section className="py-20 text-center">
-        <div className="max-w-4xl mx-auto px-6">
-          <div className="inline-block px-5 py-2 rounded-full border border-[rgba(37,232,122,0.2)] bg-cardBg backdrop-blur-md mb-6">
-            <span className="text-xs font-semibold text-brandGreen tracking-wider uppercase">
-              Transparent Candidate Plans
-            </span>
+      {/* Hero */}
+      <section className="py-20 text-center px-6">
+        <div className="max-w-4xl mx-auto">
+          <div className="aurora-badge mb-6 mx-auto w-fit">
+            Simple Pricing
           </div>
-          <h1 className="text-4xl md:text-6xl font-extrabold tracking-tight mb-6">
-            Candidate <span className="h-green-gradient italic">Enrollment Pricing.</span>
-          </h1>
-          <p className="text-lg text-tMuted max-w-2xl mx-auto">
-            Clear, upfront pricing for tech candidates seeking resume building, 1-on-1 interview preparation, and dedicated job placement support.
-          </p>
-        </div>
-      </section>
-
-      {/* Candidate Pricing Grid */}
-      <section className="py-24 bg-accentBg border-y border-[rgba(37,232,122,0.16)] shadow-[inset_0_0_80px_rgba(0,0,0,0.6)]">
-        <div className="max-w-7xl mx-auto px-6">
-          <div className="text-center mb-16">
-            <h2 className="text-3xl md:text-4xl font-bold tracking-tight mb-4">Choose Your Enrollment Plan</h2>
-            <p className="text-tMuted text-base max-w-2xl mx-auto">
-              Upfront payment covers initial resume architecture & onboarding support, followed by a placement percentage fee once you get hired.
+          <TextReveal className="text-4xl md:text-6xl font-extrabold tracking-tight text-text-primary font-display mb-6" delay={0.2}>
+            Pay when you succeed.
+          </TextReveal>
+          <ScrollReveal delay={0.6}>
+            <p className="text-lg text-text-secondary max-w-2xl mx-auto leading-relaxed">
+              We charge a straightforward upfront fee to cover our time and resources, plus a placement fee that's only due after you accept an offer and start your new job.
             </p>
-          </div>
-
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-            {/* Market Readiness */}
-            <div className="bento-card-react flex flex-col justify-between">
-              <div>
-                <h3 className="text-xl font-bold text-tMain mb-2">Market Readiness</h3>
-                <div className="text-4xl font-extrabold text-tMain my-4 flex items-baseline gap-2">
-                  $499 <span className="text-sm font-medium text-tSub">upfront</span>
-                </div>
-                <p className="text-sm text-tMuted pb-6 mb-6 border-b border-[rgba(37,232,122,0.14)] leading-relaxed">
-                  Essential resume rebuilding and job application support to launch your job search quickly.
-                </p>
-                <ul className="space-y-3 text-sm text-tMuted mb-8">
-                  <li className="flex items-center gap-2.5"><Check size={16} className="text-brandGreen shrink-0" /> <strong className="text-tMain">15%</strong> placement success fee upon job start</li>
-                  <li className="flex items-center gap-2.5"><Check size={16} className="text-brandGreen shrink-0" /> Professional Resume Architecture</li>
-                  <li className="flex items-center gap-2.5"><Check size={16} className="text-brandGreen shrink-0" /> LinkedIn Profile Optimization</li>
-                  <li className="flex items-center gap-2.5"><Check size={16} className="text-brandGreen shrink-0" /> Active Job Application Placement</li>
-                  <li className="flex items-center gap-2.5"><Check size={16} className="text-brandGreen shrink-0" /> Onboarding Verification Support</li>
-                  <li className="flex items-center gap-2.5 text-tSub line-through">1-on-1 Mock Interview Sessions</li>
-                  <li className="flex items-center gap-2.5 text-tSub line-through">Technical Panel Preparation</li>
-                  <li className="flex items-center gap-2.5 text-tSub line-through">Full Offer & Salary Negotiation</li>
-                </ul>
-              </div>
-              <Link to="/contact" className="w-full text-center py-3 rounded-xl border border-[rgba(37,232,122,0.3)] text-tMain font-semibold text-sm hover:border-brandGreen hover:bg-[rgba(37,232,122,0.08)] transition-all">
-                Enroll Now
-              </Link>
-            </div>
-
-            {/* Strategic Acceleration */}
-            <div className="bento-card-react flex flex-col justify-between border-[rgba(37,232,122,0.4)] bg-[rgba(14,34,23,0.85)] relative">
-              <div className="absolute top-6 right-6 px-3 py-1 rounded-full bg-[rgba(37,232,122,0.15)] border border-[rgba(37,232,122,0.4)] text-[10px] font-bold text-brandGreen uppercase tracking-wider">
-                Most Popular
-              </div>
-              <div>
-                <h3 className="text-xl font-bold text-brandGreen mb-2">Strategic Acceleration</h3>
-                <div className="text-4xl font-extrabold text-brandGreen my-4 flex items-baseline gap-2">
-                  $1,499 <span className="text-sm font-medium text-tSub">upfront</span>
-                </div>
-                <p className="text-sm text-tMuted pb-6 mb-6 border-b border-[rgba(37,232,122,0.14)] leading-relaxed">
-                  Comprehensive support including priority application placement, resume tailoring, and interview prep.
-                </p>
-                <ul className="space-y-3 text-sm text-tMuted mb-8">
-                  <li className="flex items-center gap-2.5"><Check size={16} className="text-brandGreen shrink-0" /> <strong className="text-tMain">12%</strong> placement success fee upon job start</li>
-                  <li className="flex items-center gap-2.5"><Check size={16} className="text-brandGreen shrink-0" /> Professional Resume Architecture</li>
-                  <li className="flex items-center gap-2.5"><Check size={16} className="text-brandGreen shrink-0" /> LinkedIn & Portal Optimization</li>
-                  <li className="flex items-center gap-2.5"><Check size={16} className="text-brandGreen shrink-0" /> Priority Job Applications & Outreach</li>
-                  <li className="flex items-center gap-2.5"><Check size={16} className="text-brandGreen shrink-0" /> 1-on-1 Mock Interview Coaching</li>
-                  <li className="flex items-center gap-2.5"><Check size={16} className="text-brandGreen shrink-0" /> Salary Negotiation Assistance</li>
-                  <li className="flex items-center gap-2.5"><Check size={16} className="text-brandGreen shrink-0" /> Onboarding Verification Support</li>
-                  <li className="flex items-center gap-2.5 text-tSub line-through">Dedicated Recruiter Advisor</li>
-                </ul>
-              </div>
-              <Link to="/contact" className="w-full text-center py-3 rounded-xl bg-brandGreen text-black font-semibold text-sm shadow-emeraldGlow">
-                Enroll Now
-              </Link>
-            </div>
-
-            {/* Executive Partnership */}
-            <div className="bento-card-react flex flex-col justify-between">
-              <div>
-                <h3 className="text-xl font-bold text-tMain mb-2">Executive Partnership</h3>
-                <div className="text-4xl font-extrabold text-tMain my-4 flex items-baseline gap-2">
-                  $2,499 <span className="text-sm font-medium text-tSub">upfront</span>
-                </div>
-                <p className="text-sm text-tMuted pb-6 mb-6 border-b border-[rgba(37,232,122,0.14)] leading-relaxed">
-                  End-to-end dedicated guidance, technical mock panels, and personalized referral assistance.
-                </p>
-                <ul className="space-y-3 text-sm text-tMuted mb-8">
-                  <li className="flex items-center gap-2.5"><Check size={16} className="text-brandGreen shrink-0" /> <strong className="text-tMain">10%</strong> placement success fee upon job start</li>
-                  <li className="flex items-center gap-2.5"><Check size={16} className="text-brandGreen shrink-0" /> Professional Resume Architecture</li>
-                  <li className="flex items-center gap-2.5"><Check size={16} className="text-brandGreen shrink-0" /> Full Portal & Portfolio Optimization</li>
-                  <li className="flex items-center gap-2.5"><Check size={16} className="text-brandGreen shrink-0" /> High-Volume & Direct Outreach</li>
-                  <li className="flex items-center gap-2.5"><Check size={16} className="text-brandGreen shrink-0" /> Dedicated Recruiter Advisor</li>
-                  <li className="flex items-center gap-2.5"><Check size={16} className="text-brandGreen shrink-0" /> Technical Panel Practice</li>
-                  <li className="flex items-center gap-2.5"><Check size={16} className="text-brandGreen shrink-0" /> Full Salary & Offer Negotiation</li>
-                  <li className="flex items-center gap-2.5"><Check size={16} className="text-brandGreen shrink-0" /> Onboarding Verification Support</li>
-                </ul>
-              </div>
-              <Link to="/contact" className="w-full text-center py-3 rounded-xl border border-[rgba(37,232,122,0.3)] text-tMain font-semibold text-sm hover:border-brandGreen hover:bg-[rgba(37,232,122,0.08)] transition-all">
-                Enroll Now
-              </Link>
-            </div>
-          </div>
+          </ScrollReveal>
         </div>
       </section>
 
-      {/* Guarantee & Transparency Note */}
-      <section className="py-20 text-center bg-bgDark">
-        <div className="max-w-3xl mx-auto px-6">
-          <h3 className="text-2xl font-bold text-tMain mb-3">Honest, Transparent Partnership</h3>
-          <p className="text-tMuted text-base leading-relaxed mb-6">
-            Upfront plan fees cover initial profile architecture, portal setup, and onboarding verification support. Placement fees are due exclusively after your official start date.
-          </p>
-          <Link to="/contact" className="inline-flex items-center gap-2 px-8 py-3.5 rounded-full bg-brandGreen text-black font-semibold shadow-emeraldGlow">
-            Get Started Today <ArrowRight size={18} />
-          </Link>
+      {/* Pricing Cards */}
+      <section className="py-24 px-6">
+        <div className="max-w-7xl mx-auto">
+          <ScrollReveal stagger={0.12}>
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-6 text-left">
+              {plans.map((plan, i) => (
+                <div key={i} className={`${plan.accent ? 'glass-card-accent' : 'glass-card'} flex flex-col justify-between relative`}>
+                  {plan.popular && (
+                    <div className="absolute -top-3 right-6 px-4 py-1 rounded-full bg-gradient-to-r from-accent-violet to-accent-cyan text-white text-[10px] font-extrabold tracking-wider uppercase font-mono shadow-lg shadow-accent-violet/25">
+                      Most Popular
+                    </div>
+                  )}
+
+                  <div>
+                    <span className="text-xs font-bold text-text-tertiary tracking-widest uppercase block mb-2 font-mono">{plan.tier}</span>
+                    <h3 className="text-2xl font-bold text-text-primary mb-2 font-display">{plan.name}</h3>
+                    <p className="text-text-tertiary text-xs mb-6">{plan.desc}</p>
+
+                    <div className="mb-6 p-4 rounded-2xl bg-surface border border-white/[0.04]">
+                      <div className="text-3xl font-extrabold text-text-primary mb-1 font-mono">
+                        {plan.upfront} <span className="text-xs font-normal text-text-tertiary">upfront</span>
+                      </div>
+                      <div className="text-xs font-bold text-accent-cyan font-mono">+ {plan.fee} Placement Fee (After Job Start)</div>
+                    </div>
+
+                    <ul className="space-y-3 text-sm text-text-secondary mb-8">
+                      {plan.features.map((f, j) => (
+                        <li key={j} className="flex items-center gap-2.5">
+                          <Check size={15} className="text-accent-emerald shrink-0" /> {f}
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
+
+                  <MagneticButton>
+                    <Link
+                      to="/contact"
+                      className={`w-full py-3.5 rounded-xl text-center text-sm font-semibold block transition-all ${
+                        plan.accent
+                          ? 'bg-gradient-to-r from-accent-violet to-accent-cyan text-white shadow-lg shadow-accent-violet/20 hover:shadow-accent-violet/30'
+                          : 'bg-white/[0.04] border border-white/[0.08] text-text-secondary hover:text-text-primary hover:border-accent-violet/20'
+                      }`}
+                    >
+                      Get Started with {plan.name}
+                    </Link>
+                  </MagneticButton>
+                </div>
+              ))}
+            </div>
+          </ScrollReveal>
         </div>
+      </section>
+
+      {/* Fee Calculator */}
+      <section className="py-24 px-6">
+        <div className="max-w-4xl mx-auto">
+          <ScrollReveal>
+            <div className="text-center mb-12">
+              <div className="w-10 h-10 rounded-xl bg-accent-violet/10 border border-accent-violet/20 flex items-center justify-center text-accent-violet mx-auto mb-4">
+                <Calculator size={20} />
+              </div>
+              <h2 className="text-3xl md:text-4xl font-bold text-text-primary font-display tracking-tight mb-3">
+                Estimate your <span className="text-aurora">placement fee</span>
+              </h2>
+              <p className="text-text-secondary text-sm max-w-lg mx-auto">
+                Adjust your expected salary to see what the post-hire placement fee would look like.
+              </p>
+            </div>
+          </ScrollReveal>
+
+          <ScrollReveal>
+            <div className="glass-card p-8 text-left">
+              <div className="space-y-6">
+                <div>
+                  <div className="flex justify-between items-center mb-3">
+                    <label className="text-xs font-bold uppercase tracking-wider text-text-secondary font-mono">Target Annual Salary:</label>
+                    <span className="text-2xl font-extrabold text-aurora font-mono">${targetSalary.toLocaleString()}</span>
+                  </div>
+                  <input
+                    type="range" min="90000" max="280000" step="5000"
+                    value={targetSalary}
+                    onChange={(e) => setTargetSalary(Number(e.target.value))}
+                  />
+                </div>
+
+                <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 font-mono">
+                  {[{ label: 'Readiness', fee: 15 }, { label: 'Acceleration', fee: 12 }, { label: 'Executive', fee: 10 }].map((p) => (
+                    <button
+                      key={p.fee}
+                      onClick={() => setSelectedPlanFee(p.fee)}
+                      className={`p-3 rounded-xl border text-center transition-all ${
+                        selectedPlanFee === p.fee
+                          ? 'border-accent-violet/40 bg-accent-violet/10 text-text-primary font-bold'
+                          : 'border-white/[0.06] bg-white/[0.02] text-text-tertiary hover:border-accent-violet/20'
+                      }`}
+                    >
+                      <span className="block text-xs">{p.label}</span>
+                      <span className="text-sm font-extrabold text-accent-cyan">{p.fee}% Fee</span>
+                    </button>
+                  ))}
+                </div>
+
+                <div className="pt-6 border-t border-white/[0.06] grid grid-cols-1 md:grid-cols-2 gap-4 items-center">
+                  <div>
+                    <span className="text-xs font-bold text-text-tertiary uppercase tracking-wider block font-mono">Estimated Fee After Hiring:</span>
+                    <div className="text-4xl font-extrabold text-aurora font-mono">${calculatedSuccessFee.toLocaleString()}</div>
+                    <span className="text-[11px] text-text-tertiary font-mono">Payable in monthly installments once you start</span>
+                  </div>
+                  <div className="md:text-right">
+                    <MagneticButton>
+                      <Link to="/contact" className="btn-aurora inline-flex items-center gap-2">
+                        Get Started <ArrowRight size={16} />
+                      </Link>
+                    </MagneticButton>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </ScrollReveal>
+
+          <ScrollReveal>
+            <OfferNegotiatorWidget />
+          </ScrollReveal>
+        </div>
+      </section>
+
+      {/* Trust */}
+      <section className="py-20 text-center px-6">
+        <ScrollReveal>
+          <div className="gradient-divider mb-12 max-w-sm mx-auto" />
+          <ShieldCheck size={36} className="text-accent-violet mx-auto mb-4" />
+          <h3 className="text-2xl font-bold text-text-primary mb-3 font-display">Zero Risk Placement Guarantee</h3>
+          <p className="text-text-secondary text-sm max-w-lg mx-auto">
+            If you don't land a job during our work together, you owe zero placement fees. Simple as that.
+          </p>
+        </ScrollReveal>
       </section>
     </div>
   );

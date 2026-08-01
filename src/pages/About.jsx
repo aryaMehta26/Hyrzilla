@@ -1,118 +1,115 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { Lightbulb, Search, TrendingUp, ArrowRight, ShieldCheck, Award } from 'lucide-react';
+import { ShieldCheck, ArrowRight } from 'lucide-react';
+
+import TextReveal from '../components/TextReveal';
+import ScrollReveal from '../components/ScrollReveal';
+import MagneticButton from '../components/MagneticButton';
 
 export default function About() {
   return (
     <div className="relative z-10 pt-28">
-      <section className="py-20 text-center bg-bgDark">
-        <div className="max-w-4xl mx-auto px-6">
-          <div className="inline-block px-5 py-2 rounded-full border border-[rgba(37,232,122,0.2)] bg-cardBg backdrop-blur-md mb-6">
-            <span className="text-xs font-semibold text-brandGreen tracking-wider uppercase">
-              About Hyrzilla
-            </span>
+      {/* Hero */}
+      <section className="py-20 text-center px-6">
+        <div className="max-w-4xl mx-auto">
+          <div className="aurora-badge mb-6 mx-auto w-fit">
+            About Hyrzilla
           </div>
-          <h1 className="text-4xl md:text-6xl font-extrabold tracking-tight mb-6">
-            Closing the gap between <br />
-            <span className="h-green-gradient italic">talent & opportunity.</span>
-          </h1>
-          <p className="text-lg text-tMuted max-w-2xl mx-auto">
-            Pairing real, tailored resume and interview preparation with genuine placement support — without copy-paste templates or recycled advice.
-          </p>
+          <TextReveal className="text-4xl md:text-6xl font-extrabold tracking-tight text-text-primary font-display mb-6" delay={0.2}>
+            Helping engineers get the roles they deserve.
+          </TextReveal>
+          <ScrollReveal delay={0.6}>
+            <p className="text-lg text-text-secondary max-w-2xl mx-auto leading-relaxed">
+              We started Hyrzilla because good engineers get rejected for silly reasons — bad keyword formatting, poor resume structure, or interview nervousness. We're here to fix that.
+            </p>
+          </ScrollReveal>
         </div>
       </section>
 
-      {/* Our Story (Distinct Contrast Background) */}
-      <section className="py-24 bg-accentBg border-y border-[rgba(37,232,122,0.16)] shadow-[inset_0_0_80px_rgba(0,0,0,0.6)]">
-        <div className="max-w-7xl mx-auto px-6">
-          <div className="grid grid-cols-1 lg:grid-cols-12 gap-8">
-            <div className="lg:col-span-7 bento-card-react">
-              <h2 className="text-3xl font-bold text-tMain mb-6">Our Story</h2>
-              <p className="text-tMuted text-base leading-relaxed mb-4">
-                Dhruv Vaghela started Hyrzilla in 2026 after watching too many talented people — engineers, analysts, designers — get passed over not because they lacked the skills, but because their resume never made it past a keyword filter, or they froze in an interview they were more than qualified for.
-              </p>
-              <p className="text-tMuted text-base leading-relaxed mb-4">
-                Coming from a background as a QA Tester, Dhruv saw firsthand how brilliant technical minds struggled with ATS keyword systems and arbitrary recruitment hurdles. After helping colleagues and friends optimize their profiles and seeing their callback rates soar, it became clear this shouldn't be a favor — it should be a service done right.
-              </p>
-              <p className="text-tMuted text-base leading-relaxed">
-                Today, Hyrzilla exists to close that gap — pairing real, tailored resume and interview work with genuine placement support, without the copy-paste templates and recycled advice that define most of this industry.
-              </p>
-            </div>
+      {/* Founder Story */}
+      <section className="py-24 px-6">
+        <div className="max-w-5xl mx-auto">
+          <ScrollReveal>
+            <div className="glass-card p-8 md:p-12 text-left">
+              <div className="grid grid-cols-1 md:grid-cols-12 gap-8 items-center">
+                <div className="md:col-span-4 text-center">
+                  <div className="w-28 h-28 rounded-full bg-gradient-to-br from-accent-violet/20 to-accent-cyan/10 border border-accent-violet/20 flex items-center justify-center text-3xl font-extrabold text-aurora mx-auto mb-4 font-mono">
+                    DV
+                  </div>
+                  <h3 className="text-xl font-bold text-text-primary font-display">Dhruv Vaghela</h3>
+                  <span className="text-xs font-bold text-accent-cyan uppercase tracking-widest block font-mono">Founder</span>
+                  <span className="text-xs text-text-tertiary block mt-1 font-mono">Former QA Engineer & Talent Advisor</span>
+                </div>
 
-            <div className="lg:col-span-5 flex flex-col gap-6">
-              <div className="bento-card-react flex-1">
-                <span className="text-xs font-bold text-brandGreen uppercase tracking-wider mb-2 block">Leadership</span>
-                <h3 className="text-2xl font-bold text-tMain mb-1">Dhruv Vaghela</h3>
-                <p className="text-brandGreen text-sm font-semibold mb-4">Founder & CEO</p>
-                <p className="text-tMuted text-sm leading-relaxed">
-                  With a professional background as a QA Tester, Dhruv brings a rigorous technical mindset and a deep understanding of software testing, ATS keyword algorithms, and recruitment workflows.
-                </p>
-              </div>
-
-              <div className="bento-card-react flex-1">
-                <h4 className="text-lg font-bold text-tMain mb-3">Where We Are Today</h4>
-                <p className="text-tMuted text-sm leading-relaxed">
-                  Hyrzilla is in its early days — we're a small, hands-on team working closely with a limited number of clients as we build out our process. That means when you work with us, you're not one of thousands in a queue; you're getting direct attention from the people running the company.
-                </p>
+                <div className="md:col-span-8 space-y-4 text-text-secondary text-sm leading-relaxed">
+                  <h4 className="text-xl font-bold text-text-primary font-display">Why I Started Hyrzilla</h4>
+                  <p>
+                    I spent years working in tech as a QA Engineer. Over time, I watched smart, capable developer friends apply for hundreds of jobs and get zero responses. When I looked at their resumes, I realized the problem wasn't their skills — it was how their experience was written.
+                  </p>
+                  <p>
+                    Their resumes were full of vague sentences that automated screeners threw out and hiring managers found boring. I started helping them rewrite their bullet points using real numbers, infrastructure scale, and specific outcomes. Suddenly, their callback rates jumped.
+                  </p>
+                  <p className="text-text-primary font-medium italic bg-surface p-4 rounded-xl border border-white/[0.04]">
+                    "No one gets hired off generic resume templates. Every candidate's experience needs to be written with the exact metrics and clarity that hiring managers care about."
+                  </p>
+                </div>
               </div>
             </div>
-          </div>
+          </ScrollReveal>
         </div>
       </section>
 
-      {/* What We Believe (Dark Background) */}
-      <section className="py-24 bg-bgDark">
-        <div className="max-w-7xl mx-auto px-6">
-          <div className="text-center mb-16">
-            <h2 className="text-3xl md:text-5xl font-bold tracking-tight mb-4">What We Believe</h2>
-            <p className="text-tMuted text-base md:text-lg max-w-xl mx-auto">Principles that guide our work with every candidate.</p>
-          </div>
-
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-            <div className="bento-card-react">
-              <div className="w-12 h-12 rounded-2xl bg-[rgba(37,232,122,0.12)] border border-[rgba(37,232,122,0.3)] flex items-center justify-center text-brandGreen mb-4 shadow-emeraldGlow">
-                <Lightbulb size={22} />
-              </div>
-              <h3 className="text-xl font-bold text-tMain mb-3">Careers aren't built from templates</h3>
-              <p className="text-tMuted text-sm leading-relaxed">
-                Every resume, every mock interview, every application strategy should reflect the person's actual experience — not a generic keyword-stuffed format.
-              </p>
+      {/* Core Principles */}
+      <section className="py-24 px-6">
+        <div className="max-w-7xl mx-auto">
+          <ScrollReveal>
+            <div className="text-center mb-16">
+              <div className="aurora-badge mb-4 mx-auto w-fit">How We Think</div>
+              <h2 className="text-3xl md:text-5xl font-bold text-text-primary font-display tracking-tight">
+                Our core <span className="text-aurora">principles</span>
+              </h2>
             </div>
+          </ScrollReveal>
 
-            <div className="bento-card-react">
-              <div className="w-12 h-12 rounded-2xl bg-[rgba(37,232,122,0.12)] border border-[rgba(37,232,122,0.3)] flex items-center justify-center text-brandGreen mb-4 shadow-emeraldGlow">
-                <Search size={22} />
+          <ScrollReveal stagger={0.1}>
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-6 text-left">
+              <div className="glass-card">
+                <span className="text-xs font-bold text-accent-cyan uppercase tracking-widest block mb-2 font-mono">01</span>
+                <h3 className="text-xl font-bold text-text-primary mb-3 font-display">Custom Work Only</h3>
+                <p className="text-text-secondary text-sm leading-relaxed">
+                  No automated tools or copy-paste templates. Every resume is rewritten by hand to match your real achievements.
+                </p>
               </div>
-              <h3 className="text-xl font-bold text-tMain mb-3">Transparency matters</h3>
-              <p className="text-tMuted text-sm leading-relaxed">
-                No hidden pricing, no vague promises. You should know exactly what you're getting and what it costs before you commit.
-              </p>
-            </div>
-
-            <div className="bento-card-react">
-              <div className="w-12 h-12 rounded-2xl bg-[rgba(37,232,122,0.12)] border border-[rgba(37,232,122,0.3)] flex items-center justify-center text-brandGreen mb-4 shadow-emeraldGlow">
-                <TrendingUp size={22} />
+              <div className="glass-card-accent">
+                <span className="text-xs font-bold text-accent-cyan uppercase tracking-widest block mb-2 font-mono">02</span>
+                <h3 className="text-xl font-bold text-text-primary mb-3 font-display">Honest Coaching</h3>
+                <p className="text-text-secondary text-sm leading-relaxed">
+                  We don't just tell you what you want to hear. We pinpoint your weak spots in interviews and work through them together.
+                </p>
               </div>
-              <h3 className="text-xl font-bold text-tMain mb-3">Results are the only real measure</h3>
-              <p className="text-tMuted text-sm leading-relaxed">
-                We track outcomes, not just deliverables. Our goal is getting you real callbacks, interviews, and job offers.
-              </p>
+              <div className="glass-card">
+                <span className="text-xs font-bold text-accent-cyan uppercase tracking-widest block mb-2 font-mono">03</span>
+                <h3 className="text-xl font-bold text-text-primary mb-3 font-display">Fair Pricing</h3>
+                <p className="text-text-secondary text-sm leading-relaxed">
+                  Our success fee is tied directly to you getting hired. If you don't start a job, you don't pay the placement fee.
+                </p>
+              </div>
             </div>
-          </div>
+          </ScrollReveal>
         </div>
       </section>
 
       {/* CTA */}
-      <section className="py-16 text-center bg-accentBg border-t border-[rgba(37,232,122,0.16)]">
-        <div className="max-w-4xl mx-auto px-6">
-          <h3 className="text-2xl font-bold text-tMain mb-3">Have questions before you commit?</h3>
-          <p className="text-tMuted text-base max-w-lg mx-auto mb-6">
-            Reach out directly — we'd rather you ask everything upfront than be surprised later.
-          </p>
-          <Link to="/contact" className="inline-flex items-center gap-2 px-8 py-3.5 rounded-full bg-brandGreen text-black font-semibold shadow-emeraldGlow">
-            Get in Touch <ArrowRight size={18} />
-          </Link>
-        </div>
+      <section className="py-24 text-center px-6">
+        <ScrollReveal>
+          <div className="gradient-divider mb-12 max-w-sm mx-auto" />
+          <ShieldCheck size={36} className="text-accent-violet mx-auto mb-4" />
+          <h3 className="text-2xl md:text-3xl font-bold text-text-primary mb-4 font-display">Let's talk about your career</h3>
+          <p className="text-text-secondary max-w-lg mx-auto mb-8">Get in touch with us for a straightforward review of your situation.</p>
+          <MagneticButton>
+            <Link to="/contact" className="btn-aurora flex items-center gap-2 mx-auto w-fit">Get In Touch <ArrowRight size={16} /></Link>
+          </MagneticButton>
+        </ScrollReveal>
       </section>
     </div>
   );
