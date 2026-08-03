@@ -225,18 +225,47 @@ export default function Home() {
         </div>
       </section>
 
-      {/* ═══════════ WORKFLOW SHOWCASE SECTION (GRADIENT LIGHT PURPLE BACKGROUND) ═══════════ */}
-      <section 
-        ref={horizontalRef} 
-        className="relative overflow-hidden py-14 bg-gradient-to-r from-purple-100/90 via-violet-100/80 to-indigo-100/90 border-y border-purple-200/70 shadow-sm text-indigo-950 my-10"
+      {/* ═══════════ WORKFLOW SHOWCASE SECTION ═══════════ */}
+
+      {/* MOBILE: vertical stack (hidden on md+) */}
+      <section className="md:hidden py-12 px-5 bg-gradient-to-b from-purple-50 to-violet-50 border-y border-purple-200/60 my-8">
+        <div className="mb-8 text-center">
+          <div className="aurora-badge mb-3 mx-auto w-fit">How We Work</div>
+          <h2 className="text-2xl font-bold font-display tracking-tight text-indigo-950 mb-2">
+            From resume to <span className="text-aurora">signed offer</span>
+          </h2>
+          <p className="text-purple-900/70 text-sm">Four steps. One goal. Get you hired at a salary you deserve.</p>
+        </div>
+        <div className="grid grid-cols-1 gap-4">
+          {steps.map((step, idx) => (
+            <div key={idx} className="glass-card p-5">
+              <div className="flex items-center gap-3 mb-3">
+                <div className="w-9 h-9 rounded-xl bg-violet-100 border border-violet-200 flex items-center justify-center text-violet-700 shrink-0">
+                  {step.icon}
+                </div>
+                <span className="text-[11px] font-bold text-violet-700 uppercase tracking-widest font-mono">Step 0{idx + 1}</span>
+              </div>
+              <h3 className="text-base font-bold text-indigo-950 mb-1 font-display">{step.title}</h3>
+              <p className="text-xs text-purple-900/80 mb-3 leading-relaxed">{step.subtitle}</p>
+              <div className="pt-3 border-t border-purple-200/50 flex items-center justify-between">
+                <span className="text-lg font-extrabold text-aurora font-mono">{step.metric}</span>
+                <span className="text-[11px] text-purple-900/60 font-mono">{step.metricLabel}</span>
+              </div>
+            </div>
+          ))}
+        </div>
+      </section>
+
+      {/* DESKTOP: horizontal pinned scroll (hidden on mobile) */}
+      <section
+        ref={horizontalRef}
+        className="hidden md:block relative overflow-hidden py-14 bg-gradient-to-r from-purple-100/90 via-violet-100/80 to-indigo-100/90 border-y border-purple-200/70 shadow-sm text-indigo-950 my-10"
       >
         <div className="flex items-center py-6">
           <div ref={horizontalTrackRef} className="flex gap-6 px-[8vw] items-center will-change-transform">
             {/* Intro Column */}
             <div className="flex-shrink-0 w-[36vw] min-w-[300px] flex flex-col justify-center pr-6">
-              <div className="aurora-badge mb-3 w-fit">
-                How We Work
-              </div>
+              <div className="aurora-badge mb-3 w-fit">How We Work</div>
               <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold font-display tracking-tight mb-3 text-indigo-950">
                 From resume to <span className="text-aurora">signed offer</span>
               </h2>
@@ -244,8 +273,7 @@ export default function Home() {
                 Four steps. One goal. Get you hired at a company and salary you actually deserve.
               </p>
             </div>
-
-            {/* Step Cards in Frosted Light Glass */}
+            {/* Step Cards */}
             {steps.map((step, idx) => (
               <div key={idx} className="flex-shrink-0 w-[350px] h-[360px]">
                 <TiltCard className="h-full rounded-2xl">
@@ -255,15 +283,12 @@ export default function Home() {
                         <div className="w-10 h-10 rounded-xl bg-violet-100/90 border border-violet-200 flex items-center justify-center text-violet-700 shadow-sm">
                           {step.icon}
                         </div>
-                        <span className="text-xs font-bold text-violet-700 uppercase tracking-widest font-mono">
-                          Step 0{idx + 1}
-                        </span>
+                        <span className="text-xs font-bold text-violet-700 uppercase tracking-widest font-mono">Step 0{idx + 1}</span>
                       </div>
                       <h3 className="text-lg font-bold text-indigo-950 mb-1 font-display">{step.title}</h3>
                       <p className="text-xs text-indigo-900/90 mb-2 font-medium">{step.subtitle}</p>
                       <p className="text-purple-900/70 text-xs leading-relaxed">{step.desc}</p>
                     </div>
-
                     <div className="pt-4 border-t border-purple-200/50 flex items-center justify-between">
                       <span className="text-xl font-extrabold text-aurora font-mono">{step.metric}</span>
                       <span className="text-[11px] text-purple-900/60 font-mono">{step.metricLabel}</span>
@@ -294,9 +319,7 @@ export default function Home() {
           </ScrollReveal>
 
           <ScrollReveal>
-            <TiltCard className="rounded-3xl">
-              <ArchitectureVisualizer />
-            </TiltCard>
+            <ArchitectureVisualizer />
           </ScrollReveal>
         </div>
       </section>
