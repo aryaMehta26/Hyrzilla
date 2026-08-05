@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import { Menu, X } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
+import ThemeToggle from './ThemeToggle';
 
 export default function Navbar() {
   const [scrolled, setScrolled] = useState(false);
@@ -22,6 +23,7 @@ export default function Navbar() {
     { name: 'Home', path: '/' },
     { name: 'Services', path: '/services' },
     { name: 'Pricing', path: '/pricing' },
+    { name: 'For Companies', path: '/for-companies' },
     { name: 'Insights', path: '/insights' },
     { name: 'Why Us', path: '/why-us' },
     { name: 'About', path: '/about' },
@@ -35,7 +37,7 @@ export default function Navbar() {
         transition={{ duration: 0.8, delay: 0.2, ease: [0.16, 1, 0.3, 1] }}
         className={`fixed top-0 left-0 right-0 h-20 z-50 transition-all duration-500 ${
           scrolled 
-            ? 'bg-white/80 backdrop-blur-2xl border-b border-purple-200/50 shadow-sm' 
+            ? 'bg-white/80 dark:bg-slate-900/85 backdrop-blur-2xl border-b border-purple-200/50 dark:border-purple-800/50 shadow-sm' 
             : 'bg-transparent'
         }`}
       >
@@ -45,27 +47,27 @@ export default function Navbar() {
             <div className="w-8 h-8 rounded-xl bg-gradient-to-br from-violet-600 to-indigo-600 flex items-center justify-center text-white font-bold text-sm shadow-md shadow-violet-500/20 group-hover:shadow-violet-500/40 transition-shadow">
               H
             </div>
-            <span className="text-indigo-950 font-bold text-xl font-display tracking-tight">Hyrzilla</span>
+            <span className="text-indigo-950 dark:text-purple-100 font-bold text-xl font-display tracking-tight">Hyrzilla</span>
           </Link>
 
           {/* Desktop Nav */}
-          <div className="hidden md:flex items-center gap-1">
+          <div className="hidden lg:flex items-center gap-1">
             {navLinks.map((link) => {
               const active = location.pathname === link.path;
               return (
                 <Link
                   key={link.name}
                   to={link.path}
-                  className={`relative px-4 py-2 rounded-lg text-sm font-semibold transition-all ${
+                  className={`relative px-3.5 py-2 rounded-lg text-sm font-semibold transition-all ${
                     active 
-                      ? 'text-violet-900' 
-                      : 'text-indigo-950/70 hover:text-indigo-950'
+                      ? 'text-violet-900 dark:text-violet-200' 
+                      : 'text-indigo-950/70 dark:text-purple-200/70 hover:text-indigo-950 dark:hover:text-white'
                   }`}
                 >
                   {active && (
                     <motion.div
                       layoutId="navbar-active"
-                      className="absolute inset-0 rounded-lg bg-violet-100/60 border border-violet-200/80"
+                      className="absolute inset-0 rounded-lg bg-violet-100/60 dark:bg-violet-900/50 border border-violet-200/80 dark:border-violet-700/60"
                       transition={{ type: 'spring', bounce: 0.2, duration: 0.6 }}
                     />
                   )}
@@ -75,8 +77,9 @@ export default function Navbar() {
             })}
           </div>
 
-          {/* CTA */}
-          <div className="hidden md:block">
+          {/* Actions: ThemeToggle + CTA */}
+          <div className="hidden lg:flex items-center gap-3">
+            <ThemeToggle />
             <Link
               to="/contact"
               className="btn-aurora text-sm py-2.5 px-6"
@@ -85,14 +88,17 @@ export default function Navbar() {
             </Link>
           </div>
 
-          {/* Mobile Toggle */}
-          <button
-            onClick={() => setMobileOpen(!mobileOpen)}
-            className="md:hidden text-indigo-950 p-2"
-            aria-label="Toggle menu"
-          >
-            {mobileOpen ? <X size={24} /> : <Menu size={24} />}
-          </button>
+          {/* Mobile Actions */}
+          <div className="flex items-center gap-2 lg:hidden">
+            <ThemeToggle />
+            <button
+              onClick={() => setMobileOpen(!mobileOpen)}
+              className="text-indigo-950 dark:text-purple-100 p-2"
+              aria-label="Toggle menu"
+            >
+              {mobileOpen ? <X size={24} /> : <Menu size={24} />}
+            </button>
+          </div>
         </div>
       </motion.nav>
 
@@ -103,18 +109,18 @@ export default function Navbar() {
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
-            className="fixed inset-0 z-40 bg-white/95 backdrop-blur-2xl flex flex-col items-center justify-center gap-6 md:hidden"
+            className="fixed inset-0 z-40 bg-white/95 dark:bg-slate-900/95 backdrop-blur-2xl flex flex-col items-center justify-center gap-6 lg:hidden"
           >
             {navLinks.map((link, i) => (
               <motion.div
                 key={link.name}
                 initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: i * 0.05 }}
+                animate={{ opacity: 1, opacity: 1, y: 0 }}
+                transition={{ delay: i * 0.04 }}
               >
                 <Link
                   to={link.path}
-                  className="text-2xl font-bold text-indigo-950 hover:text-violet-700 transition-colors font-display"
+                  className="text-2xl font-bold text-indigo-950 dark:text-purple-100 hover:text-violet-700 dark:hover:text-violet-300 transition-colors font-display"
                 >
                   {link.name}
                 </Link>

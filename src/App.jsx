@@ -1,4 +1,4 @@
-import React, { useEffect, useRef } from 'react';
+import React, { useEffect } from 'react';
 import { BrowserRouter as Router, Routes, Route, useLocation } from 'react-router-dom';
 import Lenis from 'lenis';
 
@@ -10,6 +10,7 @@ import Footer from './components/Footer';
 import Home from './pages/Home';
 import Services from './pages/Services';
 import Pricing from './pages/Pricing';
+import ForCompanies from './pages/ForCompanies';
 import Insights from './pages/Insights';
 import WhyUs from './pages/WhyUs';
 import About from './pages/About';
@@ -73,6 +74,7 @@ export default function App() {
             <Route path="/" element={<Home />} />
             <Route path="/services" element={<Services />} />
             <Route path="/pricing" element={<Pricing />} />
+            <Route path="/for-companies" element={<ForCompanies />} />
             <Route path="/insights" element={<Insights />} />
             <Route path="/why-us" element={<WhyUs />} />
             <Route path="/about" element={<About />} />

@@ -15,7 +15,7 @@ export default function Privacy() {
           <div className="space-y-6 text-purple-900/80 text-sm leading-relaxed">
             <section className="glass-card">
               <h2 className="text-lg font-bold text-indigo-950 mb-2 font-display">1. Information Collection</h2>
-              <p>We collect candidate contact information (name, email, phone), target engineering stack, experience level, and optional LinkedIn URL strictly for advisory and requisition placement.</p>
+              <p>We collect candidate contact information (name, email, phone), target tech domain, experience level, and optional LinkedIn URL strictly for advisory and placement purposes.</p>
             </section>
             <section className="glass-card">
               <h2 className="text-lg font-bold text-indigo-950 mb-2 font-display">2. Data Security & Storage</h2>
@@ -23,7 +23,7 @@ export default function Privacy() {
             </section>
             <section className="glass-card">
               <h2 className="text-lg font-bold text-indigo-950 mb-2 font-display">3. Contact & Inquiries</h2>
-              <p>If you have questions regarding your data or wish to request deletion, contact our team at support@hyrzilla.com.</p>
+              <p>If you have questions regarding your data or wish to request deletion, contact our team through the <Link to="/contact" className="text-violet-700 font-semibold hover:underline">Get Started form</Link> on our website.</p>
             </section>
           </div>
         </ScrollReveal>

@@ -31,14 +31,14 @@ export default function AuroraMesh() {
     window.addEventListener('resize', resize);
 
     // Particles
-    const numParticles = 45;
+    const numParticles = 65;
     const particles = Array.from({ length: numParticles }, () => ({
       x: Math.random() * canvas.width,
       y: Math.random() * canvas.height,
-      vx: (Math.random() - 0.5) * 0.4,
-      vy: (Math.random() - 0.5) * 0.4,
-      radius: Math.random() * 2 + 1,
-      alpha: Math.random() * 0.4 + 0.1,
+      vx: (Math.random() - 0.5) * 0.5,
+      vy: (Math.random() - 0.5) * 0.5,
+      radius: Math.random() * 2.5 + 1.2,
+      alpha: Math.random() * 0.5 + 0.25,
     }));
 
     const render = () => {
@@ -63,12 +63,12 @@ export default function AuroraMesh() {
           const dx = p.x - p2.x;
           const dy = p.y - p2.y;
           const dist = Math.sqrt(dx * dx + dy * dy);
-          if (dist < 120) {
+          if (dist < 140) {
             ctx.beginPath();
             ctx.moveTo(p.x, p.y);
             ctx.lineTo(p2.x, p2.y);
-            ctx.strokeStyle = `rgba(167, 139, 250, ${(1 - dist / 120) * 0.15})`;
-            ctx.lineWidth = 0.8;
+            ctx.strokeStyle = `rgba(147, 51, 234, ${(1 - dist / 140) * 0.3})`;
+            ctx.lineWidth = 1;
             ctx.stroke();
           }
         }
@@ -117,20 +117,20 @@ export default function AuroraMesh() {
       >
         {/* Soft Lavender Orb — follows cursor */}
         <div 
-          className="absolute w-[850px] h-[850px] rounded-full opacity-35 blur-[150px]"
+          className="absolute w-[900px] h-[900px] rounded-full opacity-55 blur-[140px]"
           style={{
-            background: 'radial-gradient(circle, rgba(167, 139, 250, 0.4), transparent 70%)',
-            left: 'calc(var(--mx) - 425px)',
-            top: 'calc(var(--my) - 425px)',
+            background: 'radial-gradient(circle, rgba(167, 139, 250, 0.55), transparent 70%)',
+            left: 'calc(var(--mx) - 450px)',
+            top: 'calc(var(--my) - 450px)',
             transition: 'none',
           }}
         />
 
         {/* Soft Indigo Orb — offset */}
         <div 
-          className="absolute w-[650px] h-[650px] rounded-full opacity-25 blur-[130px]"
+          className="absolute w-[750px] h-[750px] rounded-full opacity-45 blur-[120px]"
           style={{
-            background: 'radial-gradient(circle, rgba(99, 102, 241, 0.35), transparent 70%)',
+            background: 'radial-gradient(circle, rgba(99, 102, 241, 0.5), transparent 70%)',
             right: 'calc(100% - var(--mx) - 200px)',
             bottom: 'calc(100% - var(--my) - 100px)',
             transition: 'none',
@@ -139,14 +139,14 @@ export default function AuroraMesh() {
 
         {/* Ambient Top Violet Glow */}
         <div 
-          className="absolute top-0 left-1/2 -translate-x-1/2 w-[1100px] h-[450px] opacity-35 blur-[140px]"
+          className="absolute top-0 left-1/2 -translate-x-1/2 w-[1200px] h-[500px] opacity-50 blur-[130px]"
           style={{
-            background: 'radial-gradient(ellipse at center, rgba(124, 58, 237, 0.3), transparent 70%)',
+            background: 'radial-gradient(ellipse at center, rgba(124, 58, 237, 0.45), transparent 70%)',
           }}
         />
 
         {/* Particle Constellation Canvas */}
-        <canvas ref={canvasRef} className="absolute inset-0 pointer-events-none opacity-60" />
+        <canvas ref={canvasRef} className="absolute inset-0 pointer-events-none opacity-80" />
       </div>
 
       {/* Film Grain Noise Overlay */}

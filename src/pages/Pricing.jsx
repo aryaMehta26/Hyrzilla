@@ -135,6 +135,13 @@ export default function Pricing() {
               ))}
             </div>
           </ScrollReveal>
+
+          {/* Hidden Costs Disclaimer */}
+          <div className="mt-8 p-5 rounded-2xl bg-purple-50/60 border border-purple-200/40 text-center">
+            <p className="text-xs text-purple-900/70 leading-relaxed">
+              <span className="font-semibold text-indigo-950">Note:</span> Background check and drug test fees may apply as required by the hiring company. These are third-party costs, are variable, and are not included in our advisory or placement fees.
+            </p>
+          </div>
         </div>
       </section>
 
