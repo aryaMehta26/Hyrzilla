@@ -1,4 +1,7 @@
 {
+  "$schema": "https://openapi.vercel.sh/vercel.json",
+  "buildCommand": "npm --prefix hyrzilla-redesign-prototype run build",
+  "outputDirectory": "hyrzilla-redesign-prototype/dist",
   "rewrites": [
     { "source": "/(.*)", "destination": "/index.html" }
   ]
