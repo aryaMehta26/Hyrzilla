@@ -37,3 +37,19 @@
 .dark .comparison-wrap td:first-child{color:#f7fbf8}
 .dark .insight-art{background:linear-gradient(130deg,#061914,#365e49)}
 .dark :focus-visible{outline-color:#d8f357;outline-offset:3px}
+
+/* Light-surface reading audit: FAQ and small supporting copy must not borrow colours intended for dark sections. */
+.sage .faq-grid{border-color:rgba(17,49,44,.18)}
+.sage .faq-grid article{border-color:rgba(17,49,44,.18)}
+.sage .faq-grid article:nth-child(even){border-left-color:rgba(17,49,44,.18)}
+.sage .faq-grid article>span{color:#527338}
+.sage .faq-grid p{color:#36554c}
+.sage .service-grid article>span,.sage .legal>article>span,.sage .difference-list span{color:#426158}
+.sage .service-grid small,.sage .insight-grid small,.sage .tier,.sage .form-note{color:#426158}
+.dark .sage .faq-grid{border-color:rgba(247,251,248,.22)}
+.dark .sage .faq-grid article{border-color:rgba(247,251,248,.22)}
+.dark .sage .faq-grid article:nth-child(even){border-left-color:rgba(247,251,248,.22)}
+.dark .sage .faq-grid article>span{color:#e0f0ac}
+.dark .sage .faq-grid p{color:#d7e6de}
+.dark .sage .service-grid article>span,.dark .sage .legal>article>span,.dark .sage .difference-list span{color:#c5d8cd}
+.dark .sage .service-grid small,.dark .sage .insight-grid small,.dark .sage .tier,.dark .sage .form-note{color:#c5d8cd}
