@@ -53,3 +53,33 @@
 .dark .sage .faq-grid p{color:#d7e6de}
 .dark .sage .service-grid article>span,.dark .sage .legal>article>span,.dark .sage .difference-list span{color:#c5d8cd}
 .dark .sage .service-grid small,.dark .sage .insight-grid small,.dark .sage .tier,.dark .sage .form-note{color:#c5d8cd}
+
+/* Launch readability scale: descriptive content should be comfortably readable without zooming. */
+.announcement{font-size:11px}
+.desktop-nav>button,.nav-menu>button{font-size:13px}
+.dropdown button,.mobile-nav button{font-size:13px}
+.nav-cta,.button{font-size:14px}
+.hero-copy>p:not(.eyebrow),.page-hero>div>p:not(.eyebrow){font-size:17px;line-height:1.7}
+.hero-note{font-size:12px}
+.signal-head,.signal-panel small{font-size:11px}
+.signal-row b,.signal-panel b{font-size:14px}
+.signal-row small,.signal-footer{font-size:12px}
+.split-choices p:not(.eyebrow){font-size:16px;line-height:1.7}
+.text-link{font-size:13px}
+.proof-band>p{font-size:11px}.proof-band span{font-size:13px}
+.section-label,.eyebrow{font-size:11px}
+.section-intro{font-size:18px;line-height:1.65}
+.service-grid article{min-height:330px}.service-grid article>span,.process-grid article>span,.faq-grid article>span,.legal>article>span{font-size:11px}
+.service-grid h2{font-size:24px;margin-top:36px}.service-grid p{font-size:16px;line-height:1.6}.service-grid small{font-size:14px;line-height:1.6}
+.process-grid article{min-height:285px}.process-grid h2{font-size:22px}.process-grid p,.callout p{font-size:15px;line-height:1.6}
+.principles p{font-size:15px;line-height:1.65}
+.tier{font-size:11px}.price-card h2{font-size:24px}.price-card>p{font-size:14px;line-height:1.6}.price span,.price small{font-size:13px}.price-card li{font-size:14px;line-height:1.55}
+.comparison-wrap th,.comparison-wrap td{font-size:14px}.comparison-wrap th{font-size:12px}
+.faq-grid article{min-height:225px}.faq-grid h2{font-size:25px}.faq-grid p{font-size:17px;line-height:1.6}
+.category-filter button{font-size:12px}.search input,.result-count{font-size:14px}
+.insight-grid small{font-size:12px}.insight-grid h2{font-size:23px}.insight-grid p,.empty-state{font-size:15px;line-height:1.6}
+.story p{font-size:17px;line-height:1.7}.difference-list span{font-size:12px}.difference-list p{font-size:17px}
+.contact-section>div>p:not(.eyebrow){font-size:16px}.form-context small,.form-card label{font-size:12px}.form-context b{font-size:14px}.form-card input,.form-card textarea{font-size:15px}.form-note{font-size:12px}.success p{font-size:15px}
+.legal>article h2{font-size:21px}.legal>article p{font-size:16px;line-height:1.7}.legal-note p{font-size:14px}.legal-note{padding:19px 21px}
+footer p{font-size:14px}footer b{font-size:11px}footer button{font-size:13px}.newsletter span{font-size:11px}
+@media(max-width:640px){.service-grid article,.faq-grid article,.process-grid article{min-height:0}.section-intro{font-size:17px}.service-grid h2{font-size:23px}.faq-grid h2{font-size:23px}.faq-grid p{font-size:16px}.hero-copy>p:not(.eyebrow),.page-hero>div>p:not(.eyebrow){font-size:16px}}
