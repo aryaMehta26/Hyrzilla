@@ -68,6 +68,18 @@ Deno.serve(async (request) => {
     if (!secretKey) throw new Error('Supabase server key is not configured.');
     const supabase = createClient(Deno.env.get('SUPABASE_URL')!, secretKey);
     const inquiry = { full_name, email, phone, selected_plan, tech_domain, experience_years, message, status };
+
+    const since = new Date(Date.now() - 24 * 60 * 60 * 1000).toISOString();
+    const { data: recentInquiries, error: lookupError } = await supabase
+      .from('candidates_prod')
+      .select('id')
+      .eq('email', email)
+      .gte('created_at', since)
+      .limit(1);
+    if (lookupError) throw lookupError;
+    if (recentInquiries?.length) {
+      return json({ error: 'We already have an inquiry from this email in the last 24 hours. Please wait for a reply before sending another.' }, 429, origin);
+    }
     const { error: insertError } = await supabase.from('candidates_prod').insert([inquiry]);
     if (insertError) throw insertError;
 
@@ -91,14 +103,16 @@ Deno.serve(async (request) => {
         html: `<p>Hi ${safe(full_name)},</p><p>Thank you for reaching out to Hyrzilla. We have received your ${safe(category.toLowerCase())} and a member of our team will reply within one business day.</p><p>We will confirm the appropriate scope and next steps before any work begins.</p><p>— Hyrzilla</p>`,
       },
     ];
-    const results = await Promise.all(messages.map((emailMessage) => fetch('https://api.resend.com/emails', {
+    const results = await Promise.allSettled(messages.map((emailMessage) => fetch('https://api.resend.com/emails', {
       method: 'POST',
       headers: { Authorization: `Bearer ${resendKey}`, 'Content-Type': 'application/json' },
       body: JSON.stringify(emailMessage),
-    })));
-    if (results.some((result) => !result.ok)) console.error('One or more inquiry emails could not be delivered.');
+    }))));
+    const delivered = results.map((result) => result.status === 'fulfilled' && result.value.ok);
+    if (!delivered[0]) console.error('The internal inquiry notification could not be delivered.');
+    if (!delivered[1]) console.error('The applicant confirmation could not be delivered.');
 
-    return json({ ok: true }, 200, origin);
+    return json({ ok: true, confirmationSent: delivered[1] === true }, 200, origin);
   } catch (error) {
     console.error('submit-inquiry failed', error instanceof Error ? error.message : error);
     return json({ error: 'We could not send your inquiry. Please try again shortly.' }, 500, origin);

@@ -10,6 +10,8 @@ const turnstileSiteKey = import.meta.env.VITE_TURNSTILE_SITE_KEY?.trim();
 // that has not been deployed yet.
 const inquiryFunctionEnabled = import.meta.env.VITE_INQUIRY_FUNCTION_ENABLED === 'true' && Boolean(turnstileSiteKey);
 const emailHref = (subject) => businessEmail ? `mailto:${businessEmail}?subject=${encodeURIComponent(subject)}` : null;
+const inquiryCooldownMs = 10 * 60 * 1000;
+const inquiryCooldownKey = (email) => `hyrzilla-inquiry:${email.trim().toLowerCase()}`;
 
 const plans = [
   { slug: 'starter', name: 'Starter Strategy', upfront: '$500', fee: '14%', audience: 'Early-career and focused searches', features: ['ATS-ready master résumé', 'Search strategy intake', 'Up to 50 managed applications', 'Application tracker', 'Interview coordination support'] },
@@ -189,6 +191,7 @@ function ContactPage({ go, route }) {
   const [submitting, setSubmitting] = useState(false);
   const [error, setError] = useState('');
   const [turnstileToken, setTurnstileToken] = useState('');
+  const [confirmationSent, setConfirmationSent] = useState(false);
   const params = new URLSearchParams(route.split('?')[1] || '');
   const employer = params.get('audience') === 'employer';
   const plan = plans.find((item) => item.slug === params.get('plan'));
@@ -206,9 +209,21 @@ function ContactPage({ go, route }) {
     const roleOrCurrent = data.get('roleOrCurrent')?.toString().trim();
     const locationOrExperience = data.get('locationOrExperience')?.toString().trim();
     const message = data.get('message')?.toString().trim();
+    const email = data.get('email')?.toString().trim().toLowerCase();
+    const honeypot = data.get('website')?.toString().trim() || '';
+    if (honeypot) {
+      setSubmitted(true);
+      return;
+    }
+    const cooldownKey = inquiryCooldownKey(email || 'unknown');
+    const lastSubmittedAt = Number(window.localStorage.getItem(cooldownKey) || 0);
+    if (lastSubmittedAt && Date.now() - lastSubmittedAt < inquiryCooldownMs) {
+      setError('We already received an inquiry from this email recently. Please wait a few minutes before sending another.');
+      return;
+    }
     const payload = {
       full_name: data.get('fullName')?.toString().trim(),
-      email: data.get('email')?.toString().trim(),
+      email,
       phone: data.get('phone')?.toString().trim(),
       selected_plan: employer ? 'employer_role_brief' : plan?.slug || 'professional_inquiry',
       tech_domain: roleOrCurrent,
@@ -227,14 +242,16 @@ function ContactPage({ go, route }) {
     setSubmitting(true);
     if (inquiryFunctionEnabled) {
       try {
-        const { error: functionError } = await supabase.functions.invoke('submit-inquiry', {
-          body: { inquiry: payload, turnstileToken, honeypot: data.get('website')?.toString().trim() || '' },
+        const { data: functionData, error: functionError } = await supabase.functions.invoke('submit-inquiry', {
+          body: { inquiry: payload, turnstileToken, honeypot },
         });
         setSubmitting(false);
         if (functionError) {
           setError('We could not send your inquiry. Please try again shortly or email Hyrzilla directly.');
           return;
         }
+        window.localStorage.setItem(cooldownKey, String(Date.now()));
+        setConfirmationSent(functionData?.confirmationSent === true);
         setSubmitted(true);
         return;
       } catch {
@@ -245,18 +262,20 @@ function ContactPage({ go, route }) {
     }
 
     try {
-      let lastError;
-      for (const table of ['candidates_prod', 'candidates_test']) {
-        const { error: insertError } = await supabase.from(table).insert([payload]);
-        if (!insertError) {
-          setSubmitting(false);
-          setSubmitted(true);
-          return;
-        }
-        lastError = insertError;
+      const { error: insertError } = await supabase.from('candidates_prod').insert([payload]);
+      if (!insertError) {
+        window.localStorage.setItem(cooldownKey, String(Date.now()));
+        setConfirmationSent(false);
+        setSubmitting(false);
+        setSubmitted(true);
+        return;
       }
       setSubmitting(false);
-      console.error('Hyrzilla inquiry insert failed:', lastError);
+      console.error('Hyrzilla inquiry insert failed:', insertError);
+      if (insertError.message?.includes('inquiry_rate_limited')) {
+        setError('We already have an inquiry from this email in the last 24 hours. Please wait for a reply before sending another.');
+        return;
+      }
       setError('Hyrzilla’s inquiry service is temporarily unavailable. Please try again shortly.');
     } catch {
       setSubmitting(false);
@@ -282,23 +301,24 @@ function ContactPage({ go, route }) {
       </div>
       {submitted ? <div className="form-card success">
         <Check size={28}/><h2>Inquiry received.</h2>
-        <p>{inquiryFunctionEnabled ? 'Your inquiry is with Hyrzilla. A confirmation has been sent to your email, and a human will reply within one business day.' : 'Your context has been sent to Hyrzilla. Expect a human reply within one business day.'}</p>
+        <p>{confirmationSent ? 'Your inquiry is with Hyrzilla. A confirmation has been sent to your email, and a human will reply within one business day.' : 'Your context has been sent to Hyrzilla. Expect a human reply within one business day.'}</p>
         <button className="text-link" onClick={() => setSubmitted(false)}>Send another inquiry <ArrowRight size={15}/></button>
       </div> : <form id="contact-form" className="form-card" onSubmit={submitInquiry}>
         <div className="form-context"><small>YOUR CONTEXT</small><b>{plan ? `${plan.name} · terms confirmed before starting` : employer ? 'Employer partnership · agreement before recruitment begins' : 'Professional program · outcomes are never guaranteed'}</b></div>
         <div className="form-grid">
           <label>Full name<input name="fullName" required placeholder="Your name"/></label>
           <label>Email address<input name="email" required type="email" placeholder="name@email.com"/></label>
-          <label>Phone / WhatsApp<input name="phone" required type="tel" placeholder="Your preferred contact number"/></label>
+          <label>Phone / WhatsApp<input name="phone" required type="tel" minLength="7" maxLength="30" placeholder="Your preferred contact number"/></label>
           <label>{employer ? 'Role / team' : 'Current role'}<input name="roleOrCurrent" required placeholder={employer ? 'e.g. Platform Engineering' : 'e.g. Senior Backend Engineer'}/></label>
           <label>{employer ? 'Hiring location' : 'Experience level'}<input name="locationOrExperience" required placeholder={employer ? 'e.g. Toronto, Canada' : 'e.g. 4–7 years'}/></label>
         </div>
         <label>What would make the next step meaningful?<textarea name="message" required rows="4" placeholder={employer ? 'Role context, timeline, and hiring goals…' : 'Context, timeline, and goals…'}/></label>
         <label className="honeypot" aria-hidden="true">Leave this field empty<input name="website" tabIndex="-1" autoComplete="off"/></label>
+        <label className="consent"><input name="consent" required type="checkbox"/><span>I agree that Hyrzilla may use these details to respond to my inquiry, as described in the <button type="button" onClick={() => go('/privacy')}>Privacy Policy</button>.</span></label>
         {inquiryFunctionEnabled && <Turnstile onVerify={setTurnstileToken} onExpire={setTurnstileToken}/>}
         {error && <p className="form-error" role="alert">{error}</p>}
         <button className="button primary full" type="submit" disabled={submitting}>{submitting ? 'Sending inquiry…' : 'Send inquiry'} <Send size={16}/></button>
-        <small className="form-note">Your inquiry is sent securely to Hyrzilla. No payment is taken here.</small>
+        <small className="form-note">Your information is stored securely for follow-up. No payment is taken here.</small>
       </form>}
     </section>
   </>;

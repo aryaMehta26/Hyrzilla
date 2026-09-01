@@ -8,6 +8,8 @@ This project is ready for a secure inquiry path:
 
 No secret belongs in Vercel or browser code.
 
+Until the secure function is enabled, the site uses a temporary browser-to-database path so inquiries are not lost. That path stores leads but **cannot send email**. The final path below adds server-side spam controls and transactional email.
+
 ## 1. Free inbound email with Cloudflare
 
 In Cloudflare, open **Email Service → Email Routing → Onboard domain** for `hyrzilla.com`.
@@ -28,9 +30,16 @@ Create a Resend account, add `hyrzilla.com`, and add the exact DNS records Resen
 
 Create a Turnstile widget for `hyrzilla.com` and `www.hyrzilla.com`. Save its **site key** and **secret key** separately.
 
-## 4. Deploy the Supabase Edge Function
+## 4. Enable database-level duplicate protection now
 
-From this project folder, authenticate the Supabase CLI and link project `llbgtukjwtpaqgrulpdh`. Then set these Supabase Edge Function secrets:
+Open **Supabase → SQL Editor**, create a query, paste the contents of
+`supabase/migrations/202609010001_inquiry_rate_limit.sql`, and click **Run**.
+
+This enforces one inquiry per email address every 24 hours at the database, so it also applies if someone bypasses the browser interface. The page also has a short local cooldown and a hidden bot-trap field. These are useful layers, but Turnstile in the final path is the protection against automated form traffic.
+
+## 5. Deploy the Supabase Edge Function
+
+From this project folder, authenticate the Supabase CLI and link project `libgtukjwtpaqgrulpdh`. Then set these Supabase Edge Function secrets:
 
 ```text
 RESEND_API_KEY=<Resend secret key>
@@ -42,7 +51,7 @@ ALLOWED_ORIGINS=https://hyrzilla.com,https://www.hyrzilla.com,https://hyrzilla.v
 
 Deploy `submit-inquiry` with JWT verification disabled; the function performs its own origin and Turnstile checks.
 
-## 5. Enable the live website after the function responds successfully
+## 6. Enable the live website after the function responds successfully
 
 In Vercel, set these **Production** environment variables, then redeploy:
 
@@ -54,7 +63,7 @@ VITE_INQUIRY_FUNCTION_ENABLED=true
 
 The two `VITE_SUPABASE_*` variables must remain present. Never put Resend, Turnstile secret, or Supabase service-role keys in Vercel client variables.
 
-## 6. Test
+## 7. Test
 
 Submit one real test inquiry using an email that is not `hyrzilla@gmail.com`. Confirm all four outcomes:
 
@@ -63,4 +72,11 @@ Submit one real test inquiry using an email that is not `hyrzilla@gmail.com`. Co
 3. the submitter receives the Hyrzilla confirmation from `hello@hyrzilla.com`;
 4. the Contact page shows its success state.
 
-After this passes, remove browser-side anonymous insert access from `candidates_prod` so only the Edge Function can write leads.
+After this passes, remove browser-side anonymous insert access from `candidates_prod` so only the Edge Function can write leads:
+
+```sql
+drop policy if exists "Public inquiry insert" on public.candidates_prod;
+revoke insert on table public.candidates_prod from anon;
+```
+
+Do this only after the Edge Function has passed the four checks above. It prevents a visitor from writing directly to the table and leaves the function plus Turnstile as the only submission path.
