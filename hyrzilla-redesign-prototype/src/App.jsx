@@ -256,7 +256,8 @@ function ContactPage({ go, route }) {
         lastError = insertError;
       }
       setSubmitting(false);
-      setError(lastError?.message || 'We could not save your inquiry. Please try again shortly.');
+      console.error('Hyrzilla inquiry insert failed:', lastError);
+      setError('Hyrzilla’s inquiry service is temporarily unavailable. Please try again shortly.');
     } catch {
       setSubmitting(false);
       setError('We could not reach the inquiry service. Please try again shortly.');
