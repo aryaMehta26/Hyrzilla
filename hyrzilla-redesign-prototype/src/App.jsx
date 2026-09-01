@@ -3,8 +3,12 @@ import { ArrowRight, Check, ChevronDown, ChevronRight, CircleHelp, FileText, Han
 import { supabase } from './lib/supabase';
 
 const businessEmail = import.meta.env.VITE_HYRZILLA_CONTACT_EMAIL?.trim();
-const inquiryFunctionEnabled = import.meta.env.VITE_INQUIRY_FUNCTION_ENABLED === 'true';
 const turnstileSiteKey = import.meta.env.VITE_TURNSTILE_SITE_KEY?.trim();
+// The secure email endpoint is only live once both its feature switch and the
+// public Turnstile key have been configured. Until then, keep the reliable
+// Supabase inquiry save path active instead of sending visitors to an endpoint
+// that has not been deployed yet.
+const inquiryFunctionEnabled = import.meta.env.VITE_INQUIRY_FUNCTION_ENABLED === 'true' && Boolean(turnstileSiteKey);
 const emailHref = (subject) => businessEmail ? `mailto:${businessEmail}?subject=${encodeURIComponent(subject)}` : null;
 
 const plans = [
@@ -222,30 +226,41 @@ function ContactPage({ go, route }) {
 
     setSubmitting(true);
     if (inquiryFunctionEnabled) {
-      const { error: functionError } = await supabase.functions.invoke('submit-inquiry', {
-        body: { inquiry: payload, turnstileToken, honeypot: data.get('website')?.toString().trim() || '' },
-      });
-      setSubmitting(false);
-      if (functionError) {
-        setError('We could not send your inquiry. Please try again shortly or email Hyrzilla directly.');
-        return;
-      }
-      setSubmitted(true);
-      return;
-    }
-
-    let lastError;
-    for (const table of ['candidates_prod', 'candidates_test']) {
-      const { error: insertError } = await supabase.from(table).insert([payload]);
-      if (!insertError) {
+      try {
+        const { error: functionError } = await supabase.functions.invoke('submit-inquiry', {
+          body: { inquiry: payload, turnstileToken, honeypot: data.get('website')?.toString().trim() || '' },
+        });
         setSubmitting(false);
+        if (functionError) {
+          setError('We could not send your inquiry. Please try again shortly or email Hyrzilla directly.');
+          return;
+        }
         setSubmitted(true);
         return;
+      } catch {
+        setSubmitting(false);
+        setError('We could not reach the secure inquiry service. Please try again shortly or email Hyrzilla directly.');
+        return;
       }
-      lastError = insertError;
     }
-    setSubmitting(false);
-    setError(lastError?.message || 'We could not send your inquiry. Please try again shortly.');
+
+    try {
+      let lastError;
+      for (const table of ['candidates_prod', 'candidates_test']) {
+        const { error: insertError } = await supabase.from(table).insert([payload]);
+        if (!insertError) {
+          setSubmitting(false);
+          setSubmitted(true);
+          return;
+        }
+        lastError = insertError;
+      }
+      setSubmitting(false);
+      setError(lastError?.message || 'We could not save your inquiry. Please try again shortly.');
+    } catch {
+      setSubmitting(false);
+      setError('We could not reach the inquiry service. Please try again shortly.');
+    }
   };
 
   return <>
