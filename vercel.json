@@ -2,7 +2,11 @@
   "$schema": "https://openapi.vercel.sh/vercel.json",
   "buildCommand": "npm --prefix hyrzilla-redesign-prototype run build",
   "outputDirectory": "hyrzilla-redesign-prototype/dist",
-  "rewrites": [
-    { "source": "/(.*)", "destination": "/index.html" }
+  "cleanUrls": true,
+  "trailingSlash": false,
+  "redirects": [
+    { "source": "/:path*", "has": [{ "type": "host", "value": "hyrzilla.com" }], "destination": "https://www.hyrzilla.com/:path*", "permanent": true },
+    { "source": "/candidates/:path*", "destination": "/professionals", "permanent": true },
+    { "source": "/hiring-teams/:path*", "destination": "/employers", "permanent": true }
   ]
 }

@@ -1,5 +1,7 @@
 # Hyrzilla inquiry flow setup
 
+> Superseded on 3 October 2026 by `WORKSPACE_LAUNCH_STATUS.md`. The owner now uses Google Workspace. Do not follow the historical Cloudflare forwarding/Gmail setup below or replace Google's mail records.
+
 This project is ready for a secure inquiry path:
 
 1. the contact form submits to a Supabase Edge Function;
