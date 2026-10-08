@@ -27,7 +27,7 @@ After production verification, an authorized owner must submit the sitemap in Go
 
 ## Pending owner input
 
-- Exact approved US WhatsApp number; no personal number is inferred.
+- WhatsApp number confirmed by the owner on 7 October 2026: +1 209 736 5413. Contact and footer links now use this number with a prefilled greeting.
 - Approval of prices, placement percentages, restart benefit and geography. Existing values are unchanged pending review. The one-business-day response promise is removed.
 - Approved testimonials and reviewed legal text. No quotes are invented; existing legal frameworks remain labelled as drafts.
 - Insight articles contain previews only; inactive Read note buttons are replaced with availability text until approved articles exist.

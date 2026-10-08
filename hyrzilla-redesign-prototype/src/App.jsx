@@ -1,8 +1,12 @@
 import React, { useEffect, useRef, useState } from 'react';
-import { ArrowRight, Check, ChevronDown, ChevronRight, CircleHelp, FileText, Handshake, Menu, MessageCircle, Moon, Search, Send, Sparkles, Sun, X } from 'lucide-react';
+import { ArrowRight, Check, ChevronDown, ChevronRight, CircleHelp, FileText, Handshake, Mail, Menu, MessageCircle, Moon, Search, Send, Sparkles, Sun, X } from 'lucide-react';
 import { supabase } from './lib/supabase';
 
 const businessEmail = 'hello@hyrzilla.com';
+const whatsappNumber = '12097365413';
+const whatsappHref = /^[1-9]\d{7,14}$/.test(whatsappNumber)
+  ? `https://wa.me/${whatsappNumber}?text=${encodeURIComponent('Hello Hyrzilla, I would like to discuss your services.')}`
+  : null;
 const turnstileSiteKey = import.meta.env.VITE_TURNSTILE_SITE_KEY?.trim();
 // The secure email endpoint is only live once both its feature switch and the
 // public Turnstile key have been configured. Until then, keep the reliable
@@ -108,7 +112,6 @@ function App({ initialPath = '/' }) {
     <div className="announcement"><Sparkles size={14}/> Clear scope. Human support. <a href="/contact">Start a conversation <ArrowRight size={13}/></a></div>
     <Header go={navigate} path={path} dark={dark} setDark={setDark} mobileOpen={mobileOpen} setMobileOpen={setMobileOpen}/>
     {page}
-    <ContactChannels />
     <Footer go={navigate}/>
     <button className="back-top" onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })} aria-label="Back to top">↑</button>
     <div className="chat">{chatOpen && <div className="chat-panel"><div><span>H</span><b>Hyrzilla guide</b><button aria-label="Close guide" onClick={() => setChatOpen(false)}><X size={16}/></button></div><p>Choose the path that fits your next decision.</p><a href="/professionals">I am planning a career move</a><a href="/employers">I am planning a hire</a></div>}<button className="chat-launch" onClick={() => setChatOpen(!chatOpen)} aria-expanded={chatOpen}><MessageCircle size={18}/><span>Ask Hyrzilla</span></button></div>
@@ -311,8 +314,9 @@ function ContactPage({ go, route }) {
         <p className="eyebrow"><span/> {employer ? 'Employer partnership' : 'Professional program'}</p>
         <h2>{employer ? 'Tell us about the role.' : 'Tell us about the move.'}</h2>
         <p>{employer ? 'Role, team, location, and timing are enough for a useful first conversation.' : 'Your current role, target direction, and what feels difficult are enough to begin.'}</p>
-        {directEmail && <a className="direct-contact" href={directEmail}>Email {employer ? 'employers@hyrzilla.com' : 'candidates@hyrzilla.com'} <ArrowRight size={16}/></a>}
-        <small className="reply-note">Human reply as soon as our team can review your inquiry.</small>
+        <ContactChannels />
+        <p className="audience-contact">Prefer email for this inquiry? <a href={directEmail}>{employer ? 'employers@hyrzilla.com' : 'candidates@hyrzilla.com'}</a></p>
+        <small className="reply-note">Our team will review your message and follow up.</small>
       </div>
       {submitted ? <div className="form-card success">
         <Check size={28}/><h2>Inquiry received.</h2>
@@ -354,14 +358,18 @@ function LegalPage({ type, go }) { const page = legalContent[type]; return <><Pa
 const agreements = { professional: ['Professional service agreement template', 'This template is a framework only and must be reviewed by qualified counsel before use.', [['Parties and selected program', 'The agreement identifies Hyrzilla, the professional client, the selected program, upfront investment, and published placement-fee percentage.'], ['No job or interview guarantee', 'Hyrzilla does not guarantee offers, interviews, recruiter responses, salary level, applications outcomes, or a particular timeline.'], ['Upfront fee and no-refund rule', 'Except where mandatory law requires otherwise, the upfront fee is non-refundable once the agreement is signed and work has begun.'], ['Placement fee due in full', 'The placement fee is due in full once the agreed trigger condition occurs: the professional starts a qualifying role, subject to the exact salary basis and timing in the signed schedule.'], ['Responsibilities and privacy', 'The professional provides accurate information, communicates material offers, and both parties protect confidential information.']]], employer: ['Employer service agreement template', 'This template is a framework only and must be reviewed by qualified counsel before use.', [['Parties, role, and scope', 'The agreement identifies each role, location, recruitment scope, and any exclusions before Hyrzilla begins work.'], ['Agreement before recruitment begins', 'No sourcing, recruitment work, or professional introduction begins until the agreement and commercial schedule are signed.'], ['No guarantee of hire or outcome', 'Hyrzilla does not guarantee the number of introductions, interviews, offers, time-to-fill, performance, retention, or any hiring outcome.'], ['Professional introductions and consent', 'Profiles are shared with appropriate permission for a defined purpose and handled as confidential.'], ['Placement fee and start-date trigger', 'The employer pays the placement fee agreed in the commercial schedule when an introduced professional starts, subject to signed terms.']]] };
 function AgreementPage({ type, go }) { const [title, intro, sections] = agreements[type]; return <><PageHero eyebrow="AGREEMENT TEMPLATE" title={<>{title.split(' template')[0]}.<br/><em>Nothing hidden.</em></>} text={intro} cta="Start a conversation" onCta={() => go(`/contact${type === 'employer' ? '?audience=employer' : ''}`)}/><section className="section sage legal reveal"><div className="legal-note"><FileText size={18}/><p>Template / framework only. It is not legal advice and should not be signed until adapted by qualified counsel.</p></div>{sections.map(([heading, body], index) => <article key={heading}><span>0{index + 1}</span><h2>{heading}</h2><p>{body}</p></article>)}</section></>; }
 function NotFound({ go }) { return <section className="not-found"><p className="eyebrow"><span/> 404</p><h1>This page has moved.</h1><a className="button primary" href="/">Return home <ArrowRight size={16}/></a></section>; }
-function Footer({ go }) { const directEmail = emailHref('Hyrzilla website inquiry'); return <footer><div className="footer-brand"><a className="brand" href="/"><span>H</span>Hyrzilla</a><p>Clearer signal. Better next moves.</p>{directEmail && <a href={directEmail}>Reply as soon as our team can review your inquiry</a>}</div><div><b>Explore</b><a href="/professionals">For Professionals</a><a href="/employers">For Employers</a><a href="/pricing">Pricing</a></div><div><b>Company</b><a href="/insights">Insights</a><a href="/about">About Us</a><a href="/contact">Contact</a></div><div><b>Legal</b><a href="/privacy">Privacy</a><a href="/terms">Terms</a><a href="/agreements/professional">Agreement templates</a></div><div className="newsletter"><b>Newsletter</b><p>Thoughtful notes, soon.</p><span>Coming soon</span></div></footer>; }
+function Footer() { return <footer><div className="footer-brand"><a className="brand" href="/"><span>H</span>Hyrzilla</a><p>Clearer signal. Better next moves.</p><small className="copyright">© {new Date().getFullYear()} Hyrzilla</small></div><div><b>Explore</b><a href="/professionals">For Professionals</a><a href="/employers">For Employers</a><a href="/pricing">Pricing</a></div><div><b>Company</b><a href="/insights">Insights</a><a href="/about">About Us</a><a href="/contact">Contact</a></div><div><b>Legal</b><a href="/privacy">Privacy</a><a href="/terms">Terms</a><a href="/agreements/professional">Agreement templates</a></div><div className="footer-connect"><b>Connect with us</b><ContactChannels compact /></div></footer>; }
 
-function ContactChannels() {
-  return <section className="contact-channels" aria-label="Contact Hyrzilla">
-    <a href="mailto:hello@hyrzilla.com">Email: hello@hyrzilla.com</a>
-    <a href="https://www.linkedin.com/company/hyrzilla/" target="_blank" rel="noopener noreferrer">LinkedIn: Hyrzilla</a>
-    <small>© {new Date().getFullYear()} Hyrzilla</small>
-  </section>;
+function Linkedin() {
+  return <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M20.45 2H3.55C2.69 2 2 2.68 2 3.52v16.96c0 .84.69 1.52 1.55 1.52h16.9c.86 0 1.55-.68 1.55-1.52V3.52c0-.84-.69-1.52-1.55-1.52ZM7.93 18.75H4.98V9.2h2.95v9.55ZM6.46 7.9a1.71 1.71 0 1 1 0-3.42 1.71 1.71 0 0 1 0 3.42ZM19 18.75h-2.94v-4.64c0-1.11-.02-2.54-1.55-2.54-1.55 0-1.79 1.21-1.79 2.46v4.72H9.78V9.2h2.82v1.3h.04c.39-.74 1.35-1.53 2.78-1.53 2.98 0 3.53 1.96 3.53 4.51v5.27Z"/></svg>;
+}
+
+function ContactChannels({ compact = false }) {
+  return <div className={`contact-channels${compact ? ' contact-channels-compact' : ''}`} aria-label="Contact channels">
+    <a href="mailto:hello@hyrzilla.com"><span className="channel-icon"><Mail size={20} aria-hidden="true"/></span><span><strong>Email us</strong><small>hello@hyrzilla.com</small></span></a>
+    <a href="https://www.linkedin.com/company/hyrzilla/" target="_blank" rel="noopener noreferrer"><span className="channel-icon"><Linkedin size={20} aria-hidden="true"/></span><span><strong>LinkedIn</strong><small>Follow Hyrzilla <ArrowRight size={12} aria-hidden="true"/></small></span></a>
+    {whatsappHref && <a href={whatsappHref} target="_blank" rel="noopener noreferrer"><span className="channel-icon"><MessageCircle size={20} aria-hidden="true"/></span><span><strong>WhatsApp</strong><small>Chat with our team <ArrowRight size={12} aria-hidden="true"/></small></span></a>}
+  </div>;
 }
 
 export default App;
