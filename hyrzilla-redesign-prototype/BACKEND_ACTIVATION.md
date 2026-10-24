@@ -1,6 +1,15 @@
 # Backend activation — 24 October 2026
 
-Code is implemented, but production activation requires owner account access. No success report should equate a Git push with a Supabase function deployment or Google indexing.
+## Verified deployment progress — 24 October 2026
+
+- Supabase CLI login confirmed; project `libgtukjwtpaqgrulpdh` is healthy and linked.
+- All three functions deployed. Inquiry OPTIONS responds 200; invalid submissions are rejected; unauthenticated worker requests return 401. The webhook returns 503 until its signing secret is configured.
+- Consent, duplicate-email protection, private email queue and delivery-event tables applied. Public SELECT access to candidate inquiries removed; server SELECT explicitly granted. Existing leads retained.
+- Live transactional smoke test passed: normalized email, consent, two queued jobs and duplicate rejection. All synthetic test rows rolled back; no test emails sent.
+- Sender address and production origin settings configured. Resend API key, Turnstile keys, webhook signing secret, worker token/schedule and Vercel protected-form activation remain pending. Google Search Console remains pending owner access.
+- The existing direct-insert form is still enabled, now with database duplicate protection. It does **not** enqueue email; switching it requires the remaining credentials and end-to-end delivery checks.
+
+The checklist below documents the complete rollout order; do not reapply already-recorded migrations. No success report should equate a Git push with Google indexing or inbox delivery.
 
 ## Account prerequisites
 

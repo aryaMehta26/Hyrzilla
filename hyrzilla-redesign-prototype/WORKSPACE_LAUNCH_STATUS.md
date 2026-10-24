@@ -1,6 +1,6 @@
 # Workspace integration and release status — 3 October 2026
 
-Update 24 October: see `BACKEND_ACTIVATION.md` for the implemented transactional email queue, worker retries, signed delivery tracking, tests and activation sequence. Live account setup is still required. The prior statement that retries remain unimplemented is superseded by this update.
+Update 24 October: Supabase migrations and all three Edge Functions are now deployed; the live rollback-only database smoke test passed. Public inquiry reads were revoked. See `BACKEND_ACTIVATION.md` for the current verified status. Sender/CAPTCHA credentials, worker scheduling, protected-form activation and inbox tests are still pending. The older checklist below is historical; its statements that deployment and retry implementation are outstanding are superseded.
 
 The owner reports that Google Workspace aliases work. Keep Google's existing receiving MX and DKIM records; the earlier Cloudflare-to-personal-Gmail setup is superseded.
 
