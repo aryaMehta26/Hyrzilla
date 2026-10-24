@@ -1,5 +1,7 @@
 # Workspace integration and release status — 3 October 2026
 
+Update 24 October: see `BACKEND_ACTIVATION.md` for the implemented transactional email queue, worker retries, signed delivery tracking, tests and activation sequence. Live account setup is still required. The prior statement that retries remain unimplemented is superseded by this update.
+
 The owner reports that Google Workspace aliases work. Keep Google's existing receiving MX and DKIM records; the earlier Cloudflare-to-personal-Gmail setup is superseded.
 
 ## Inquiry routing

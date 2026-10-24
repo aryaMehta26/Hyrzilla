@@ -5,7 +5,11 @@
   "type": "module",
   "scripts": {
     "dev": "vite",
-    "build": "vite build && node scripts/prerender.mjs"
+    "build": "vite build && node scripts/prerender.mjs",
+    "test:outbox": "node scripts/test-outbox.mjs",
+    "test:email": "npx --yes deno test --node-modules-dir=none --no-lock supabase/functions/_shared/",
+    "search:status": "node scripts/search-console.mjs",
+    "search:submit": "node scripts/search-console.mjs --submit"
   },
   "dependencies": {
     "@supabase/supabase-js": "^2.112.3",
@@ -14,5 +18,8 @@
     "react": "^19.2.7",
     "react-dom": "^19.2.7",
     "vite": "^8.1.1"
+  },
+  "devDependencies": {
+    "@electric-sql/pglite": "^0.5.11"
   }
 }

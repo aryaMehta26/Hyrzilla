@@ -175,8 +175,8 @@ function Turnstile({ onVerify, onExpire }) {
         sitekey: turnstileSiteKey,
         theme: 'auto',
         callback: onVerify,
-        'expired-callback': onExpire,
-        'error-callback': onExpire,
+        'expired-callback': () => onExpire(''),
+        'error-callback': () => onExpire(''),
       });
     };
     const existing = document.querySelector('script[data-hyrzilla-turnstile]');
@@ -206,6 +206,8 @@ function ContactPage({ go, route }) {
   const [error, setError] = useState('');
   const [turnstileToken, setTurnstileToken] = useState('');
   const [confirmationSent, setConfirmationSent] = useState(false);
+  const [confirmationQueued, setConfirmationQueued] = useState(false);
+  const [challengeVersion, setChallengeVersion] = useState(0);
   const params = new URLSearchParams(route.split('?')[1] || '');
   const employer = params.get('audience') === 'employer';
   const plan = plans.find((item) => item.slug === params.get('plan'));
@@ -261,6 +263,8 @@ function ContactPage({ go, route }) {
         });
         setSubmitting(false);
         if (functionError) {
+          setTurnstileToken('');
+          setChallengeVersion((value) => value + 1);
           if (functionError.context?.status === 429) {
             setError('We already received an inquiry from this email recently. Please wait for our reply.');
             return;
@@ -270,9 +274,12 @@ function ContactPage({ go, route }) {
         }
         window.localStorage.setItem(cooldownKey, String(Date.now()));
         setConfirmationSent(functionData?.confirmationSent === true);
+        setConfirmationQueued(functionData?.confirmationQueued === true);
         setSubmitted(true);
         return;
       } catch {
+        setTurnstileToken('');
+        setChallengeVersion((value) => value + 1);
         setSubmitting(false);
         setError('We could not reach the secure inquiry service. Please try again shortly or email Hyrzilla directly.');
         return;
@@ -320,7 +327,7 @@ function ContactPage({ go, route }) {
       </div>
       {submitted ? <div className="form-card success">
         <Check size={28}/><h2>Inquiry received.</h2>
-        <p>{confirmationSent ? 'Your inquiry is with Hyrzilla and your confirmation email has been submitted for sending. Our team will review your inquiry and follow up.' : 'Your inquiry has been received. Our team will review it and follow up.'}</p>
+        <p>{confirmationQueued ? 'Your inquiry has been received and your confirmation email is queued. Our team will review your message and follow up.' : confirmationSent ? 'Your inquiry is with Hyrzilla and your confirmation email has been submitted for sending. Our team will review your inquiry and follow up.' : 'Your inquiry has been received. Our team will review it and follow up.'}</p>
         <button className="text-link" onClick={() => setSubmitted(false)}>Send another inquiry <ArrowRight size={15}/></button>
       </div> : <form id="contact-form" className="form-card" onSubmit={submitInquiry}>
         <div className="form-context"><small>YOUR CONTEXT</small><b>{plan ? `${plan.name} · terms confirmed before starting` : employer ? 'Employer partnership · agreement before recruitment begins' : 'Professional program · outcomes are never guaranteed'}</b></div>
@@ -334,7 +341,7 @@ function ContactPage({ go, route }) {
         <label>What would make the next step meaningful?<textarea name="message" required rows="4" placeholder={employer ? 'Role context, timeline, and hiring goals…' : 'Context, timeline, and goals…'}/></label>
         <label className="honeypot" aria-hidden="true">Leave this field empty<input name="website" tabIndex="-1" autoComplete="off"/></label>
         <label className="consent"><input name="consent" required type="checkbox"/><span>I agree that Hyrzilla may use these details to respond to my inquiry, as described in the <a type="button" href="/privacy">Privacy Policy</a>.</span></label>
-        {inquiryFunctionEnabled && <Turnstile onVerify={setTurnstileToken} onExpire={setTurnstileToken}/>}
+        {inquiryFunctionEnabled && <Turnstile key={challengeVersion} onVerify={setTurnstileToken} onExpire={setTurnstileToken}/>}
         {error && <p className="form-error" role="alert">{error}</p>}
         <button className="button primary full" type="submit" disabled={submitting}>{submitting ? 'Sending inquiry…' : 'Send inquiry'} <Send size={16}/></button>
         <small className="form-note">Your information is stored securely for follow-up. No payment is taken here.</small>

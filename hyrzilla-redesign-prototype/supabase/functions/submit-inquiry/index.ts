@@ -1,4 +1,4 @@
-import { createClient } from 'npm:@supabase/supabase-js@2';
+import { database } from '../_shared/server.ts';
 
 const allowedOrigins = (Deno.env.get('ALLOWED_ORIGINS') || 'https://hyrzilla.com,https://www.hyrzilla.com,https://hyrzilla.vercel.app,http://localhost:4174')
   .split(',')
@@ -20,16 +20,15 @@ const json = (body: Record<string, unknown>, status: number, origin: string | nu
 const text = (value: unknown, max = 4000) => typeof value === 'string' ? value.trim().slice(0, max) : '';
 const validEmail = (value: string) => /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(value);
 
-async function verifyTurnstile(token: string, remoteip: string | null) {
+async function verifyTurnstile(token: string) {
   const secret = Deno.env.get('TURNSTILE_SECRET_KEY');
   if (!secret) return false;
   const body = new FormData();
   body.append('secret', secret);
   body.append('response', token);
-  if (remoteip) body.append('remoteip', remoteip);
-  const response = await fetch('https://challenges.cloudflare.com/turnstile/v0/siteverify', { method: 'POST', body });
+  const response = await fetch('https://challenges.cloudflare.com/turnstile/v0/siteverify', { method: 'POST', body, signal: AbortSignal.timeout(10000) });
   const result = await response.json().catch(() => ({ success: false }));
-  return response.ok && result.success === true;
+  return response.ok && result.success === true && ['www.hyrzilla.com', 'hyrzilla.com'].includes(result.hostname);
 }
 
 Deno.serve(async (request) => {
@@ -39,7 +38,10 @@ Deno.serve(async (request) => {
   if (!origin || !allowedOrigins.includes(origin)) return json({ error: 'Origin not allowed.' }, 403, origin);
 
   try {
-    const body = await request.json();
+    const raw = await request.text();
+    if (raw.length > 16000) return json({ error: 'Inquiry is too long.' }, 413, origin);
+    let body;
+    try { body = JSON.parse(raw); } catch { return json({ error: 'Invalid request.' }, 400, origin); }
     const source = body?.inquiry || {};
     if (text(body?.honeypot, 120)) return json({ ok: true }, 200, origin);
     if (body?.consent !== true || body?.consentVersion !== '2026-10-03') return json({ error: 'Please accept the privacy notice.' }, 400, origin);
@@ -53,10 +55,13 @@ Deno.serve(async (request) => {
     const message = text(source.message, 4000);
     const status = text(source.status, 80);
 
+    if (!['Employer Inquiry','Professional Inquiry'].includes(status)) return json({ error: 'Invalid inquiry type.' }, 400, origin);
+    if (phone.length < 7 || phone.length > 30) return json({ error: 'Please check your phone number.' }, 400, origin);
+
     if (!full_name || !validEmail(email) || !phone || !selected_plan || !tech_domain || !experience_years || !message || !status) {
       return json({ error: 'Please complete every required field.' }, 400, origin);
     }
-    const turnstileOk = await verifyTurnstile(text(body?.turnstileToken, 4096), request.headers.get('cf-connecting-ip'));
+    const turnstileOk = await verifyTurnstile(text(body?.turnstileToken, 4096));
     if (!turnstileOk) return json({ error: 'Security verification failed. Please try again.' }, 400, origin);
 
     const resendKey = Deno.env.get('RESEND_API_KEY');
@@ -64,10 +69,7 @@ Deno.serve(async (request) => {
     const senderEmail = Deno.env.get('SENDER_EMAIL') || 'hello@hyrzilla.com';
     if (!resendKey) throw new Error('Email delivery is not configured.');
 
-    const secretKeys = JSON.parse(Deno.env.get('SUPABASE_SECRET_KEYS') || '{}');
-    const secretKey = secretKeys.default || Deno.env.get('SUPABASE_SERVICE_ROLE_KEY');
-    if (!secretKey) throw new Error('Supabase server key is not configured.');
-    const supabase = createClient(Deno.env.get('SUPABASE_URL')!, secretKey);
+    const supabase = database();
     const inquiry = { full_name, email, phone, selected_plan, tech_domain, experience_years, message, status, consent_at: new Date().toISOString(), consent_version: '2026-10-03' };
 
     const since = new Date(Date.now() - 24 * 60 * 60 * 1000).toISOString();
@@ -81,9 +83,6 @@ Deno.serve(async (request) => {
     if (recentInquiries?.length) {
       return json({ error: 'We already have an inquiry from this email in the last 24 hours. Please wait for a reply before sending another.' }, 429, origin);
     }
-    const { error: insertError } = await supabase.from('candidates_prod').insert([inquiry]);
-    if (insertError?.message?.includes('inquiry_rate_limited')) return json({ error: 'An inquiry was already received recently. Please wait for our reply.' }, 429, origin);
-    if (insertError) throw insertError;
 
     const safe = (value: string) => value.replace(/[&<>"']/g, (character) => {
       if (character === '&') return '&amp;';
@@ -105,16 +104,10 @@ Deno.serve(async (request) => {
         html: `<p>Hi ${safe(full_name)},</p><p>Thank you for reaching out to Hyrzilla. We have received your ${safe(category.toLowerCase())} and a member of our team will review your inquiry and follow up.</p><p>We will confirm the appropriate scope and next steps before any work begins.</p><p>— Hyrzilla</p>`,
       },
     ];
-    const results = await Promise.allSettled(messages.map((emailMessage) => fetch('https://api.resend.com/emails', {
-      method: 'POST',
-      headers: { Authorization: `Bearer ${resendKey}`, 'Content-Type': 'application/json' },
-      body: JSON.stringify(emailMessage),
-    })));
-    const delivered = results.map((result) => result.status === 'fulfilled' && result.value.ok);
-    if (!delivered[0]) console.error('The internal inquiry notification could not be delivered.');
-    if (!delivered[1]) console.error('The applicant confirmation could not be delivered.');
-
-    return json({ ok: true, confirmationSent: delivered[1] === true }, 200, origin);
+    const { data: inquiryId, error: insertError } = await supabase.rpc('enqueue_inquiry', { p_inquiry: inquiry, p_messages: messages });
+    if (insertError?.message?.includes('inquiry_rate_limited')) return json({ error: 'An inquiry was already received recently. Please wait for our reply.' }, 429, origin);
+    if (insertError) throw insertError;
+    return json({ ok: true, inquiryId, confirmationQueued: true, confirmationSent: false }, 202, origin);
   } catch (error) {
     console.error('submit-inquiry failed', error instanceof Error ? error.message : error);
     return json({ error: 'We could not send your inquiry. Please try again shortly.' }, 500, origin);
