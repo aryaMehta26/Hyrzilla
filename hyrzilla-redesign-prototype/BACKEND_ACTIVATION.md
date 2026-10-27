@@ -39,7 +39,19 @@ Useful query: `select id,kind,state,attempts,last_error,delivery_status from pub
 
 ## Google Search Console
 
-Open the owner's Search Console account and add/verify the domain property `hyrzilla.com` with its exact DNS TXT value in Cloudflare (or use an already verified property). Submit `https://www.hyrzilla.com/sitemap.xml`. Inspect the home, professionals, employers, pricing, about and contact pages. The verification token cannot be invented or inferred from Workspace activation.
+### Confirmed through owner screenshots, 26 October 2026
+
+- Domain ownership verified; retain the verification DNS record.
+- Sitemap submitted successfully, with nine discovered URLs.
+- Homepage and `/professionals` reported indexed.
+- `/employers` reported discovered but not indexed; live test passed and indexing was requested.
+- Homepage recrawl requested after the service-copy update.
+- Three excluded URLs are HTTP/non-www homepage alternatives. Live tests confirmed permanent redirects to the working HTTPS www homepage. Keep these redirects.
+- Branded query still showed Google's correction to “Hydrilla” in the owner's screenshot. First-place branded ranking and resolution of that correction are **not achieved or verified**.
+
+The public Hyrzilla LinkedIn page was checked and already links to the canonical website. Website updates add explicit site-name metadata, a domain-name fallback, the existing H logo in organization markup, linked page/organization identity, and factual service details on About. These communicate identity; they do not guarantee ranking or control Google's spelling interpretation.
+
+Next measurement: in Search Console Performance, filter the exact query `hyrzilla` and review impressions, clicks, position, and landing page with country/device context. Compare over time rather than repeatedly requesting indexing. Check the crawl date/content before assuming new website changes have been processed. The Google-indexed status of the remaining sitemap pages still needs verification.
 
 With an owner-authorized OAuth token securely set in GOOGLE_SEARCH_CONSOLE_ACCESS_TOKEN (webmasters scope), `npm run search:submit` submits the sitemap and inspects index status; `npm run search:status` is read-only. This script does not verify ownership or request live URL indexing; do those through Search Console. Do not use Google's JobPosting Indexing API for these marketing pages.
 

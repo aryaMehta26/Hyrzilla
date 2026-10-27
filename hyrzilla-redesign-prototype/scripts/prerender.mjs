@@ -14,8 +14,9 @@ try {
     const url = origin + (path === '/' ? '/' : path);
     const noindex = path.startsWith('/agreements/') || path === '/404';
     const schema = { '@context': 'https://schema.org', '@graph': [
-      { '@type': 'Organization', '@id': `${origin}/#organization`, name: 'Hyrzilla', url: `${origin}/`, email: 'hello@hyrzilla.com', sameAs: ['https://www.linkedin.com/company/hyrzilla/'] },
-      { '@type': 'WebSite', '@id': `${origin}/#website`, name: 'Hyrzilla', url: `${origin}/`, publisher: { '@id': `${origin}/#organization` } }
+      { '@type': 'Organization', '@id': `${origin}/#organization`, name: 'Hyrzilla', url: `${origin}/`, email: 'hello@hyrzilla.com', description: 'Recruitment services for employers across the US and Canada and paid job-search support for professionals.', logo: { '@type': 'ImageObject', url: `${origin}/logo.svg`, width: 256, height: 256 }, sameAs: ['https://www.linkedin.com/company/hyrzilla/'] },
+      { '@type': 'WebSite', '@id': `${origin}/#website`, name: 'Hyrzilla', alternateName: 'hyrzilla.com', url: `${origin}/`, publisher: { '@id': `${origin}/#organization` } },
+      { '@type': path === '/about' ? 'AboutPage' : path === '/contact' ? 'ContactPage' : 'WebPage', '@id': `${url}#webpage`, url, name: title, description, isPartOf: { '@id': `${origin}/#website` }, about: { '@id': `${origin}/#organization` }, publisher: { '@id': `${origin}/#organization` } }
     ] };
     let html = template.replace(/<title>.*?<\/title>/, `<title>${escape(title)}</title>`)
       .replace(/(<meta name="description" content=")[^"]*/, `$1${escape(description)}`)

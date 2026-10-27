@@ -53,7 +53,7 @@ export const metadata = {
   '/employers': ['Recruitment Services for US & Canadian Employers | Hyrzilla', 'Hyrzilla supports employers across the US and Canada with role discovery, candidate sourcing, introductions, interview coordination, and placement support.'],
   '/pricing': ['Pricing | Hyrzilla', 'Four clear Hyrzilla professional programs, all priced in USD.'],
   '/insights': ['Insights | Hyrzilla', 'Thoughtful notes for professionals and employers making high-stakes decisions.'],
-  '/about': ['About Hyrzilla', 'Why Hyrzilla is building a more deliberate recruitment experience.'],
+  '/about': ['About Hyrzilla | Recruitment & Career Support', 'Learn about Hyrzilla’s recruitment services for US and Canadian employers and paid job-search support for professionals.'],
   '/contact': ['Start a conversation | Hyrzilla', 'Share context for a useful human follow-up.'],
   '/privacy': ['Privacy Policy | Hyrzilla', 'Hyrzilla privacy policy framework pending legal review.'],
   '/terms': ['Terms & Conditions | Hyrzilla', 'Hyrzilla terms and conditions framework pending legal review.'],
@@ -101,7 +101,7 @@ function App({ initialPath = '/' }) {
     : path === '/employers' || path === '/hiring-teams' || path.startsWith('/hiring-teams/') ? <EmployersPage go={navigate} />
     : path === '/pricing' ? <PricingPage go={navigate} />
     : path === '/insights' ? <InsightsPage />
-    : path === '/about' ? <AboutPage go={navigate} />
+    : path === '/about' ? <><AboutPage go={navigate} /><BrandProfile /></>
     : path === '/contact' ? <ContactPage go={navigate} route={route} />
     : path === '/privacy' ? <LegalPage type="privacy" go={navigate} />
     : path === '/terms' ? <LegalPage type="terms" go={navigate} />
@@ -162,6 +162,18 @@ function PricingPage({ go }) { return <><PageHero eyebrow="PRICING" title={<>Cle
 function InsightsPage() { const [category, setCategory] = useState('All'); const [query, setQuery] = useState(''); const categories = ['All', 'For Professionals', 'For Employers', 'Hyrzilla Updates']; const filtered = insights.filter((item) => (category === 'All' || item.category === category) && `${item.title} ${item.excerpt}`.toLowerCase().includes(query.toLowerCase())); return <><PageHero eyebrow="INSIGHTS" title={<>Signal over <em>noise.</em></>} text="Practical notes for people making high-stakes career and hiring decisions." cta="Explore all notes" onCta={() => document.getElementById('insight-library')?.scrollIntoView({ behavior: 'smooth' })}/><section id="insight-library" className="section sage reveal"><div className="library-tools"><div className="category-filter" aria-label="Filter insights">{categories.map((item) => <button key={item} className={category === item ? 'selected' : ''} onClick={() => setCategory(item)}>{item}</button>)}</div><label className="search"><Search size={16}/><input value={query} onChange={(event) => setQuery(event.target.value)} placeholder="Search insights" aria-label="Search insights"/></label></div><p className="result-count">Showing {filtered.length} {filtered.length === 1 ? 'note' : 'notes'}.</p><div className="insight-grid">{filtered.map((item) => <article key={item.title}><div className="insight-art"><span>{item.category === 'For Employers' ? 'E' : item.category === 'For Professionals' ? 'P' : 'H'}</span></div><small>{item.category} · {item.time}</small><h2>{item.title}</h2><p>{item.excerpt}</p><small>Article coming soon</small></article>)}</div>{filtered.length === 0 && <div className="empty-state">No notes match that search. Try another word or category.</div>}</section></>; }
 
 function AboutPage({ go }) { return <><PageHero eyebrow="ABOUT HYRZILLA" title={<>More deliberate<br/><em>career momentum.</em></>} text="Hyrzilla was built around a simple belief: a career move or important hire deserves more thought than a generic platform can offer." cta="Start a conversation" onCta={() => go('/contact')}/><section className="section sage reveal"><SectionLabel number="01">WHY WE STARTED</SectionLabel><div className="story"><h2>People make the decision.<br/><em>Context makes it better.</em></h2><p>Career and hiring decisions are personal, expensive, and often rushed. Hyrzilla exists to make the work around them more visible, structured, and human—without pretending to control the outcome.</p></div></section><section className="section ink reveal"><SectionLabel number="02">OUR OPERATING PRINCIPLES</SectionLabel><div className="principles"><InfoCard title="Human-led" body="Technology can reduce busywork, but it should not erase the judgement and care behind an important decision."/><InfoCard title="Clear before clever" body="We make scope, responsibilities, fees, and the next action easy to understand before the process starts."/><InfoCard title="Better signal" body="The goal is not more activity. It is more considered conversations with the right context behind them."/></div></section><section className="section sage reveal"><SectionLabel number="03">WHAT MAKES US DIFFERENT</SectionLabel><div className="difference-list"><span>01</span><p>Defined programs rather than vague promises.</p><span>02</span><p>Agreements before work, not after confusion.</p><span>03</span><p>Support built around real decisions, not vanity metrics.</p></div></section></>; }
+
+function BrandProfile() {
+  return <section className="section ink brand-profile reveal" aria-labelledby="about-services-title">
+    <h2 id="about-services-title">Hyrzilla: recruitment and job-search support</h2>
+    <p className="section-intro light">Hyrzilla works with two audiences: employers planning a hire and professionals planning a career move. Each service has its own scope and agreement.</p>
+    <div className="clarity-grid">
+      <article><h3>For employers</h3><p>Recruitment support for roles across the US and Canada includes role discovery, candidate sourcing, introductions, interview coordination, and placement support. Scope and fit are confirmed before work begins.</p><a className="text-link light" href="/employers">Employer recruitment services <ArrowRight size={16}/></a></article>
+      <article><h3>For professionals</h3><p>Paid job-search programs cover résumé and LinkedIn positioning, managed applications, interview preparation, and offer guidance. Program fees and responsibilities are agreed in writing; jobs and interviews are not guaranteed.</p><a className="text-link light" href="/professionals">Professional job-search support <ArrowRight size={16}/></a></article>
+      <article><h3>Connect with Hyrzilla</h3><p>Use our company channels to discuss a role or a job search. Employer recruitment terms are separate from the professional programs listed on our pricing page.</p><a className="text-link light" href="https://www.linkedin.com/company/hyrzilla/" target="_blank" rel="noopener noreferrer">Hyrzilla on LinkedIn <ArrowRight size={16}/></a><p><a className="text-link light" href="mailto:hello@hyrzilla.com">hello@hyrzilla.com</a></p></article>
+    </div>
+  </section>;
+}
 
 function Turnstile({ onVerify, onExpire }) {
   const container = useRef(null);
