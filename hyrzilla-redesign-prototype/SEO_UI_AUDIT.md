@@ -3,8 +3,11 @@
 ## Scope and release status
 
 Release update (2026-11-11): build, search checks and all four browser tests passed
-again. Changes are being published to the repository; live verification is tracked
-in the release follow-up below.
+again. Application commit 7d5aead was pushed to main and prototype/hyrzilla-redesign.
+Live verification confirmed the new skip link, font preconnects and main landmark.
+All nine public URLs returned 200 with correct canonicals and no rendered noindex.
+About-to-Contact navigation updated ContactPage schema correctly; no browser
+runtime errors were observed during these checks.
 Existing unrelated edits in the root src/pages/Pricing.jsx were not changed.
 No production forms were submitted, no customer records were created, and no
 email delivery or paused Supabase recovery is claimed.
@@ -96,7 +99,8 @@ template/404 exclusions based on these aggregate counts.
 
 ## Remaining work, not hidden by the scores
 
-- Deploy these changes, then repeat the live audit and verify served assets.
+- Deployment and live route smoke checks completed on November 11. A fresh full
+  production Lighthouse performance comparison remains pending.
 - Google/Brave spelling correction and first-position rankings remain unverified.
   Installing skills and passing Lighthouse do not control either outcome.
 - Insights still contains coming-soon cards, not substantive articles. Publish
