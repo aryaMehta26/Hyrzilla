@@ -91,8 +91,30 @@ function App({ initialPath = '/' }) {
     for (const [selector, value] of [['meta[property="og:url"]', url], ['meta[property="og:title"]', title], ['meta[name="twitter:title"]', title], ['meta[property="og:description"]', description], ['meta[name="twitter:description"]', description]]) {
       document.querySelector(selector)?.setAttribute('content', value);
     }
-    const robots = document.querySelector('meta[name="robots"]');
+    let robots = document.querySelector('meta[name="robots"]');
     if (metadata[path]) robots?.remove();
+    else {
+      if (!robots) {
+        robots = document.createElement('meta');
+        robots.name = 'robots';
+        document.head.appendChild(robots);
+      }
+      robots.content = 'noindex,follow';
+    }
+    // Client-side CTAs change routes without requesting another prerendered page.
+    // Keep the page node consistent with the visible route, not the entry page.
+    const schema = document.querySelector('script[type="application/ld+json"]');
+    if (schema) {
+      const data = JSON.parse(schema.textContent);
+      const pageNode = data['@graph']?.find(item => item['@id']?.endsWith('#webpage'));
+      if (pageNode) {
+        Object.assign(pageNode, {
+          '@type': path === '/about' ? 'AboutPage' : path === '/contact' ? 'ContactPage' : 'WebPage',
+          '@id': `${url}#webpage`, url, name: title, description,
+        });
+        schema.textContent = JSON.stringify(data);
+      }
+    }
   }, [path]);
   useEffect(() => { const [title, description] = metadata[path] || ['Hyrzilla', 'Human-led career strategy and recruitment partnerships.']; document.title = title; const meta = document.querySelector('meta[name="description"]'); if (meta) meta.setAttribute('content', description); }, [path]);
   const navigate = (to) => { setMobileOpen(false); go(to); };
@@ -108,14 +130,15 @@ function App({ initialPath = '/' }) {
     : path === '/agreements/professional' ? <AgreementPage type="professional" go={navigate} />
     : path === '/agreements/employer' ? <AgreementPage type="employer" go={navigate} />
     : <NotFound go={navigate} />;
-  return <main className={dark ? 'app dark' : 'app'}>
+  return <div className={dark ? 'app dark' : 'app'}>
+    <a className="skip-link" href="#main-content">Skip to main content</a>
     <div className="announcement"><Sparkles size={14}/> Clear scope. Human support. <a href="/contact">Start a conversation <ArrowRight size={13}/></a></div>
     <Header go={navigate} path={path} dark={dark} setDark={setDark} mobileOpen={mobileOpen} setMobileOpen={setMobileOpen}/>
-    {page}
+    <main id="main-content" tabIndex={-1}>{page}</main>
     <Footer go={navigate}/>
     <button className="back-top" onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })} aria-label="Back to top">↑</button>
-    <div className="chat">{chatOpen && <div className="chat-panel"><div><span>H</span><b>Hyrzilla guide</b><button aria-label="Close guide" onClick={() => setChatOpen(false)}><X size={16}/></button></div><p>Choose the path that fits your next decision.</p><a href="/professionals">I am planning a career move</a><a href="/employers">I am planning a hire</a></div>}<button className="chat-launch" onClick={() => setChatOpen(!chatOpen)} aria-expanded={chatOpen}><MessageCircle size={18}/><span>Ask Hyrzilla</span></button></div>
-  </main>;
+    <div className="chat">{chatOpen && <div className="chat-panel"><div><span>H</span><b>Hyrzilla guide</b><button aria-label="Close guide" onClick={() => setChatOpen(false)}><X size={16}/></button></div><p>Choose the path that fits your next decision.</p><a href="/professionals">I am planning a career move</a><a href="/employers">I am planning a hire</a></div>}<button className="chat-launch" aria-label="Ask Hyrzilla" onClick={() => setChatOpen(!chatOpen)} aria-expanded={chatOpen}><MessageCircle size={18}/><span>Ask Hyrzilla</span></button></div>
+  </div>;
 }
 
 function Header({ go, path, dark, setDark, mobileOpen, setMobileOpen }) {
@@ -129,7 +152,7 @@ function Header({ go, path, dark, setDark, mobileOpen, setMobileOpen }) {
   ];
   const navigate = (to) => { setOpen(null); const [nextPath, hash] = to.split('#'); go(nextPath); if (hash) window.setTimeout(() => document.getElementById(hash)?.scrollIntoView({ behavior: 'smooth', block: 'start' }), 30); };
   useEffect(() => { const outside = (event) => { if (!headerRef.current?.contains(event.target)) setOpen(null); }; const escape = (event) => { if (event.key === 'Escape') { setOpen(null); setMobileOpen(false); } }; document.addEventListener('pointerdown', outside); document.addEventListener('keydown', escape); return () => { document.removeEventListener('pointerdown', outside); document.removeEventListener('keydown', escape); }; }, [setMobileOpen]);
-  return <header ref={headerRef} className="site-header"><nav className="nav"><a className="brand" href="/" aria-label="Hyrzilla home"><span>H</span>Hyrzilla</a><div className="desktop-nav"><a className={path === '/' ? 'active' : ''} href="/">Home</a>{menus.map((menu) => <div className="nav-menu" key={menu.key}><button className={menu.active ? 'active' : ''} aria-expanded={open === menu.key} onClick={() => setOpen(open === menu.key ? null : menu.key)} onMouseEnter={() => setOpen(menu.key)}>{menu.label}<ChevronDown size={14}/></button>{open === menu.key && <div className="dropdown" onMouseLeave={() => setOpen(null)}>{menu.links.map(([label, to]) => <a key={label} href={to}>{label}<ChevronRight size={14}/></a>)}</div>}</div>)}<a className={path === '/pricing' ? 'active' : ''} href="/pricing">Pricing</a><a className={path === '/insights' ? 'active' : ''} href="/insights">Insights</a><a className={path === '/about' ? 'active' : ''} href="/about">About Us</a></div><button className="theme-toggle" onClick={() => setDark(!dark)} aria-label="Toggle dark mode">{dark ? <Sun size={16}/> : <Moon size={16}/>}</button><a className="nav-cta" href="/contact">Start a conversation <ArrowRight size={15}/></a><button className="menu-button" aria-label="Toggle menu" aria-expanded={mobileOpen} onClick={() => setMobileOpen(!mobileOpen)}>{mobileOpen ? <X/> : <Menu/>}</button>{mobileOpen && <div className="mobile-nav"><a href="/">Home</a><b>For Professionals</b>{menus[0].links.map(([label, to]) => <a key={label} href={to}>{label}</a>)}<b>For Employers</b>{menus[1].links.map(([label, to]) => <a key={label} href={to}>{label}</a>)}<a href="/pricing">Pricing</a><a href="/insights">Insights</a><a href="/about">About Us</a><a className="mobile-cta" href="/contact">Start a conversation</a></div>}</nav></header>;
+  return <header ref={headerRef} className="site-header"><nav className="nav"><a className="brand" href="/"><span aria-hidden="true">H</span>Hyrzilla</a><div className="desktop-nav"><a className={path === '/' ? 'active' : ''} href="/">Home</a>{menus.map((menu) => <div className="nav-menu" key={menu.key}><button className={menu.active ? 'active' : ''} aria-expanded={open === menu.key} onClick={() => setOpen(open === menu.key ? null : menu.key)} onMouseEnter={() => setOpen(menu.key)}>{menu.label}<ChevronDown size={14}/></button>{open === menu.key && <div className="dropdown" onMouseLeave={() => setOpen(null)}>{menu.links.map(([label, to]) => <a key={label} href={to}>{label}<ChevronRight size={14}/></a>)}</div>}</div>)}<a className={path === '/pricing' ? 'active' : ''} href="/pricing">Pricing</a><a className={path === '/insights' ? 'active' : ''} href="/insights">Insights</a><a className={path === '/about' ? 'active' : ''} href="/about">About Us</a></div><button className="theme-toggle" onClick={() => setDark(!dark)} aria-label="Toggle dark mode">{dark ? <Sun size={16}/> : <Moon size={16}/>}</button><a className="nav-cta" href="/contact">Start a conversation <ArrowRight size={15}/></a><button className="menu-button" aria-label="Toggle menu" aria-expanded={mobileOpen} onClick={() => setMobileOpen(!mobileOpen)}>{mobileOpen ? <X/> : <Menu/>}</button>{mobileOpen && <div className="mobile-nav"><a href="/">Home</a><b>For Professionals</b>{menus[0].links.map(([label, to]) => <a key={label} href={to}>{label}</a>)}<b>For Employers</b>{menus[1].links.map(([label, to]) => <a key={label} href={to}>{label}</a>)}<a href="/pricing">Pricing</a><a href="/insights">Insights</a><a href="/about">About Us</a><a className="mobile-cta" href="/contact">Start a conversation</a></div>}</nav></header>;
 }
 
 function Home({ go }) { return <>
